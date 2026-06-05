@@ -1,0 +1,94 @@
+\input{meta.tex}
+\newcommand{\soptitle}{Design and Analysis of Low-Latency Crypto and its Application}
+\begin{document}
+\begin{center}
+\vspace*{-0.8cm}
+{\sffamily\bfseries\Large \textcolor{theme}{\soptitle}}\par
+\vspace{2pt}
+{\small \yourname, Dhiman Saha}
+\vspace{8pt}
+\hrule
+\end{center}
+
+\section{Introduction}
+The design of symmetric-key cryptographic primitives has historically been heavily influenced by the specific requirements of their target applications.
+A cryptographic primitive, such as a block cipher, hash function, or pseudorandom function, that is optimized for one context may be ill-suited for others, making the process a balancing act between security and efficiency dictated by each target environment.
+Thus, different applications, ranging from high-throughput primitives for network communications to lightweight ciphers for constrained devices, have led to different corners of the design space being explored.
+This diversity in requirements underscores the importance of designing new symmetric-key primitives that are well-adapted to their intended applications.
+This proposal focuses on one such domain with unique requirements: symmetric-key primitives for applications requiring low-latency cryptographic primitives.
+
+On the other hand, the introduction of such application-specific optimizations raises fresh challenges in security evaluation.
+\emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
+Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
+It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain \emph{trust} in their algorithms.
+As new applications and threats emerge, these disciplines continue to evolve.
+
+\subsection{Primitives for Low-Latency Crypto}
+Latency, or the time delay from input to output, is critical, especially in applications requiring hardware-assisted mechanisms to protect against software exploitation.
+Memory and code protection stand out as crucial: while in contemporary processor architectures, it is common to protect the CPU within secure enclaves to safeguard sensitive computations, extending such protections to any external memory remains impractical due to physical and architectural constraints.
+As a result, \emph{data-in-use} in RAM remains a common target for physical attacks such as the \emph{Cold Boot} attack~\cite{DBLP:conf/uss/HaldermanSHCPCFAF08}, and code stored in external memory is vulnerable to eavesdropping.
+This underscores the importance schemes that protect cryptographic memory and codes.
+To be practical in high-performance systems, the primitives used in this context must offer minimal added latency.
+Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05}, \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm v8), automotive communication, and industrial control networks.
+As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimized cryptographic primitives become available.
+While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
+For instance, in a 1-cycle based architecture we care about the latency of a fully-unrolled hardware implementation (e.g., each round of a block cipher is mapped onto distinct and simultaneous hardware logic) which requires a single clock cycle for its execution.
+Recently completed NIST lightweight encryption/authentication standardization efforts focused on a small area and low-power budget, the design of low-latency cryptographic primitives is a relatively new and rapidly evolving research field.
+
+\begin{genericbox}{Summary}[teal!60]
+This project is dedicated to the design and analysis of symmetric-key primitives optimized for applications requiring low-latency cryptographic primitives.
+Addressing these specialized requirements presents both opportunities and challenges for cryptography research.
+Our expertise in design and cryptanalysis of symmetric-key primitives is well suited to investigating these challenges, systematically balancing security with application-specific performance.
+Through this research, we aim to advance both the theoretical foundations and practical deployment of tailored primitives, bridging the gap between robust security guarantees and efficiency.
+The resulting analysis and frameworks are intended to directly support the work of the standardization community, providing the rigorous security analysis and clear metrics needed for its technical examinations.
+% % and for maintaining the integrity of the \emph{e-Government Recommended Ciphers List}.
+\end{genericbox}
+
+\section{Research Directions}
+The projects outlined below are ordered from short- to long-term, based on whether they build on established techniques (short-term) or explore more fundamental, open questions (long-term).
+
+\subsection{Low-Latency Crypto:}
+\subsubsection{Short-term goal: Cryptanalysis of existing ciphers}
+Recent years have seen the development of several block ciphers explicitly designed for low-latency applications: examples include \tx{PRINCE}~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12}, \tx{PRINCEv2}~\cite{DBLP:conf/sacrypt/BozilovEKLLMNRT20},  \tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16}, \tx{QARMA}~\cite{DBLP:journals/tosc/Avanzi17}, \tx{QARMAv2}~\cite{DBLP:journals/tosc/AvanziBDEGNR23}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ARADI}~\cite{cryptoeprint:2024/1240}.
+However, to achieve goals of low latency, these designs often consider a small gate depth, smaller number of rounds, and simpler key schedules than traditional cryptographic algorithms.
+Therefore to ensure security, cryptanalysis is important for these schemes. 
+% For example, in collaboration with María Naya-Plasencia at INRIA, Paris, I recently presented a key recovery attack on 14 out of 16 rounds of the NSA's \tx{ARADI} block cipher using differential meet-in-the-middle techniques~\cite{cryptoeprint:2025/1918}.
+% I plan to work more on \tx{ARADI} and other low-latency ciphers.
+Automatic tools such as CP, SAT, and MILP, which we have used extensively, are particularly powerful for uncovering new distinguishers and key recovery attacks.
+Leveraging such tools to identify the best distinguishers that facilitate optimal key recovery attacks is a promising direction.
+Our work on attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods exemplifies this approach, and I see significant opportunities for further research in this area.
+
+In addition, we are interested in the use of machine learning techniques for the analysis of cryptographic algorithms.
+While this is not a completely new research direction, we believe that many open questions remain, particularly in combining ML-based methods with classical cryptanalytic techniques in hybrid approaches.
+Such combinations have the potential to complement traditional tools and provide new insights into the security of modern cipher designs.
+
+
+\subsubsection{Medium-term goal: Physical attacks on Implementations}
+Physical security threats emerge at the circuit level, where attackers can directly observe or manipulate computations.
+Unprotected implementations of low-latency cryptographic primitives are particularly vulnerable to side-channel exploitation.
+However, integrating countermeasures like masking into fully unrolled hardware designs is challenging and often comes with considerable performance, or area overhead.
+Fully unrolled implementations are generally resistant to fault injection attacks using clock glitches, as these attacks are most effective when computations occur over multiple clock cycles, enabling precise targeting of individual rounds.
+Nonetheless, advanced techniques such as electromagnetic fault injection (EMFI) still allow attackers to target specific regions of the chip.
+Moreover, because all rounds are simultaneously present in hardware, unrolled designs increase the physical ``surface area'', expanding the opportunities for probing.
+Deploying comprehensive protections, such as duplication or physical shielding, across the entire unrolled circuit is complex and costly.
+Therefore, identifying the most vulnerable components within these implementations is crucial for achieving both security and efficiency.
+We aim to further investigate physical attack vectors, particularly fault-injection attacks in this context.
+Additionally, while SAT, CP, and MILP solvers are standard tools in classical cryptanalysis, their potential for discovering ``fault-attack-friendly'' distinguishers such as fault-invariant distinguishers we have proposed in~\owncite{Kundu_Ghosh_Aikata_Saha_2025}, remains largely unexplored.
+Furthermore, once actual data harvested from hardware, these automatic tools can further be used to find better key recovery attacks during post-processing.
+Applying these techniques could significantly advance our ability to analyze and defend low-latency primitives against fault attacks.
+
+\vspace*{-0.1cm}
+\subsubsection{Long-term goal: Microarchitectural Attacks}
+Security of modern CPUs has received significant attention due to various microarchitectural attacks.
+Hardware-based mitigations for such attacks often offer a higher level of encrypted communication inside of CPUs and their surrounding hardware components using techniques like memory encryption, pointer authentication and secure caches.
+My long-term objective is to systematically analyze various CPU architectures to identify potential security vulnerabilities and develop efficient cryptographic solutions that safeguard against emerging microarchitectural threats.
+
+\section*{Conclusion}
+This proposal focuses on the design and analysis of symmetric-key primitives in one critical, emerging domain: low-latency crypto.
+The investigation will span theoretical cryptanalysis, resistance to physical attacks, and the formalization of design criteria, thereby advancing the foundations of symmetric-key cryptography.
+Furthermore, the fundamental expertise in symmetric-key design and cryptanalysis at the core of this proposal is directly applicable to other domains, including the development of high-performance ciphers for beyond 5G communications.
+
+\pagebreak
+\bibliographystyle{alpha}
+\bibliography{../bibliography.bib,../myPublications.bib}
+\end{document}

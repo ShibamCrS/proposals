@@ -1,0 +1,23 @@
+.PHONY: Research-plan_Shibam-Ghosh.pdf all clean clean-all
+
+all: Research-plan_Shibam-Ghosh.pdf
+
+Research-plan_Shibam-Ghosh.pdf: Research-plan_Shibam-Ghosh.tex
+	 latexmk -pdf -shell-escape -file-line-error -f Research-plan_Shibam-Ghosh.tex
+
+clean:
+	latexmk -c
+	$(RM) -f Research-plan_Shibam-Ghosh.aux
+	$(RM) -f Research-plan_Shibam-Ghosh.blg
+	$(RM) -f Research-plan_Shibam-Ghosh.lof
+	$(RM) -f Research-plan_Shibam-Ghosh.log
+	$(RM) -f Research-plan_Shibam-Ghosh.out
+	$(RM) -f Research-plan_Shibam-Ghosh.toc
+	$(RM) -f Research-plan_Shibam-Ghosh.fls
+	$(RM) -f Research-plan_Shibam-Ghosh.fdb_latexmk
+
+clean-all: clean
+	$(RM) -f Research-plan_Shibam-Ghosh.bbl
+
+clean-purge: clean-all
+	latexmk -C

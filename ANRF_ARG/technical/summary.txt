@@ -1,0 +1,60 @@
+Rationale of the Research: The rationale for this project stems from the growing demand for application-specific symmetric-key primitives, particularly low-latency cryptography.
+Modern processor security heavily relies on hardware-assisted mechanisms, such as memory and code encryption, pointer authentication, and cache randomization, where computational delay (latency) is a critical bottleneck.
+While recent standardization efforts (e.g., NIST Lightweight Cryptography Standards) focus on area and power, there remains a fundamental gap in evaluating ciphers optimized strictly for latency.
+Aggressive latency optimizations, such as reduced rounds, smaller gate depths, and simpler key schedules, raise fresh, critical challenges in security evaluation that must be addressed to ensure trust in modern computing infrastructure.
+
+Scientific Objectives: The core objective is to advance the design and analysis of low-latency symmetric-key primitives, bridging the gap between robust security and application-specific efficiency. The specific objectives are:
+
+1) Conduct rigorous cryptanalysis of existing low-latency block ciphers (e.g., PRINCE, MANTIS, QARMA, ARADI) to identify algorithmic vulnerabilities.
+
+2) Focus on algorithimic improvements of cryptalysis tailored for implementation in high performance GPU.
+
+3) Machine learning-based cryptanalysis.  
+
+2) Evaluate the security of unrolled hardware implementations against physical threats at the circuit level, specifically fault-injection and side-channel attacks.
+
+3) Systematically analyze CPU microarchitectures to formalize design criteria and develop tailored cryptographic solutions that safeguard against emerging microarchitectural threats.
+
+Hypotheses and Models to be Tested: The central hypothesis is that low-latency ciphers can achieve robust security if their structural trade-offs are evaluated through advanced, implementation-aware cryptanalytic models.
+We hypothesize that automated mathematical modeling (using SAT, MILP, and Constraint Programming solvers), potentially augmented by Machine Learning (ML), can expose complex, non-obvious distinguishers in shallow-depth ciphers that evade manual analysis.
+Furthermore, we posit an implementation threat model wherein fully unrolled hardware designs—while resistant to traditional clock-glitches—create expanded physical "surface areas" that are inherently vulnerable to advanced, localized probing and electromagnetic fault injection (EMFI).
+
+Main Experiments to be Carried Out: To test these hypotheses, the project will execute several key experiments:
+
+Automated Cryptanalysis: Formulate SAT/CP/MILP models to systematically search for optimal distinguishers and execute key-recovery attacks on current low-latency primitives.
+
+Hybrid ML Analysis: Develop and test experimental hybrid frameworks that merge ML-based pattern recognition with classical cryptanalysis to uncover new cipher weaknesses.
+
+Physical Vulnerability Analysis: Model and analyze fully unrolled hardware circuits to identify components most vulnerable to EMFI and probing.
+
+Fault-Invariant Search: Utilize automated solvers to discover "fault-attack-friendly" distinguishers (e.g., fault-invariant distinguishers) and improve key recovery during the post-processing of data harvested from physically targeted hardware.
+
+Significance to the Field: If successful, this project will significantly impact both the fundamental understanding and practical application of symmetric-key cryptography. Scientifically, it will formalize design criteria and establish new algebraic, automated, and physical attack methodologies specifically tailored to low-latency primitives. Practically, it will ensure the secure deployment of cryptography in latency-sensitive environments, protecting critical vectors like RAM data-in-use and CPU execution. Furthermore, the rigorous cryptanalytic evidence and clear evaluation metrics produced by this research will directly support national and international standardization bodies in assessing, improving, and recommending next-generation cryptographic algorithms (including extensions to high-throughput ciphers for beyond-5G communications).
+
+
+
+
+
+
+
+
+---------------------------------------------------------
+Central Research Question being addressed:
+
+How can symmetric-key cryptographic primitives be securely designed and rigorously evaluated to meet the strict low-latency constraints of modern hardware-assisted security mechanisms (e.g., memory encryption, pointer authentication) without compromising their resilience against both algorithmic and physical/microarchitectural attacks?
+Core research being proposed (in brief):
+
+Automated and Hybrid Cryptanalysis: Evaluating the algorithmic security of existing low-latency ciphers (e.g., QARMA, ARADI, PRINCE) by discovering new distinguishers and optimal key-recovery attacks using automated solvers (SAT, CP, MILP) and hybrid machine-learning techniques.
+Physical Attack Evaluation: Investigating implementation-level vulnerabilities of fully unrolled, low-latency hardware circuits, specifically focusing on fault-injection (e.g., EMFI) and side-channel attacks, and using automated tools to find "fault-attack-friendly" distinguishers.
+Microarchitectural Security & Formalization: Systematically analyzing modern CPU architectures to formalize comprehensive design criteria for low-latency primitives, ensuring they safeguard against emerging microarchitectural threats while maintaining application-specific efficiency.
+
+
+-----------------------------------------------------------------
+• How will this advance fundamental knowledge?
+This project establishes a rigorous theoretical foundation for application-specific cryptography. It formalizes how aggressive latency optimizations—such as reduced gate depth, fewer rounds, and simplified key schedules—impact a primitive's resilience. By mapping these structural trade-offs using advanced mathematical models (SAT, CP, MILP), it advances our fundamental understanding of how to achieve robust cipher security under strict environmental and hardware constraints.
+
+• Potential to open new research directions or paradigms
+This work pioneers the intersection of algebraic cryptanalysis and physical hardware security. It opens a novel paradigm by utilizing automated solvers not just for classical algorithmic attacks, but to discover hardware-centric "fault-attack-friendly" distinguishers. Furthermore, it introduces hybrid research directions that merge machine learning with traditional cryptanalysis, creating a new frontier for automated vulnerability discovery in shallow-depth modern ciphers.
+
+• Broader scientific or technological implications
+Technologically, this research is critical for securing modern computing infrastructure, safeguarding data-in-use (memory encryption) and control-flow (pointer authentication) against microarchitectural and physical exploits. Scientifically, it delivers reproducible evaluation metrics and concrete cryptanalytic evidence that will directly assist standardization bodies in recommending next-generation ciphers. The evaluation frameworks developed are also highly adaptable to other critical technological domains, including high-throughput cryptography for beyond-5G communications.
