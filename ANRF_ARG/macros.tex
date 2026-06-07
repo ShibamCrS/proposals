@@ -1,31 +1,340 @@
-% Hyperlinks (load before other packages that use it)
-\usepackage{hyperref}
+% \usepackage[backend=biber,style=numeric,sorting=nyt,defernumbers=true]{biblatex}
 
-% Math
+\usepackage{natbib}
+\usepackage{bibentry}
+\usepackage{hanging}
+\usepackage{xcolor}
+\newcommand\publication[1]{%
+    \smallskip\par\hangpara{1.5em}{1}\begin{NoHyper}\bibentry{#1}\end{NoHyper}\smallskip
+}
+\makeatletter
+\renewcommand{\bibsection}{\section*{\refname}}
+\makeatother
+
+\definecolor{owncitecolor}{RGB}{178, 102, 255}
+\newcommand{\owncite}[1]{\textcolor{linkblue}{\textbf{\cite{#1}}}}
+% Define custom colors using HEX codes
+\definecolor{linkblue}{HTML}{007BFF} % A nice, modern blue
+\definecolor{linkred}{HTML}{C00000}  % A dark, professional red for internal links
+\definecolor{linkgreen}{HTML}{008000} % A nice dark green for citations
+
+% Option 2: Prevent amsmath from defining these commands
+% \usepackage{etoolbox}
+\csletcs{iint}{relax}
+\csletcs{iiint}{relax}
+\csletcs{iiiint}{relax}
+\csletcs{idotsint}{relax}
+
+% \usepackage{amsmath}
 \usepackage{amsmath,amssymb}
 
-% Colored boxes
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{tikz}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0em}
+\usepackage{footnote}
+\usepackage{tablefootnote}
+\usepackage[table]{xcolor}
+\usepackage{float}
+\usepackage{fancybox}
+% \usepackage{pseudocode}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{afterpage}
+\usepackage{capt-of}
+\usepackage{adjustbox}
+\usepackage{pagecolor}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage[
+n,
+operators,
+advantage,
+sets,
+adversary,
+landau,
+probability,
+notions,    
+logic,
+ff,
+mm,
+primitives,
+events,
+complexity,
+asymptotics,
+keys]{cryptocode}
+
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{collectbox}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{setspace}
+\setlength{\columnsep}{1cm}
+\usepackage[capitalise]{cleveref}
+\crefname{figure}{Figure}{Figures}
+\crefname{equation}{Equation}{Equations}
+
+
+\definecolor{DeepBlue}{RGB}{0, 0, 139}
+\definecolor{DeepGreen}{RGB}{0, 100, 0}
+\definecolor{DeepRed}{RGB}{139, 0, 0}
+\definecolor{DeepPurple}{RGB}{85, 26, 139}
+\definecolor{DarkCyan}{RGB}{0, 139, 139}
+\definecolor{DarkSlateGray}{RGB}{47, 79, 79}
+\definecolor{SaddleBrown}{RGB}{139, 69, 19}
+\definecolor{Indigo}{RGB}{75, 0, 130}
+\definecolor{Maroon}{RGB}{128, 0, 0}
+\definecolor{Olive}{RGB}{85, 107, 47}
+\definecolor{DeepBurgundy}{RGB}{80, 0, 20}
+\definecolor{InkBlue}{RGB}{0, 0, 90}
+\definecolor{ForestShadow}{RGB}{0, 45, 0}
+\definecolor{DeepCharcoal}{RGB}{40, 40, 40}
+\definecolor{AcademicPurple}{RGB}{50, 0, 80}
+
+% Define Ubuntu terminal colors
+\definecolor{ubuntubg}{RGB}{48, 10, 36}  % Slight brownish background
+\definecolor{ubuntuorange}{RGB}{193, 120, 36}  % Ubuntu terminal orange
+\definecolor{terminaltext}{RGB}{220, 220, 220}  % Light gray text
+\definecolor{darkgraytext}{RGB}{51, 51, 51}
+
+% Themed boxes
 \usepackage[most]{tcolorbox}
-
-% Cipher/algorithm names in sans-serif
-\newcommand{\tx}[1]{\textsf{#1}}
-
-% Own-work citations (styled as regular citations)
-\newcommand{\owncite}[1]{\cite{#1}}
+\NewTColorBox{genericbox}{m O{accent}}{
+title=#1,
+colback=white,
+colframe=#2,
+boxrule=1pt,
+borderline west={3pt}{0pt}{#2},
+fonttitle=\sffamily\bfseries
+}
 
 % Colored summary box: \begin{genericbox}{Title}[color]
-\NewDocumentEnvironment{genericbox}{m O{blue!50}}{%
-  \colorlet{genericboxframe}{#2}%
-  \colorlet{genericboxbg}{genericboxframe!15!white}%
-  \begin{tcolorbox}[
-    title={#1},
-    colframe=genericboxframe,
-    colback=genericboxbg,
-    fonttitle=\bfseries\sffamily,
-    sharp corners,
-    boxrule=0.6pt,
-    left=4pt, right=4pt, top=3pt, bottom=3pt
-  ]%
-}{%
-  \end{tcolorbox}%
+% \NewDocumentEnvironment{genericbox}{m O{blue!50}}{%
+%   \colorlet{genericboxframe}{#2}%
+%   \colorlet{genericboxbg}{genericboxframe!15!white}%
+%   \begin{tcolorbox}[
+%     title={#1},
+%     colframe=genericboxframe,
+%     colback=genericboxbg,
+%     fonttitle=\bfseries\sffamily,
+%     sharp corners,
+%     boxrule=0.6pt,
+%     left=4pt, right=4pt, top=3pt, bottom=3pt
+%   ]%
+% }{%
+%   \end{tcolorbox}%
+% }
+
+
+\newcommand{\acknowledgementstyle}[2][black]{\textcolor{#1}{\textit{#2}}}
+
+\newtheorem{exmp}{Example}[section]
+% \newtheorem{exmp1}{Example}[section]
+% \newenvironment{exmp}
+%   {\color{red} \begin{exmp1}}
+%   {\end{exmp1}}
+
+\newtheorem {lemma} {Lemma}
+\newtheorem {proposition} {Proposition}
+\newtheorem {theorem} {Theorem}
+\newtheorem {corollary} {Corollary}
+\newtheorem {definition} {Definition}
+\newtheorem {remark} {Remark}
+
+\newcommand{\ie}{{i.e.}\xspace}
+\newcommand{\eg}{{e.g.}\xspace}
+
+\newcommand{\malg}[1]{\textsf{Matsui’s Algorithm-#1}}
+
+\usetikzlibrary{positioning}
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+%\tikzset{shadows=no}  
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes}
+\usetikzlibrary{shadows}
+\usetikzlibrary{calc}
+\usetikzlibrary{math}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% \newenvironment{proof}{\noindent{\bf Proof:}\newline\indent}%
+%                       {\hfill $\Box$\par}
+\newenvironment{miniproof}{\noindent{\bf Sketch Of Proof:}\newline\indent}%
+                      {\hfill $\Box$\par}
+
+
+\newcommand{\func}[1]{\operatorname{\mathit{#1}}}  % or \mathrm
+\newcommand{\const}[1]{\mathit{#1}}                % or \mathrm
+\newcommand{\wsub}[1]{\mathrm{#1}}
+\newcommand{\bv}[1]{{\mathbf{#1}}}
+\newcommand{\ppp}{\mathsf{p}}
+\newcommand{\exr}{\oplus}
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\sbb}{\textsf{SBox}\xspace}
+\newcommand{\tj}{\textsf{TinyJAMBU}\xspace}
+\newcommand{\acpkm}{\ensuremath{\mathsf{ACPKM}}\space}
+\newcommand{\ctracpkm}{\ensuremath{\mathsf{CTR}\mbox{-}\mathsf{ACPKM}}\space}
+\newcommand{\h}[1]{\ensuremath{\mathsf{H}_{#1}}}
+\newcommand{\saeb}{\textsf{SAEB}\space}
+\newcommand{\parse}[1]{\ensuremath{\stackrel{{#1}}{\gets}}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\tx}{\texttt}
+\newcommand{\txf}{\textsf}
+\newcommand{\cx}{\textsf}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\pr}{\ensuremath{\textsf{Pr}}}
+
+\definecolor{nvidiagreen}{RGB}{76, 175, 80}
+\definecolor{wildstrawberry}{RGB}{255, 67, 164}
+\definecolor{RoyalBlue}{RGB}{65,105,225}
+\newcommand{\red}{\textcolor{wildstrawberry}}
+\newcommand{\blue}{\textcolor{RoyalBlue}}
+\newcommand{\olive}{\textcolor{olive}}
+\newcommand{\orange}{\textcolor{orange}}
+\newcommand{\violate}{\textcolor{violate}}
+
+%Colors (used by Shibam)
+\newcommand{\tcr}{\textcolor{red}}
+\newcommand{\tcb}{\textcolor{blue}}
+\newcommand{\tcg}{\textcolor{green}}
+
+\newcommand{\done}{\textbf{\textcolor{red}{DONE}}\xspace}
+\newcommand{\ntc}{\textbf{\textcolor{red}{NEED TO CHECK}}\xspace}
+\newcommand{\ntd}{\textbf{\textcolor{red}{NEED TO DISCUSS}}\xspace}
+
+\newcommand{\currentmonthyear}{\monthname[\month] \number\year}
+% Macro for the current date in MM/DD/YYYY format
+\newcommand{\currentdate}{%
+  \ifnum\month<10 0\fi\number\month/% Add leading zero for month
+  \ifnum\day<10 0\fi\number\day/% Add leading zero for day
+  \number\year% Year
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%MACROS FFT PAPER%%%%%%%%%%%%%%%%%%%%%%%
+% recurrent symbols/name...
+\newcommand{\GF}{\mathbb{F}_2}
+\newcommand{\indic}{\boldone}
+\newcommand{\emm}{\textsf{EM}\xspace}
+\newcommand{\xx}{\mathsf{X}\xspace}
+
+%\usepackage{bbm}
+%\newcommand{\indic}{\mathbbm{1}}
+% ciphers
+\newcommand{\AES}{\texttt{AES}\xspace}
+\newcommand{\sAES}{\texttt{small-AES}\xspace}
+\newcommand{\MISTY}{\texttt{MISTY1}\xspace}
+
+% aes subfunctions
+\newcommand{\ak}{\textsc{AddRoundKey}\xspace}
+\newcommand{\subB}{\textsc{SubBytes}\xspace}
+\newcommand{\sr}{\textsc{ShiftRows}\xspace}
+\newcommand{\mc}{\textsc{MixColumns}\xspace}
+
+%Hexadecimal constants (field elements)
+\newcommand{\hex}[1]{\ensuremath{\mathtt{#1}_{\mathsf{x}}}}
+
+\newcommand{\pricePartial}{497\xspace} %in dollar
+\newcommand{\priceFFT}{418\xspace} %in dollar
+\newcommand{\priceOur}{5\xspace} %in dollar
+\newcommand{\timePartial}{4859\xspace} %in minutes
+\newcommand{\timeFFT}{3120\xspace} %in minutes
+\newcommand{\timeOur}{48\xspace} %in minutes
+\newcommand{\speedup}{65\xspace} % minimal speed-up in real time between our method compared to FFT and original partial sum
+%\newcommand{\cheapup}{62.8\xspace} % minimal speed-
+\newcommand{\cheapup}{83\xspace} % minimal speed-
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%MACROS Tinyjambu PAPER%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Pf}[1][1024]{\ensuremath{ \mathcal{P}^{#1}}\xspace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%MACROS RUP PAPER%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\saeaes}{\textsf{SAEAES}\xspace}
+\newcommand{\rv}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\ozs}{\textsf{ozs}\xspace}
+\newcommand{\ver}{\ensuremath{\mathsf{ver}}}
+\newcommand{\advA}{\mathscr{A}}
+\newcommand{\ac}{\ensuremath{\mathsf{\Theta}}}
+\newcommand{\intrupadvt}{\ensuremath{\advt^{\mathsf{int\text{-}rup}}}}
+\newcommand{\advt}{\ensuremath{\mathbf{Adv}}}
+\renewcommand{\enc}{\ensuremath{\mathsf{enc}}}
+\renewcommand{\dec}{\ensuremath{\mathsf{dec}}}
+\newcommand{\abort}{\ensuremath{\rv{\bot}}}
+\newcommand{\rerv}{\ensuremath{\rv{\Lambda}_1}}
+\newcommand{\idrv}{\ensuremath{\rv{\Lambda}_0}}
+\renewcommand{\event}[1]{\ensuremath{\mathtt{#1}}}
+\renewcommand{\bad}{\ensuremath{\event{bad}}}
+\newcommand{\good}{\ensuremath{\event{good}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\pf}{\noindent{\bf Proof. }}
+\newcommand{\defn}{\stackrel{\mathrm{\Delta}}{=}}
+\newcommand{\mx}{\mathsf}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\rvv}[1]{\ensuremath{\rv{\bar{#1}}}}
+\newcommand{\init}{\ensuremath{\mathsf{Init}}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%From QARMA-PAC%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\deltain}{\delta_{\mathit{in}}}
+%\newcommand{\deltaT}{\delta_{\mathrm{T}}}
+\newcommand{\deltaout}{\delta_{\kern-.055em\mathit{out}}}
+\newcommand{\Deltain}{\Delta_{\mathit{in}}}
+\newcommand{\Deltaout}{\Delta_{\kern-.027em\mathit{out}}}
+\newcommand{\Nablain}{\nabla_{\mathit{in}}}
+\newcommand{\Nablaout}{\nabla_{\kern-.027em\mathit{out}}}
+\newcommand{\DeltaT}{\Delta_{\mathrm{T}}}
+\newcommand{\din}{d_{\mathit{in}}}
+\newcommand{\dinstar}{\din^{\kern.04em*}}
+\newcommand{\dout}{d_{\kern-.027em\mathit{out}}}
+\newcommand{\dT}{d_{\kern-.027em\mathit{T}}}
+\newcommand{\hatdout}{{\widehat d}_{\kern-.027em\mathit{out}}}
+\newcommand{\Din}{D_{\mathit{in}}}
+\newcommand{\Dout}{D_{\kern-.11em\mathit{out}}}
+\newcommand{\DT}{D_{\mathrm{T}}}
+\newcommand{\hatDout}{{\widehat D}_{\kern-.11em\mathit{out}}}
+
+\newcommand{\smin}{s_{\mathit{min}}}
+\newcommand{\zetamin}{\zeta_{\mathit{min}}}
+\let\mycal\mathcal
+
+\newcommand{\calK}{\mycal{K}}
+\newcommand{\rin}{r_{\mathit{in}}}
+\newcommand{\rout}{r_{\kern-.11em\mathit{out}}}
+\newcommand{\rmid}{r_{\mathit{mid}}}
+\newcommand{\Kbits}{\calK}
+\newcommand{\Kin}{\Kbits_{\mathit{in}}}
+\newcommand{\Kout}{\Kbits_{\kern-.082em\mathit{out}}}
+\newcommand{\keyguess}{k}
+\newcommand{\kin}{\keyguess_{\mathit{in}}}
+\newcommand{\kout}{\keyguess_{\kern-.055em\mathit{out}}}
+\newcommand{\cin}{c_{\mathit{in}}}
+\newcommand{\cout}{c_{\kern-.055em\mathit{out}}}
+
+\newcommand{\TGF}{T_{\textit{GF}}}
+\newcommand{\SGF}{S_{\textit{GF}}}
+\newcommand{\TMR}{T_{\textit{MR}}}
+\newcommand{\TMW}{T_{\textit{MW}}}
+\newcommand{\Tenc}{T_{\calE}}
+\newcommand{\Tcollect}{T_{\textit{C}}}
+\newtheorem{example}{Example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ZKPS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calV}{\mathcal{V}}
+
+\newcommand{\FA}{\textsf{FA}\xspace}
+\newcommand{\FAs}{\textsf{FA}s\xspace}
+% \newcommand{\XOR}{\textsf{XOR}\xspace}
+\newcommand{\XORs}{\textsf{XOR}s\xspace}
+
