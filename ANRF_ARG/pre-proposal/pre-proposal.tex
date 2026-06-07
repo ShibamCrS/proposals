@@ -1,0 +1,312 @@
+\input{../technical/meta.tex}
+\newcommand{\soptitle}{Pre-proposal Technical Document: Category II}
+\begin{document}
+\begin{center}
+\vspace*{-0.8cm}
+{\sffamily\bfseries\Large \textcolor{theme}{\soptitle}}\par
+\vspace{2pt}
+{\small \yourname, Dhiman Saha}
+\vspace{8pt}
+\hrule
+\end{center}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Use-Inspired Context \& Problem Relevance}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The design of symmetric-key cryptographic primitives has historically been heavily influenced by the specific requirements of their target applications.
+A cryptographic primitive, such as a block cipher, hash function, or pseudorandom function, that is optimized for one context may be ill-suited for others, making the process a balancing act between security and efficiency dictated by each target environment.
+Thus, different applications, ranging from high-throughput primitives for network communications to lightweight ciphers for constrained devices, have led to different corners of the design space being explored.
+This diversity in requirements underscores the importance of designing new symmetric-key primitives that are well-adapted to their intended applications.
+This proposal focuses on one such domain with unique requirements: symmetric-key primitives for applications demanding \emph{low-latency} cryptographic operations.
+Figure~\ref{fig:design-space} situates this domain within the broader landscape of special-purpose symmetric-key cryptography.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.82, font=\sffamily]
+
+\tikzset{
+  rtitle/.style  = {font=\small\sffamily\bfseries, align=center},
+  rciphers/.style= {font=\fontsize{6.2}{7.5}\selectfont\sffamily\itshape, align=center},
+  rapplic/.style = {font=\fontsize{5.8}{7}\selectfont\sffamily, text=gray!70, align=center},
+  rnote/.style   = {font=\fontsize{6}{7}\selectfont\sffamily\itshape, align=center},
+}
+
+%% ── AXES ────────────────────────────────────────────────────────────────────
+\draw[-{Stealth[length=6pt]}, line width=0.9pt] (0,0) -- (14,0)
+  node[right, font=\small\sffamily\bfseries] {Hardware Area / Resources};
+\draw[-{Stealth[length=6pt]}, line width=0.9pt] (0,0) -- (0,11.2)
+  node[above, font=\small\sffamily\bfseries] {Latency};
+
+% Axis endpoint labels
+\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, below=2pt] at (1.3, 0)  {Constrained};
+\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, below=2pt] at (12.5, 0) {Unconstrained};
+\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, rotate=90, left=8pt]  at (0, 1.2) {$\approx\!1$ cycle};
+\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, rotate=90, left=8pt]  at (0, 9.8) {Many cycles};
+
+% 1-cycle dashed reference
+\draw[gray!25, dashed, line width=0.8pt] (0.2, 1.6) -- (13.5, 1.6);
+\node[font=\fontsize{5.2}{6}\selectfont\sffamily, gray!55, anchor=east] at (13.4, 1.78) {1-clock-cycle target};
+
+%% ── LIGHTWEIGHT CRYPTO ──────────────────────────────────────────────────────
+\fill[green!12, draw=green!50!black, line width=1.1pt, rounded corners=11pt]
+  (0.3, 3.8) rectangle (4.3, 10.9);
+\node[rtitle, text=green!38!black] at (2.3, 10.5) {Lightweight};
+\node[rciphers, text=green!32!black] at (2.3, 9.1)
+  {GIFT, PRESENT\\SIMON, SPECK\\ASCON, PHOTON\\SKINNY};
+\node[rapplic] at (2.3, 7.4)
+  {\emph{IoT, RFID,}\\[1pt]\emph{smart cards,}\\[1pt]\emph{sensor networks}};
+\node[rnote, text=green!38!black] at (2.3, 4.3)
+  {Small area,\\tolerates latency};
+
+%% ── GENERAL-PURPOSE ─────────────────────────────────────────────────────────
+\fill[orange!11, draw=orange!58!black, line width=1.1pt, rounded corners=11pt]
+  (4.6, 3.8) rectangle (9.0, 8.7);
+\node[rtitle, text=orange!55!black] at (6.8, 8.3) {General-Purpose};
+\node[rciphers, text=orange!43!black] at (6.8, 7.1)
+  {AES, SHA-3\\ChaCha20, 3DES};
+\node[rapplic] at (6.8, 5.7)
+  {\emph{TLS, cloud services,}\\[1pt]\emph{storage, general}\\[1pt]\emph{computing}};
+\node[rnote, text=orange!50!black] at (6.8, 4.3) {Balanced trade-offs};
+
+%% ── HIGH-THROUGHPUT (PIPELINED) ─────────────────────────────────────────────
+\fill[violet!10, draw=violet!52!black, line width=1.1pt, rounded corners=11pt]
+  (9.3, 3.8) rectangle (13.5, 8.7);
+\node[rtitle, text=violet!55!black] at (11.4, 8.3) {High-Throughput};
+\node[rciphers, text=violet!42!black] at (11.4, 7.1)
+  {AES-NI, AES-GCM\\Keccak (HW)\\pipelined AES};
+\node[rapplic] at (11.4, 5.7)
+  {\emph{Network, VPN,}\\[1pt]\emph{disk encryption,}\\[1pt]\emph{bulk data}};
+\node[rnote, text=violet!48!black] at (11.4, 4.3)
+  {Pipelining $\not\!\Rightarrow$ low latency};
+
+%% ── HE / ZK-FRIENDLY ────────────────────────────────────────────────────────
+\fill[red!8, draw=red!48!black, line width=1.1pt, rounded corners=11pt]
+  (4.6, 9.0) rectangle (13.5, 10.9);
+\node[rtitle, text=red!52!black] at (9.0, 10.55) {HE\,/\,ZK-Friendly};
+\node[rciphers, text=red!38!black] at (9.0, 9.8)
+  {Poseidon,\ MiMC,\ Rescue-Prime,\ Griffin,\ Reinforced Concrete};
+\node[rapplic] at (9.0, 9.3)
+  {\emph{Homomorphic encryption, zero-knowledge proofs, blockchain}};
+
+%% ── LOW-LATENCY CRYPTO (FOCUS) ──────────────────────────────────────────────
+% outer glow
+\fill[blue!6, rounded corners=15pt]  (9.2, 0.15) rectangle (13.6, 3.65);
+% main box
+\fill[blue!11, draw=theme, line width=2pt, rounded corners=12pt]
+  (9.3, 0.25) rectangle (13.5, 3.55);
+
+\node[rtitle, text=theme] at (11.4, 3.2) {Low-Latency Crypto};
+\node[rciphers, text=blue!58!black] at (11.4, 2.3)
+  {PRINCE, PRINCEv2, MANTIS\\QARMA, QARMAv2, SCARF\\ARADI, ChiLow};
+\node[rapplic] at (11.4, 1.35)
+  {\emph{Memory encryption, cache}\\[1pt]
+   \emph{randomization, pointer auth (PAC),}\\[1pt]
+   \emph{automotive, industrial control}};
+
+% "This proposal" badge
+\node[
+  draw=theme, fill=theme!15, line width=0.9pt, rounded corners=4pt,
+  font=\fontsize{6}{7}\selectfont\sffamily\bfseries, text=theme,
+  inner sep=3pt
+] at (11.4, 0.52) {$\bigstar$~~This Proposal};
+
+%% ── EMPTY CORNER ANNOTATION (bottom-left: impossible region) ────────────────
+\node[
+  font=\fontsize{6.5}{8}\selectfont\sffamily, text=gray!40,
+  align=center
+] at (2.3, 2.7) {\emph{(ultra-small area}\\[-1pt]\emph{+ ultra-low latency}\\[-1pt]\emph{is infeasible)}};
+
+%% ── CONNECTOR: low-latency to high-throughput (latency wall) ────────────────
+\draw[gray!40, dashed, {Stealth[length=4pt]}-{Stealth[length=4pt]}, line width=0.7pt]
+  (11.4, 3.6) -- (11.4, 3.8);
+\node[font=\fontsize{5.5}{6}\selectfont\sffamily, gray!55] at (11.4, 3.72) {};
+
+\end{tikzpicture}
+\caption{Design space of special-purpose symmetric-key cryptographic primitives.
+  The horizontal axis measures hardware resource cost (gate area); the vertical axis
+  measures per-operation latency.
+  Low-latency crypto occupies the bottom-right corner: it accepts a large hardware
+  footprint (fully-unrolled circuit) in exchange for near-single-cycle latency ---
+  a property that high-throughput pipelined designs cannot provide.}
+\label{fig:design-space}
+\end{figure}
+
+\subsection{Primitives for Low-Latency Crypto}
+
+Latency, or the time delay from input to output, is critical especially in applications requiring hardware-assisted mechanisms to protect against software exploitation.
+Memory and code protection stand out as crucial: while in contemporary processor architectures it is common to protect the CPU within secure enclaves to safeguard sensitive computations, extending such protections to any external memory remains impractical due to physical and architectural constraints.
+As a result, \emph{data-in-use} in RAM remains a common target for physical attacks such as the \emph{Cold Boot} attack~\cite{DBLP:conf/uss/HaldermanSHCPCFAF08}, and code stored in external memory is vulnerable to eavesdropping.
+This underscores the importance of schemes that protect cryptographic memory and code.
+To be practical in high-performance systems, the primitives used in this context must offer minimal added latency.
+
+Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05} and \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
+As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimised cryptographic primitives become available.
+While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
+In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation --- one where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
+Although the recently completed NIST lightweight encryption/authentication standardisation effort addressed small area and low-power budgets, the design of low-latency cryptographic primitives remains a relatively new and rapidly evolving research field.
+
+\begin{genericbox}{Why This Problem Matters}[teal!60]
+Low-latency symmetric-key primitives underpin a growing class of hardware security mechanisms --- from transparent memory encryption and pointer authentication to secure caches and automotive real-time networks.
+Because these mechanisms sit on the critical path of processor execution, any added latency directly degrades system performance.
+Yet the security of the small, fast designs that meet this constraint is far less understood than that of conventional block ciphers.
+This proposal addresses that gap directly.
+\end{genericbox}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Scientific Merit, Novelty \& Advancement Beyond Current Baselines}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The introduction of application-specific optimisations raises fresh challenges in security evaluation.
+\emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
+Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
+It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain \emph{trust} in their algorithms.
+
+\subsection{State of the Art and Open Problems}
+
+Recent years have seen the development of several block ciphers explicitly designed for low-latency applications:
+\tx{PRINCE}~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12},
+\tx{PRINCEv2}~\cite{DBLP:conf/sacrypt/BozilovEKLLMNRT20},
+\tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16},
+\tx{QARMA}~\cite{DBLP:journals/tosc/Avanzi17},
+\tx{QARMAv2}~\cite{DBLP:journals/tosc/AvanziBDEGNR23},
+\tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25},
+\tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and
+\tx{ARADI}~\cite{cryptoeprint:2024/1240}.
+To achieve low latency, these designs deliberately adopt a small gate depth, a reduced number of rounds, and simpler key schedules compared to conventional cryptographic algorithms.
+While this makes them efficient, it also concentrates the security burden on fewer components, making systematic cryptanalytic evaluation indispensable.
+
+\subsection{Novelty and Contributions Beyond the Baseline}
+
+\paragraph{Automated distinguisher and key-recovery search.}
+Constraint-solving tools --- CP, SAT, and MILP --- have proven powerful for uncovering new distinguishers and key-recovery attacks in conventional ciphers, but their systematic application to the low-latency cipher family is nascent.
+Our prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods demonstrates the viability of this approach and establishes a concrete baseline.
+A key novelty of this proposal is to jointly optimise distinguisher quality and key-recovery complexity, going beyond the typical practice of treating them as separate problems.
+
+\paragraph{Machine-learning and classical hybrid cryptanalysis.}
+Neural differential distinguishers have been explored for AES-like designs, yet their principled combination with classical techniques such as meet-in-the-middle and boomerang attacks remains largely open.
+This proposal pursues a systematic investigation of such hybrid approaches, which have the potential to provide new insights into the security of low-latency cipher designs.
+
+\paragraph{Physical attacks on fully-unrolled implementations.}
+Fully unrolled hardware implementations present a threat model that is qualitatively different from that of iterative designs.
+Clock-glitch fault injection is less effective because all rounds execute simultaneously, yet advanced techniques such as electromagnetic fault injection (EMFI) can still target specific spatial regions of the chip.
+Furthermore, because all rounds are simultaneously present in silicon, the physical attack surface is enlarged, creating new opportunities for probing.
+Our recent work on fault-invariant distinguishers~\owncite{Kundu_Ghosh_Aikata_Saha_2025} is, to our knowledge, the first to formalise this class of attacks; this proposal extends it by leveraging SAT/CP solvers to automate the search for fault-attack-friendly distinguishers and to improve post-processing key recovery from harvested hardware data.
+
+\paragraph{Microarchitectural threat analysis.}
+Hardware-based mitigations for microarchitectural attacks --- memory encryption, pointer authentication, secure caches --- increasingly rely on low-latency primitives.
+We propose to systematically analyse the cryptographic components of these mitigation mechanisms to identify vulnerabilities specific to their microarchitectural deployment context.
+This direction is novel in that it bridges the gap between the cryptographic and systems-security communities.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Research Approach \& Feasibility}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The research is structured into three temporally ordered thrusts, progressing from problems where established techniques provide a clear starting point (short-term) to problems that demand fundamentally new conceptual frameworks (long-term).
+Feasibility at each stage is grounded in the team's existing expertise and preliminary results.
+
+\begin{genericbox}{Research Summary}[teal!60]
+This project is dedicated to the design and analysis of symmetric-key primitives optimised for applications requiring low-latency cryptographic operations.
+Our expertise in symmetric-key design and cryptanalysis is well suited to investigating these challenges, systematically balancing security with application-specific performance.
+Through this research, we aim to advance both the theoretical foundations and practical deployment of tailored primitives, bridging the gap between robust security guarantees and efficiency.
+The resulting analysis and frameworks are intended to directly support the standardisation community by providing rigorous security analysis and clear metrics.
+\end{genericbox}
+
+\subsection{Thrust~1 (Short-term): Cryptanalysis of Existing Low-Latency Ciphers}
+
+The immediate objective is to perform rigorous cryptanalytic evaluation of the current generation of low-latency block ciphers.
+Automatic tools such as CP, SAT, and MILP are particularly powerful for uncovering new distinguishers and key-recovery attacks; we have used them extensively in prior work.
+Leveraging such tools to identify the best distinguishers that facilitate optimal key-recovery attacks is a central methodological pillar.
+Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} establishes both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}, \tx{ChiLow}, \tx{SCARF}, and related designs.
+
+In parallel, we will investigate the use of machine learning for the analysis of cryptographic algorithms.
+While not entirely new as a direction, many open questions remain --- particularly regarding the combination of ML-based distinguishers with classical cryptanalytic techniques in principled hybrid approaches.
+Such combinations have the potential to complement traditional tools and provide new security insights into modern low-latency cipher designs.
+
+\subsection{Thrust~2 (Medium-term): Physical Attacks on Low-Latency Implementations}
+
+Physical security threats emerge at the circuit level, where attackers can directly observe or manipulate computations.
+Unprotected implementations of low-latency cryptographic primitives are particularly vulnerable to side-channel exploitation.
+Integrating countermeasures such as masking into fully unrolled hardware is challenging and often incurs considerable performance or area overhead.
+
+Although fully unrolled implementations are generally resistant to clock-glitch fault injection (since all rounds execute in a single cycle), advanced techniques such as EMFI still allow attackers to target specific chip regions.
+Moreover, having all rounds simultaneously present in hardware increases the physical ``surface area'', expanding opportunities for probing.
+Deploying comprehensive protections --- duplication or physical shielding --- across the entire unrolled circuit is complex and costly.
+
+We therefore aim to identify the most vulnerable components within these implementations.
+Building on our prior work introducing fault-invariant distinguishers~\owncite{Kundu_Ghosh_Aikata_Saha_2025}, we will apply SAT/CP/MILP solvers to automate the discovery of fault-attack-friendly distinguishers and to perform key recovery from actual hardware measurements during post-processing.
+This approach could significantly advance the ability to analyse and harden low-latency primitives against fault attacks.
+
+\medskip
+\noindent\textbf{Team expertise and existing infrastructure.}
+The team brings extensive and demonstrated expertise to this thrust, spanning both the theoretical modelling of fault attacks and their physical realisation in laboratory settings.
+Prior publications on fault analysis of GIFT-family ciphers~\owncite{Kundu_Ghosh_Aikata_Saha_2025} have involved end-to-end experimental validation, from distinguisher derivation through to actual key recovery on hardware.
+Crucially, an operational experimental infrastructure --- including ChipWhisperer-based clock-glitch and power-analysis platforms as well as electromagnetic fault injection (EMFI) equipment --- is already in place within the team.
+This means that hardware validation of theoretical fault-attack results can proceed immediately, without any capital expenditure from this proposal.
+The funding requested under this thrust is therefore directed entirely toward personnel and computational resources, rendering it a low-overhead, high-impact research direction with a clear and near-term path to results.
+
+\subsection{Thrust~3 (Long-term): Microarchitectural Security of CPU Cryptographic Features}
+
+Security of modern CPUs has received significant attention in the wake of diverse microarchitectural attacks.
+Hardware-based mitigations increasingly rely on encrypted communication between the CPU and its surrounding components, using techniques such as memory encryption, pointer authentication, and secure caches --- all of which require low-latency primitives.
+The long-term objective is to systematically analyse the cryptographic sub-systems of various CPU architectures, identify potential security vulnerabilities arising from their microarchitectural context, and develop efficient cryptographic solutions that safeguard against emerging threats.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Expected Deliverables}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The deliverables are organised by research thrust and are intended to be concrete, verifiable, and directly useful to the cryptographic community and standardisation bodies.
+
+\subsection*{Thrust 1 — Cryptanalysis of Low-Latency Ciphers}
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
+  \item \textbf{Cryptanalytic results on deployed ciphers.}
+        Published attacks --- new distinguishers and key-recovery results --- on at least two of the target ciphers (\tx{ARADI}, \tx{ChiLow}, \tx{SCARF}, \tx{QARMAv2}), targeting publication at CRYPTO, EUROCRYPT, ASIACRYPT, or IACR ToSC.
+
+  \item \textbf{Automated constraint-model library.}
+        An open-source library of CP/SAT/MILP constraint models for the full family of low-latency block ciphers studied, enabling reproducible and extensible cryptanalysis by the wider community.
+
+  \item \textbf{ML--classical hybrid distinguisher framework.}
+        A principled methodology and associated toolchain for combining neural differential distinguishers with classical meet-in-the-middle and boomerang techniques, validated on at least one target cipher.
+\end{enumerate}
+
+\subsection*{Thrust 2 — Physical Attacks on Low-Latency Implementations}
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=4]
+  \item \textbf{Fault-attack-friendly distinguisher search tool.}
+        A solver-based automated tool for finding fault-invariant and fault-propagation distinguishers in fully-unrolled hardware implementations, released publicly.
+
+  \item \textbf{Experimental fault-attack results.}
+        End-to-end hardware validation of theoretical fault attacks on at least one low-latency cipher, leveraging the team's existing EMFI and ChipWhisperer infrastructure, targeting publication at IACR TCHES or USENIX Security.
+
+  \item \textbf{Hardening guidelines.}
+        A set of actionable design recommendations for protecting fully-unrolled implementations against fault injection, informed by the vulnerabilities uncovered during the project.
+\end{enumerate}
+
+\subsection*{Thrust 3 — Microarchitectural Security}
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=7]
+  \item \textbf{Vulnerability analysis of CPU cryptographic features.}
+        A systematic security analysis of the cryptographic components underpinning at least one hardware memory-encryption or pointer-authentication mechanism, targeting top security venues (IEEE S\&P, ACM CCS, USENIX Security).
+
+  \item \textbf{Cryptographic solutions for microarchitectural threats.}
+        Concrete primitive proposals or hardening constructions for identified vulnerabilities, with security proofs or cryptanalytic evidence of their adequacy.
+\end{enumerate}
+
+\subsection*{Training and Dissemination}
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
+  \item \textbf{Human resource development.}
+        Training of at least two PhD students and one postdoctoral researcher in the intersection of symmetric-key cryptography, hardware security, and automated analysis.
+
+  \item \textbf{Open dissemination.}
+        All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artefacts accompanying the corresponding publications.
+\end{enumerate}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section*{Conclusion}
+
+This proposal focuses on the design and analysis of symmetric-key primitives in one critical and emerging domain: low-latency cryptography.
+The investigation spans theoretical cryptanalysis, resistance to physical attacks, and the formalization of design criteria, thereby advancing the foundations of symmetric-key cryptography.
+Furthermore, the fundamental expertise in symmetric-key design and cryptanalysis at the core of this proposal is directly applicable to other domains, including the development of high-performance ciphers for beyond-5G communications.
+
+\pagebreak
+\bibliographystyle{alpha}
+\bibliography{../bibliography.bib,../myPublications.bib}
+\end{document}

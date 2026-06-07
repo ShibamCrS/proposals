@@ -1,0 +1,31 @@
+% Hyperlinks (load before other packages that use it)
+\usepackage{hyperref}
+
+% Math
+\usepackage{amsmath,amssymb}
+
+% Colored boxes
+\usepackage[most]{tcolorbox}
+
+% Cipher/algorithm names in sans-serif
+\newcommand{\tx}[1]{\textsf{#1}}
+
+% Own-work citations (styled as regular citations)
+\newcommand{\owncite}[1]{\cite{#1}}
+
+% Colored summary box: \begin{genericbox}{Title}[color]
+\NewDocumentEnvironment{genericbox}{m O{blue!50}}{%
+  \colorlet{genericboxframe}{#2}%
+  \colorlet{genericboxbg}{genericboxframe!15!white}%
+  \begin{tcolorbox}[
+    title={#1},
+    colframe=genericboxframe,
+    colback=genericboxbg,
+    fonttitle=\bfseries\sffamily,
+    sharp corners,
+    boxrule=0.6pt,
+    left=4pt, right=4pt, top=3pt, bottom=3pt
+  ]%
+}{%
+  \end{tcolorbox}%
+}
