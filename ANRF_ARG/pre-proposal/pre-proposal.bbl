@@ -9,9 +9,10 @@ Roberto Avanzi, Subhadeep Banik, Orr Dunkelman, Maria Eichlseder, Shibam Ghosh,
 
 \bibitem[ADG25]{DBLP:journals/tosc/AvanziDG25}
 Roberto Avanzi, Orr Dunkelman, and Shibam Ghosh.
-\newblock Differential cryptanalysis of the reduced pointer authentication code
-  function used in arm's {FEAT\_PACQARMA3} feature.
-\newblock {\em {IACR} Trans. Symmetric Cryptol.}, 2025(1):380--419, 2025.
+\newblock {Differential Cryptanalysis of the Reduced Pointer Authentication
+  Code Function Used in Arm's FEAT{\_}PACQARMA3 Feature}.
+\newblock {\em {IACR Trans. Symmetric Cryptol. (TOSC)}}, 2025(1):380--419,
+  2025.
 
 \bibitem[{ARM}16]{ARMv8-A-2016-additions}
 {ARM Ltd.}
@@ -91,10 +92,18 @@ J.~Alex Halderman, Seth~D. Schoen, Nadia Heninger, William Clarkson, William
 
 \bibitem[KGAS25]{Kundu_Ghosh_Aikata_Saha_2025}
 Anup~Kumar Kundu, Shibam Ghosh, Aikata Aikata, and Dhiman Saha.
-\newblock {ToFA}: Towards fault analysis of {GIFT} and {GIFT}-like ciphers
-  leveraging truncated impossible differentials.
-\newblock {\em {IACR} Trans. Cryptographic Hardware Embedded Syst.},
+\newblock {ToFA: Towards Fault Analysis of {GIFT} and GIFT-like Ciphers
+  Leveraging Truncated Impossible Differentials}.
+\newblock {\em {IACR Trans. Cryptogr. Hardw. Embed. Syst. (TCHES)}},
   2025(3):614--643, 2025.
+
+\bibitem[KGSR23]{DBLP:conf/acns/KunduGSR23}
+Anup~Kumar Kundu, Shibam Ghosh, Dhiman Saha, and Mostafizar Rahman.
+\newblock {Divide and Rule: DiFA - Division Property Based Fault Attacks on
+  PRESENT and GIFT}.
+\newblock In {\em {Applied Cryptography and Network Security (ACNS)}}, volume
+  13905 of {\em Lecture Notes in Computer Science}, pages 89--116. Springer,
+  2023.
 
 \bibitem[OST05]{DBLP:journals/iacr/OsvikST05}
 Dag~Arne Osvik, Adi Shamir, and Eran Tromer.

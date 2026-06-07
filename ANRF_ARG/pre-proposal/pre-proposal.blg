@@ -1,47 +1,56 @@
-This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+This is BibTeX, Version 0.99e (TeX Live 2026)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: pre-proposal.aux
 The style file: alpha.bst
 Database file #1: ../bibliography.bib
 Database file #2: ../myPublications.bib
-You've used 14 entries,
+Repeated entry---line 35 of file ../myPublications.bib
+ : @article{DBLP:journals/tosc/AvanziBDEGNR23
+ :                                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 170 of file ../myPublications.bib
+ : @inproceedings{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25
+ :                                                         ,
+I'm skipping whatever remains of this entry
+You've used 15 entries,
             2543 wiz_defined-function locations,
-            663 strings with 9136 characters,
-and the built_in function-call counts, 8552 in all, are:
-= -- 816
-> -- 591
-< -- 13
-+ -- 217
-- -- 214
-* -- 715
-:= -- 1425
-add.period$ -- 50
-call.type$ -- 14
-change.case$ -- 138
-chr.to.int$ -- 14
-cite$ -- 14
-duplicate$ -- 279
-empty$ -- 502
-format.name$ -- 223
-if$ -- 1730
+            671 strings with 9441 characters,
+and the built_in function-call counts, 9169 in all, are:
+= -- 880
+> -- 622
+< -- 15
++ -- 229
+- -- 226
+* -- 764
+:= -- 1519
+add.period$ -- 54
+call.type$ -- 15
+change.case$ -- 146
+chr.to.int$ -- 15
+cite$ -- 15
+duplicate$ -- 304
+empty$ -- 545
+format.name$ -- 236
+if$ -- 1863
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 12
-newline$ -- 75
-num.names$ -- 56
-pop$ -- 127
+missing$ -- 13
+newline$ -- 80
+num.names$ -- 59
+pop$ -- 135
 preamble$ -- 1
-purify$ -- 152
+purify$ -- 161
 quote$ -- 0
-skip$ -- 242
+skip$ -- 262
 stack$ -- 0
-substring$ -- 419
-swap$ -- 90
-text.length$ -- 13
+substring$ -- 453
+swap$ -- 101
+text.length$ -- 15
 text.prefix$ -- 2
 top$ -- 0
-type$ -- 112
+type$ -- 120
 warning$ -- 0
-while$ -- 77
-width$ -- 21
-write$ -- 197
+while$ -- 83
+width$ -- 23
+write$ -- 212
+(There were 2 error messages)
