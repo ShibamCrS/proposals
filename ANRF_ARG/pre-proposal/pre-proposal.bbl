@@ -4,8 +4,8 @@
 \bibitem[ABD{\etalchar{+}}23]{DBLP:journals/tosc/AvanziBDEGNR23}
 Roberto Avanzi, Subhadeep Banik, Orr Dunkelman, Maria Eichlseder, Shibam Ghosh,
   Marcel Nageler, and Francesco Regazzoni.
-\newblock The {QARMAv2} family of tweakable block ciphers.
-\newblock {\em {IACR} Trans. Symmetric Cryptol.}, 2023(3):25--73, 2023.
+\newblock {The QARMAv2 Family of Tweakable Block Ciphers}.
+\newblock {\em {IACR Trans. Symmetric Cryptol. (TOSC)}}, 2023(3):25--73, 2023.
 
 \bibitem[ADG25]{DBLP:journals/tosc/AvanziDG25}
 Roberto Avanzi, Orr Dunkelman, and Shibam Ghosh.
@@ -44,10 +44,10 @@ Julia Borghoff, Anne Canteaut, Tim G{\"{u}}neysu, Elif~Bilge Kavun, Miroslav
 Yanis Belkheyar, Patrick Derbez, Shibam Ghosh, Gregor Leander, Silvia Mella,
   L{\'{e}}o Perrin, Shahram Rasoolzadeh, Lukas Stennes, Siwei Sun, Gilles~Van
   Assche, and Damian Viz{\'{a}}r.
-\newblock Chilow and chichi: New constructions for code encryption.
-\newblock In Serge Fehr and Pierre{-}Alain Fouque, editors, {\em Advances in
-  Cryptology -- {EUROCRYPT} 2025, Part~{I}}, Lecture Notes in Computer Science,
-  pages 212--243. Springer, 2025.
+\newblock {ChiLow and ChiChi: New Constructions for Code Encryption}.
+\newblock In {\em {Advances in Cryptology -- Proceedings of EUROCRYPT}}, volume
+  15601 of {\em Lecture Notes in Computer Science}, pages 212--243. Springer,
+  2025.
 
 \bibitem[BEK{\etalchar{+}}20]{DBLP:conf/sacrypt/BozilovEKLLMNRT20}
 Dusan Bozilov, Maria Eichlseder, Miroslav Knezevic, Baptiste Lambin, Gregor
