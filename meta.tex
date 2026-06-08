@@ -1,0 +1,102 @@
+\documentclass[10pt,a4paper]{article}
+
+% Page geometry (this is the key)
+% \usepackage[
+%   left=2.5cm,
+%   right=2.5cm,
+%   top=2.5cm,
+%   bottom=2.5cm
+% ]{geometry}
+\usepackage[margin=2cm]{geometry}
+
+% TikZ
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,shapes.misc,backgrounds,fit,positioning}
+
+% Fonts (same as standard LaTeX / INRIA)
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Paragraph spacing similar to INRIA class
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+% Line spacing (default, explicit)
+\linespread{1.0}
+
+% \documentclass{article}
+% % Layout
+% \usepackage[a4paper,margin=1in,headsep=10pt]{geometry}
+% % Encoding and typography
+% \usepackage[T1]{fontenc}
+\usepackage{tgschola}            % serif text (TeX Gyre Schola)
+\usepackage[sfdefault]{sourcesanspro} % clean sans for headings
+\usepackage{microtype}
+\usepackage{setspace}
+% \setstretch{1.08}
+\input{../macros}
+
+% Colors
+\usepackage[dvipsnames]{xcolor}
+% Theme palette (tweak freely)
+% \definecolor{theme}{HTML}{0E5A8A}   % primary
+\definecolor{theme}{HTML}{0E5A8A}   % primary
+\definecolor{accent}{HTML}{F39C12}  % accent
+\definecolor{softbg}{HTML}{F7FBFF}  % subtle background
+\definecolor{linkcol}{HTML}{0A6AA1} % URL/link color
+\definecolor{citecol}{HTML}{0B8A6B} % citations
+% Lists
+\usepackage[shortlabels]{enumitem}
+% \setlist{nosep}
+% \renewcommand\labelitemi{\textcolor{theme}{$\blacktriangleright$}}
+
+% Headers/footers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+
+% Colored thin head rule
+\makeatletter
+\renewcommand{\headrule}{\hbox to\headwidth{\color{theme!50}\leaders\hrule height 0.4pt\hfill}}
+\makeatother
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Section titles
+\usepackage[explicit]{titlesec}
+\titleformat{\section}
+{\Large\sffamily\bfseries\color{theme}}
+{\thesection}{0.75em}{#1}
+[\color{theme!50}\titlerule]
+\titleformat{\subsection}
+{\large\sffamily\bfseries\color{theme!85!black}}
+{\thesubsection}{0.6em}{#1}
+\titleformat{\subsubsection}
+{\normalsize\sffamily\bfseries\color{theme!70!black}}
+{\thesubsubsection}{0.5em}{#1}
+\titlespacing*{\section}{0pt}{1.4ex plus .3ex}{0.9ex}
+\titlespacing*{\subsection}{0pt}{1.0ex plus .2ex}{0.5ex}
+\titlespacing*{\subsubsection}{0pt}{0.8ex}{0.4ex}
+
+\newcommand{\yourname}{Shibam Ghosh}
+\newcommand{\youremail}{shibam@cse.iith.ac.in}
+\newcommand{\yourweb}{shibamcrs.github.io}
+% Hyperlinks (load last)
+\hypersetup{
+unicode=true,
+colorlinks=true,
+linkcolor=theme,
+citecolor=citecol,
+urlcolor=linkcol,
+pdfstartview=FitV,
+pdftitle={\yourname},
+pdfauthor={\yourname}
+}
+% Header content (after hyperref so links work)
+% \fancyhead[C]{\footnotesize\sffamily\bfseries
+% \yourname\quad
+% \textcolor{linkcol}{\href{https://\yourweb}{\yourweb}}\quad
+% \textcolor{linkcol}{\href{mailto:\youremail}{\youremail}}
+% }
+\fancyfoot[C]{\footnotesize\sffamily Page \thepage\ of \pageref{LastPage}}
