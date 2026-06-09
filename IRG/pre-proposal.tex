@@ -26,6 +26,38 @@ Shibam Ghosh\textsuperscript{1} \quad Dhiman Saha\textsuperscript{2} \\[1ex]
 \hrule
 \end{center}
 
+\section{{\bfseries Design and Analysis of Symmetric Key Primitives for Zero-knowledge Protocols}}
+\vspace*{-0.3cm}
+\subsection{Introduction}
+\vspace*{-0.1cm}
+Zero-knowledge proofs (ZKPs), since their seminal introduction in 1985 by Goldwasser, Micali, and Rackoff~\cite{DBLP:conf/stoc/GoldwasserMR85}, have fundamentally transformed the landscape of cryptographic protocol design.
+ZKPs enable a prover ($\mathcal{P}$) to convince a verifier ($\mathcal{V}$) of the validity of a statement --- specifically, that they possess a secret witness $w$ --- without leaking any information about $w$ itself.
+More concretely, ZKPs allow $\mathcal{P}$ to demonstrate knowledge of $w$ such that a public function $F(x; w) = y$, for given public input $x$ and output $y$, holds true.
+This remarkable property provides a powerful balance between privacy and verifiability, facilitating secure information exchanges where sensitive data must remain confidential.
+
+Traditionally, cryptography has focused primarily on protecting data confidentiality and integrity.
+By contrast, ZKPs shift the emphasis toward verifiable computation integrity: they allow one to prove that a function was evaluated correctly, without disclosing the underlying inputs.
+A key question, then, is what kinds of computations should be prioritized?
+This research proposal focuses on the efficient zero-knowledge proof of computations involving symmetric key cryptographic primitives, such as hash functions, block ciphers, and pseudorandom functions (PRFs).
+The main motivation is that despite the promising progress in ZKPs, a substantial gap persists between their theoretical potential and practical adoption in scenarios that require proofs about computations involving symmetric key primitives such as block ciphers and cryptographic hash functions.
+These primitives are inherently complex mathematical operations, which makes constructing efficient proofs challenging and often leads to significant performance overhead.
+Addressing these challenges motivates the core of this proposal: to design and analyze symmetric key primitives that are optimized for use in zero-knowledge protocols, so that generating ZKPs for their computations becomes practically efficient.
+
+The design of symmetric primitives has always been driven by external requirements; for instance, low-latency algorithms are essential for memory and code encryption, while high-throughput ciphers are crucial for end-to-end encryption of high-definition or 4K/8K video content, and small embedded devices operating on battery power require cryptographic primitives designed for low energy consumption and minimal processing resources.
+In much the same way, emerging advanced cryptographic applications such as ZKPs demand custom-tailored primitives suited to specific computational models.
+My expertise in the design and analysis of symmetric-key primitives, aligns closely with the objectives of this proposal.
+Building on this foundation, my work seeks to bridge the gap between theory and practice by developing novel cryptographic primitives and frameworks that combine strong security guarantees with efficient zero-knowledge proof integration --- thus advancing the field of verifiable cryptography.
+\subsubsection{Why ZKPs are Important?}
+\vspace*{-0.1cm}
+The far-reaching implications of ZKPs have led to their widespread adoption and investigation within both academia and industry.
+Their application domains are diverse and rapidly evolving, encompassing blockchain privacy, solving the scalability issues in decentralized ledgers, verifiable storage, and cross-chain interoperability.
+In the financial and privacy-focused cryptocurrency sector, ZKPs are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which uses zk-SNARKs to enable completely private blockchain transactions; StarkWare~\cite{starkware} and zkSync~\cite{zksync} (by Matter Labs), which employ ZKPs to provide scalable ZKP-powered layer-2 solutions on Ethereum~\cite{ethereum}; and and Avail~\cite{avail}, which uses ZKPs to provide verifiable data availability guarantees and support cross-chain interactions. 
+Beyond blockchain technology, ZKPs are increasingly recognized as critical components in systems such as electronic voting (Helios~\cite{helios}), privacy-preserving authentication (Microsoft Azure~\cite{azureprivacy}, Polygon ID~\cite{polygonid}, Google Wallet~\cite{googlewallet}), delegating computations to untrusted servers and even privacy-enhanced machine learning.
+
+Another increasing application areas of ZKPs are designing post-quantum secure digital signatures based on MPC-in-the-Head (MPCitH)~\cite{}, VOLE-in-the-Head (VOLEitH)~\cite{}, and Threshold Computations in the Head (TCitH)~\cite{} frameworks.
+A key distinction from other post-quantum signature schemes is that these signatures do not rely on structured algebraic trapdoors for their security.
+Instead, they rely on cryptographic primitives and zero-knowledge techniques, which simplifies implementation and offers potential robustness against algebraic attacks and benefit from compact public keys and relatively efficient verification procedures.
+
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Use-Inspired Context \& Problem Relevance}
 % ─────────────────────────────────────────────────────────────────────────────
