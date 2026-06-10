@@ -1,35 +1,43 @@
 \input{../meta.tex}
-\newcommand{\soptitle}{Pre-proposal Technical Document: Category II}
-
-% \title{Design and Analysis of Low-Latency Crypto and its Application}
+\newcommand{\soptitle}{Design and Analysis of Symmetric Primitives for Zero-knowledge Protocols}
 
 \title{\sffamily\bfseries\Large\textcolor{theme}{\soptitle}}\par
 \author{
-    Shibam Ghosh\textsuperscript{1} \quad Dhiman Saha\textsuperscript{2} \\[1ex]
+    Shibam Ghosh\textsuperscript{1}\\[1ex]
     \normalsize \textsuperscript{1}Indian Institute of Technology Hyderabad 
-    \normalsize \textsuperscript{2}Indian Institute of Technology Bhilai
 }
 
 \date{} % Leave empty to hide the date, or remove this line
 
 \begin{document}
-% \maketitle
-\begin{center}
-\vspace*{-0.8cm}
-{\sffamily\bfseries\Large \textcolor{theme}{\soptitle}}\par
-\vspace{2pt}
-Shibam Ghosh\textsuperscript{1} \quad Dhiman Saha\textsuperscript{2} \\[1ex]
-\small \textsuperscript{1}Indian Institute of Technology Hyderabad 
-  \small \textsuperscript{2}Indian Institute of Technology Bhilai \\[1ex]
-% {\small \yourname, Dhiman Saha}
-\vspace{8pt}
-\hrule
-\end{center}
+% ---------- Title Box ----------
+\begin{tcolorbox}[
+    colback=headerbg,
+    colframe=headerbg,
+    boxrule=0pt,
+    width=\textwidth,
+    arc=0mm,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt
+]
+\centering
+{\LARGE \textbf{SPERK: Symmetric Primitives with Efficient Zero-Knowledge Proof}}\\[6pt]
 
-\section{{\bfseries Design and Analysis of Symmetric Key Primitives for Zero-knowledge Protocols}}
-\vspace*{-0.3cm}
-\subsection{Introduction}
-\vspace*{-0.1cm}
+{\large \textbf{Principal Investigator: Shibam Ghosh}}\\
+{\large \textbf{Position: Assistant Professor}}\\ 
+{\large \textbf{Joining Date: 27th May, 2026}}\\ 
+{\large Department of Computer Science and Engineering}\\[4pt]
+
+Email: \href{mailto:shibam@cse.iith.ac.in}{shibam@cse.iith.ac.in}
+\;|\;
+Web: \href{https://shibamcrs.github.io/}{https://shibamcrs.github.io/}
+\end{tcolorbox}
+
+\vspace{8pt}
+
+\section{Introduction}
 Zero-knowledge proofs (ZKPs), since their seminal introduction in 1985 by Goldwasser, Micali, and Rackoff~\cite{DBLP:conf/stoc/GoldwasserMR85}, have fundamentally transformed the landscape of cryptographic protocol design.
 ZKPs enable a prover ($\mathcal{P}$) to convince a verifier ($\mathcal{V}$) of the validity of a statement --- specifically, that they possess a secret witness $w$ --- without leaking any information about $w$ itself.
 More concretely, ZKPs allow $\mathcal{P}$ to demonstrate knowledge of $w$ such that a public function $F(x; w) = y$, for given public input $x$ and output $y$, holds true.
@@ -47,8 +55,10 @@ The design of symmetric primitives has always been driven by external requiremen
 In much the same way, emerging advanced cryptographic applications such as ZKPs demand custom-tailored primitives suited to specific computational models.
 My expertise in the design and analysis of symmetric-key primitives, aligns closely with the objectives of this proposal.
 Building on this foundation, my work seeks to bridge the gap between theory and practice by developing novel cryptographic primitives and frameworks that combine strong security guarantees with efficient zero-knowledge proof integration --- thus advancing the field of verifiable cryptography.
-\subsubsection{Why ZKPs are Important?}
-\vspace*{-0.1cm}
+
+% ───────────────────────────────────────────────────────────────────────
+\section{Use-Inspired Context \& Problem Relevance}
+% ───────────────────────────────────────────────────────────────────────
 The far-reaching implications of ZKPs have led to their widespread adoption and investigation within both academia and industry.
 Their application domains are diverse and rapidly evolving, encompassing blockchain privacy, solving the scalability issues in decentralized ledgers, verifiable storage, and cross-chain interoperability.
 In the financial and privacy-focused cryptocurrency sector, ZKPs are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which uses zk-SNARKs to enable completely private blockchain transactions; StarkWare~\cite{starkware} and zkSync~\cite{zksync} (by Matter Labs), which employ ZKPs to provide scalable ZKP-powered layer-2 solutions on Ethereum~\cite{ethereum}; and and Avail~\cite{avail}, which uses ZKPs to provide verifiable data availability guarantees and support cross-chain interactions. 
@@ -57,10 +67,6 @@ Beyond blockchain technology, ZKPs are increasingly recognized as critical compo
 Another increasing application areas of ZKPs are designing post-quantum secure digital signatures based on MPC-in-the-Head (MPCitH)~\cite{}, VOLE-in-the-Head (VOLEitH)~\cite{}, and Threshold Computations in the Head (TCitH)~\cite{} frameworks.
 A key distinction from other post-quantum signature schemes is that these signatures do not rely on structured algebraic trapdoors for their security.
 Instead, they rely on cryptographic primitives and zero-knowledge techniques, which simplifies implementation and offers potential robustness against algebraic attacks and benefit from compact public keys and relatively efficient verification procedures.
-
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Use-Inspired Context \& Problem Relevance}
-% ─────────────────────────────────────────────────────────────────────────────
 
 The design of symmetric-key cryptographic primitives has historically been heavily influenced by the specific requirements of their target applications.
 A cryptographic primitive, such as a block cipher, hash function, or pseudorandom function, that is optimized for one context may be ill-suited for others, making the process a balancing act between security and efficiency dictated by each target environment.

@@ -1,43 +1,39 @@
-\documentclass[10pt,a4paper]{article}
-
-% Page geometry (this is the key)
-% \usepackage[
-%   left=2.5cm,
-%   right=2.5cm,
-%   top=2.5cm,
-%   bottom=2.5cm
-% ]{geometry}
-\usepackage[margin=2cm]{geometry}
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[sfdefault]{sourcesanspro} % clean sans for headings
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
 
 % TikZ
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,shapes.misc,backgrounds,fit,positioning}
 
-% Fonts (same as standard LaTeX / INRIA)
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-
-% Paragraph spacing similar to INRIA class
-\setlength{\parskip}{0pt}
-\setlength{\parindent}{15pt}
-
-% Line spacing (default, explicit)
-\linespread{1.0}
-
-% \documentclass{article}
-% % Layout
-% \usepackage[a4paper,margin=1in,headsep=10pt]{geometry}
-% % Encoding and typography
-% \usepackage[T1]{fontenc}
-\usepackage{tgschola}            % serif text (TeX Gyre Schola)
-\usepackage[sfdefault]{sourcesanspro} % clean sans for headings
-\usepackage{microtype}
-\usepackage{setspace}
-% \setstretch{1.08}
 \input{../macros}
 
-% Colors
+
+\DeclareUnicodeCharacter{20B9}{\textrm{\symbol{"20B9}}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{IITH Seed Grant 2026}
+\fancyfoot[C]{\thepage}
+% Header/footer rule thickness
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+% ---------------- Colors ----------------
 \usepackage[dvipsnames]{xcolor}
+\definecolor{headerbg}{RGB}{240, 240, 245}   % A very light, cool grey (almost white)
+\definecolor{sectionbg}{RGB}{225, 235, 245}  % A subtle, desaturated light blue
+\definecolor{linkblue}{RGB}{0, 82, 165}     % A strong, professional "corporate" blue
+
+
+% \definecolor{headerbg}{RGB}{245,230,220}   % light peach
+% \definecolor{sectionbg}{RGB}{215,230,245}  % light blue
+% \definecolor{linkblue}{RGB}{0,0,150}
+
 % Theme palette (tweak freely)
 % \definecolor{theme}{HTML}{0E5A8A}   % primary
 \definecolor{theme}{HTML}{0E5A8A}   % primary
@@ -50,11 +46,6 @@
 % \setlist{nosep}
 % \renewcommand\labelitemi{\textcolor{theme}{$\blacktriangleright$}}
 
-% Headers/footers
-\usepackage{fancyhdr}
-\usepackage{lastpage}
-\pagestyle{fancy}
-\fancyhf{}
 
 % Colored thin head rule
 \makeatletter
@@ -93,10 +84,4 @@ pdfstartview=FitV,
 pdftitle={\yourname},
 pdfauthor={\yourname}
 }
-% Header content (after hyperref so links work)
-% \fancyhead[C]{\footnotesize\sffamily\bfseries
-% \yourname\quad
-% \textcolor{linkcol}{\href{https://\yourweb}{\yourweb}}\quad
-% \textcolor{linkcol}{\href{mailto:\youremail}{\youremail}}
-% }
 \fancyfoot[C]{\footnotesize\sffamily Page \thepage\ of \pageref{LastPage}}

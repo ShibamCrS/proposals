@@ -144,7 +144,7 @@ As a result, \emph{data-in-use} in RAM remains a common target for physical atta
 This underscores the importance of schemes that protect cryptographic memory and code.
 To be practical in high-performance systems, the primitives used in this context must offer minimal added latency.
 
-Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05} and \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
+Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE} and \textsf{FLUSH+RELOAD}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
 As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimised cryptographic primitives become available.
 While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
 In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation --- one where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
