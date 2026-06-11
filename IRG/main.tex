@@ -39,8 +39,7 @@ Web: \href{https://shibamcrs.github.io/}{https://shibamcrs.github.io/}
 
 \section{Introduction}
 Zero-knowledge proofs (ZKPs), since their seminal introduction in 1985 by Goldwasser, Micali, and Rackoff~\cite{DBLP:conf/stoc/GoldwasserMR85}, have fundamentally transformed the landscape of cryptographic protocol design.
-ZKPs enable a prover ($\mathcal{P}$) to convince a verifier ($\mathcal{V}$) of the validity of a statement --- specifically, that they possess a secret witness $w$ --- without leaking any information about $w$ itself.
-More concretely, ZKPs allow $\mathcal{P}$ to demonstrate knowledge of $w$ such that a public function $F(x; w) = y$, for given public input $x$ and output $y$, holds true.
+ZKPs enable a prover ($\mathcal{P}$) to convince a verifier ($\mathcal{V}$) of possessing a witness $w$ such that $F(x; w) = y$, without revealing $w$.
 This remarkable property provides a powerful balance between privacy and verifiability, facilitating secure information exchanges where sensitive data must remain confidential.
 
 Traditionally, cryptography has focused primarily on protecting data confidentiality and integrity.
@@ -51,11 +50,6 @@ The main motivation is that despite the promising progress in ZKPs, a substantia
 These primitives are inherently complex mathematical operations, which makes constructing efficient proofs challenging and often leads to significant performance overhead.
 Addressing these challenges motivates the core of this proposal: to design and analyze symmetric key primitives that are optimized for use in zero-knowledge protocols, so that generating ZKPs for their computations becomes practically efficient.
 
-The design of symmetric primitives has always been driven by external requirements; for instance, low-latency algorithms are essential for memory and code encryption, while high-throughput ciphers are crucial for end-to-end encryption of high-definition or 4K/8K video content, and small embedded devices operating on battery power require cryptographic primitives designed for low energy consumption and minimal processing resources.
-In much the same way, emerging advanced cryptographic applications such as ZKPs demand custom-tailored primitives suited to specific computational models.
-My expertise in the design and analysis of symmetric-key primitives, aligns closely with the objectives of this proposal.
-Building on this foundation, my work seeks to bridge the gap between theory and practice by developing novel cryptographic primitives and frameworks that combine strong security guarantees with efficient zero-knowledge proof integration --- thus advancing the field of verifiable cryptography.
-
 % ───────────────────────────────────────────────────────────────────────
 \section{Use-Inspired Context \& Problem Relevance}
 % ───────────────────────────────────────────────────────────────────────
@@ -64,143 +58,22 @@ Their application domains are diverse and rapidly evolving, encompassing blockch
 In the financial and privacy-focused cryptocurrency sector, ZKPs are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which uses zk-SNARKs to enable completely private blockchain transactions; StarkWare~\cite{starkware} and zkSync~\cite{zksync} (by Matter Labs), which employ ZKPs to provide scalable ZKP-powered layer-2 solutions on Ethereum~\cite{ethereum}; and and Avail~\cite{avail}, which uses ZKPs to provide verifiable data availability guarantees and support cross-chain interactions. 
 Beyond blockchain technology, ZKPs are increasingly recognized as critical components in systems such as electronic voting (Helios~\cite{helios}), privacy-preserving authentication (Microsoft Azure~\cite{azureprivacy}, Polygon ID~\cite{polygonid}, Google Wallet~\cite{googlewallet}), delegating computations to untrusted servers and even privacy-enhanced machine learning.
 
-Another increasing application areas of ZKPs are designing post-quantum secure digital signatures based on MPC-in-the-Head (MPCitH)~\cite{}, VOLE-in-the-Head (VOLEitH)~\cite{}, and Threshold Computations in the Head (TCitH)~\cite{} frameworks.
-A key distinction from other post-quantum signature schemes is that these signatures do not rely on structured algebraic trapdoors for their security.
-Instead, they rely on cryptographic primitives and zero-knowledge techniques, which simplifies implementation and offers potential robustness against algebraic attacks and benefit from compact public keys and relatively efficient verification procedures.
-
-The design of symmetric-key cryptographic primitives has historically been heavily influenced by the specific requirements of their target applications.
-A cryptographic primitive, such as a block cipher, hash function, or pseudorandom function, that is optimized for one context may be ill-suited for others, making the process a balancing act between security and efficiency dictated by each target environment.
-Thus, different applications, ranging from high-throughput primitives for network communications to lightweight ciphers for constrained devices, have led to different corners of the design space being explored.
-This diversity in requirements underscores the importance of designing new symmetric-key primitives that are well-adapted to their intended applications.
-This proposal focuses on one such domain with unique requirements: symmetric-key primitives for applications demanding \emph{low-latency} cryptographic operations.
-Figure~\ref{fig:design-space} situates this domain within the broader landscape of special-purpose symmetric-key cryptography.
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.72, font=\sffamily]
-
-\tikzset{
-  rtitle/.style  = {font=\small\sffamily\bfseries, align=center},
-  rciphers/.style= {font=\fontsize{6.2}{7.5}\selectfont\sffamily\itshape, align=center},
-  rapplic/.style = {font=\fontsize{5.8}{7}\selectfont\sffamily, text=gray!70, align=center},
-  rnote/.style   = {font=\fontsize{6}{7}\selectfont\sffamily\itshape, align=center},
-}
-
-%% ── AXES ────────────────────────────────────────────────────────────────────
-\draw[-{Stealth[length=6pt]}, line width=0.9pt] (0,0) -- (14,0)
-  node[right, font=\small\sffamily\bfseries] {Hardware Area / Resources};
-\draw[-{Stealth[length=6pt]}, line width=0.9pt] (0,0) -- (0,11.2)
-  node[above, font=\small\sffamily\bfseries] {Latency};
-
-% Axis endpoint labels
-\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, below=2pt] at (1.3, 0)  {Constrained};
-\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, below=2pt] at (12.5, 0) {Unconstrained};
-\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, rotate=90, left=8pt]  at (0, 1.2) {$\approx\!1$ cycle};
-\node[font=\fontsize{6}{7}\selectfont\sffamily, gray, rotate=90, left=8pt]  at (0, 9.8) {Many cycles};
-
-% 1-cycle dashed reference
-\draw[gray!25, dashed, line width=0.8pt] (0.2, 1.6) -- (13.5, 1.6);
-\node[font=\fontsize{5.2}{6}\selectfont\sffamily, gray!55, anchor=east] at (13.4, 1.78) {1-clock-cycle target};
-
-%% ── LIGHTWEIGHT CRYPTO ──────────────────────────────────────────────────────
-\fill[green!12, draw=green!50!black, line width=1.1pt, rounded corners=11pt]
-  (0.3, 3.8) rectangle (4.3, 10.9);
-\node[rtitle, text=green!38!black] at (2.3, 10.5) {Lightweight};
-\node[rciphers, text=green!32!black] at (2.3, 9.1)
-  {GIFT, PRESENT\\SIMON, SPECK\\ASCON, PHOTON\\SKINNY};
-\node[rapplic] at (2.3, 7.4)
-  {\emph{IoT, RFID,}\\[1pt]\emph{smart cards,}\\[1pt]\emph{sensor networks}};
-\node[rnote, text=green!38!black] at (2.3, 4.3)
-  {Small area,\\tolerates latency};
-
-%% ── GENERAL-PURPOSE ─────────────────────────────────────────────────────────
-\fill[orange!11, draw=orange!58!black, line width=1.1pt, rounded corners=11pt]
-  (4.6, 3.8) rectangle (9.0, 8.7);
-\node[rtitle, text=orange!55!black] at (6.8, 8.3) {General-Purpose};
-\node[rciphers, text=orange!43!black] at (6.8, 7.1)
-  {AES, SHA-3\\ChaCha20, 3DES};
-\node[rapplic] at (6.8, 5.7)
-  {\emph{TLS, cloud services,}\\[1pt]\emph{storage, general}\\[1pt]\emph{computing}};
-\node[rnote, text=orange!50!black] at (6.8, 4.3) {Balanced trade-offs};
-
-%% ── HIGH-THROUGHPUT (PIPELINED) ─────────────────────────────────────────────
-\fill[violet!10, draw=violet!52!black, line width=1.1pt, rounded corners=11pt]
-  (9.3, 3.8) rectangle (13.5, 8.7);
-\node[rtitle, text=violet!55!black] at (11.4, 8.3) {High-Throughput};
-\node[rciphers, text=violet!42!black] at (11.4, 7.1)
-  {AES-NI, AES-GCM\\Keccak (HW)\\pipelined AES};
-\node[rapplic] at (11.4, 5.7)
-  {\emph{Network, VPN,}\\[1pt]\emph{disk encryption,}\\[1pt]\emph{bulk data}};
-\node[rnote, text=violet!48!black] at (11.4, 4.3)
-  {Pipelining $\not\!\Rightarrow$ low latency};
-
-%% ── HE / ZK-FRIENDLY ────────────────────────────────────────────────────────
-\fill[red!8, draw=red!48!black, line width=1.1pt, rounded corners=11pt]
-  (4.6, 9.0) rectangle (13.5, 10.9);
-\node[rtitle, text=red!52!black] at (9.0, 10.55) {HE\,/\,ZK-Friendly};
-\node[rciphers, text=red!38!black] at (9.0, 9.8)
-  {Poseidon,\ MiMC,\ Rescue-Prime,\ Griffin,\ Reinforced Concrete};
-\node[rapplic] at (9.0, 9.3)
-  {\emph{Homomorphic encryption, zero-knowledge proofs, blockchain}};
-
-%% ── LOW-LATENCY CRYPTO (FOCUS) ──────────────────────────────────────────────
-% outer glow
-\fill[blue!6, rounded corners=15pt]  (9.2, 0.15) rectangle (13.6, 3.65);
-% main box
-\fill[blue!11, draw=theme, line width=2pt, rounded corners=12pt]
-  (9.3, 0.25) rectangle (13.5, 3.55);
-
-\node[rtitle, text=theme] at (11.4, 3.2) {Low-Latency Crypto};
-\node[rciphers, text=blue!58!black] at (11.4, 2.3)
-  {PRINCE, PRINCEv2, MANTIS\\QARMA, QARMAv2, SCARF\\ARADI, ChiLow};
-\node[rapplic] at (11.4, 1.35)
-  {\emph{Memory encryption, cache}\\[1pt]
-   \emph{randomization, pointer auth (PAC),}\\[1pt]
-   \emph{automotive, industrial control}};
-
-% "This proposal" badge
-\node[
-  draw=theme, fill=theme!15, line width=0.9pt, rounded corners=4pt,
-  font=\fontsize{6}{7}\selectfont\sffamily\bfseries, text=theme,
-  inner sep=3pt
-] at (11.4, 0.52) {$\bigstar$~~This Proposal};
-
-%% ── EMPTY CORNER ANNOTATION (bottom-left: impossible region) ────────────────
-\node[
-  font=\fontsize{6.5}{8}\selectfont\sffamily, text=gray!40,
-  align=center
-] at (2.3, 2.7) {\emph{(ultra-small area}\\[-1pt]\emph{+ ultra-low latency}\\[-1pt]\emph{is infeasible)}};
-
-%% ── CONNECTOR: low-latency to high-throughput (latency wall) ────────────────
-\draw[gray!40, dashed, {Stealth[length=4pt]}-{Stealth[length=4pt]}, line width=0.7pt]
-  (11.4, 3.6) -- (11.4, 3.8);
-\node[font=\fontsize{5.5}{6}\selectfont\sffamily, gray!55] at (11.4, 3.72) {};
-
-\end{tikzpicture}
-\caption{Design space of special-purpose symmetric-key cryptographic primitives.
-  The horizontal axis measures hardware resource cost (gate area); the vertical axis
-  measures per-operation latency.
-  Low-latency crypto occupies the bottom-right corner: it accepts a large hardware
-  footprint (fully-unrolled circuit) in exchange for near-single-cycle latency,
-  a property that high-throughput pipelined designs cannot provide.}
-\label{fig:design-space}
-\end{figure}
-
-\subsection{Primitives for Low-Latency Crypto}
-
-Latency, or the time delay from input to output, is critical especially in applications requiring hardware-assisted mechanisms to protect against software exploitation.
-Memory and code protection stand out as crucial: while in contemporary processor architectures it is common to protect the CPU within secure enclaves to safeguard sensitive computations, extending such protections to any external memory remains impractical due to physical and architectural constraints.
-As a result, \emph{data-in-use} in RAM remains a common target for physical attacks such as the \emph{Cold Boot} attack~\cite{DBLP:conf/uss/HaldermanSHCPCFAF08}, and code stored in external memory is vulnerable to eavesdropping.
-This underscores the importance of schemes that protect cryptographic memory and code.
-To be practical in high-performance systems, the primitives used in this context must offer minimal added latency.
-
-Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05} and \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
-As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimised cryptographic primitives become available.
-While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
-In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation --- one where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
-Although the recently completed NIST lightweight encryption/authentication standardisation effort addressed small area and low-power budgets, the design of low-latency cryptographic primitives remains a relatively new and rapidly evolving research field.
+Despite rapid advances, significant gaps remain between the theoretical potential of ZKPs and their practical deployment --- especially where efficient proofs of computation involving symmetric primitives are needed, which are critically important due to their broad practical applications.
+For example, any ZKP that relies on Merkle proofs necessitates building hash function circuits within the proof system.
+This is central to rollup-protocol-based solution for blockchain scalability like zkSync Era~\cite{zksync} and StarkNet~\cite{starkware}, where ZKPs are employed to demonstrate the correctness of updates to the rollup's Merkleized state.
+Another emerging application areas of ZKPs are post-quantum secure digital signatures based on MPC-in-the-Head (MPCitH)~\cite{DBLP:conf/uss/GiacomelliMO16} and VOLE-in-the-Head (VOLEitH)~\cite{DBLP:conf/crypto/BaumBGKORS22} frameworks.
+In such a framework, given a one-way function $f$ (such as a block cipher) and its output $y$ over a secret $x$, i.e., $y = f(x)$, one can construct a digital signature scheme with secret key $x$, public key $y$, and provides a non-interactive ZKP of the knowledge (NIZKPoK) of the secret $x$ as a signature.
+However, mainstream primitives like \tx{AES} and \tx{SHA-3} were not designed for such proof systems, often leading to inefficient proofs and high performance overheads due to a mismatch between their internal structures and ZKP requirements.
+ZKPs prioritize simple circuit representations of these primitives with simple algebraic structures rather than traditional efficiency metrics for software or hardware implementations.
+As a result, there is a growing demand for ``ZK-friendly'' symmetric-key primitives that maximize efficiency and compatibility within ZKP environments.
 
 \begin{genericbox}{Why This Problem Matters}[teal!60]
+The design of symmetric primitives has always been driven by external requirements; for instance, low-latency algorithms are essential for memory and code encryption, while high-throughput ciphers are crucial for end-to-end encryption of high-definition or 4K/8K video content, and small embedded devices operating on battery power require cryptographic primitives designed for low energy consumption and minimal processing resources.
+In much the same way, emerging advanced cryptographic applications such as ZKPs demand custom-tailored primitives suited to specific computational models.
+My expertise in the design and analysis of symmetric-key primitives, aligns closely with the objectives of this proposal.
+Building on this foundation, my work seeks to bridge the gap between theory and practice by developing novel cryptographic primitives and frameworks that combine strong security guarantees with efficient zero-knowledge proof integration --- thus advancing the field of verifiable cryptography.
+
+
 Low-latency symmetric-key primitives underpin a growing class of hardware security mechanisms, from transparent memory encryption and pointer authentication to secure caches and automotive real-time networks.
 Because these mechanisms sit on the critical path of processor execution, any added latency directly degrades system performance.
 Yet the security of the small, fast designs that meet this constraint is far less understood than that of conventional block ciphers.
