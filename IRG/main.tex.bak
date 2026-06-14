@@ -51,8 +51,8 @@ Therefore, this research proposal focuses on the efficient zero-knowledge proof 
 \subsection{Motivation and Application Landscape}
 % ───────────────────────────────────────────────────────────────────────
 The far-reaching implications of ZKPs have led to their widespread adoption across both academia and industry.
-Their application domains are diverse and rapidly evolving, including blockchain privacy, decentralized ledger scalability, verifiable storage, and cross-chain interoperability. 
-In the financial and Web3 sectors, ZKPs are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which use zk-SNARKs to enable private blockchain transactions.
+Their application domains are diverse and rapidly evolving, encompassing blockchain privacy, decentralized ledger scalability, verifiable storage, and cross-chain interoperability. 
+In the financial and Web3 sectors, ZKPs are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which use zk-SNARKs to enable completely private blockchain transactions.
 Similarly, platforms like StarkWare~\cite{starkware} and zkSync~\cite{zksync} employ ZKPs to provide highly scalable layer-2 solutions on Ethereum~\cite{ethereum}, while Avail~\cite{avail} utilizes them to guarantee verifiable data availability.
 Beyond blockchain technology, ZKPs are increasingly recognized as critical components in electronic voting (Helios~\cite{helios}), privacy-preserving authentication (Microsoft Azure~\cite{azureprivacy}, Polygon ID~\cite{polygonid}, Google Wallet~\cite{googlewallet}), secure delegation of computation to untrusted servers, and privacy-enhanced machine learning.
 
@@ -60,13 +60,17 @@ Beyond blockchain technology, ZKPs are increasingly recognized as critical compo
 \subsection{Problem Statement}
 % ───────────────────────────────────────────────────────────────────────
 Despite these rapid advances, significant gaps remain between the theoretical potential of ZKPs and their practical deployment.
-This is especially true where efficient proofs of computation involve symmetric primitives.
+This is especially true where efficient proofs of computation involving symmetric primitives are required.
 For example, any ZKP that relies on Merkle proofs necessitates building complex hash function circuits within the proof system.
 This requirement is the primary bottleneck for rollup-based blockchain scalability solutions, which must constantly prove the correctness of Merkleized state updates.
+
+Another emerging application area for ZKPs is post-quantum secure digital signatures, specifically those based on the MPC-in-the-Head (MPCitH)~\cite{DBLP:conf/uss/GiacomelliMO16} and VOLE-in-the-Head (VOLEitH)~\cite{DBLP:conf/crypto/BaumBGKORS22} frameworks.
+In these paradigms, given a one-way function $f$ (such as a block cipher) and an output $y$ over a secret $x$ (where $y = f(x)$), one can construct a digital signature by providing a non-interactive ZKP of knowledge (NIZKPoK) of the secret $x$. 
+
 However, mainstream primitives like \tx{AES} and \tx{SHA-3} were not designed for such proof systems.
 Their internal structures lead to highly inefficient circuit representations, resulting in severe performance overheads.
 Because ZKP systems prioritize algebraic simplicity over traditional software or hardware efficiency metrics, there is a rapidly growing demand for novel, ``ZK-friendly'' symmetric-key primitives.
-Yet, designing ZK-friendly ciphers are inherently risky, as their simplified algebraic structures often expose them to algebraic cryptanalysis.
+Yet, designing these arithmetization-friendly ciphers is inherently risky, as their simplified algebraic structures often expose them to devastating algebraic cryptanalysis.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Research Objectives}
@@ -77,15 +81,36 @@ This will be achieved through a multi-pronged approach:
 
 \begin{enumerate}[label=\textbf{O\arabic*.}, leftmargin=*, itemsep=2pt, start=1]
     \item \textbf{Cryptanalysis:} Rigorously evaluate existing ZKP-friendly designs (e.g., MiMC, Poseidon, Polocolo) using advanced algebraic methods, including Gr\"obner basis and novel FFT-based attacks, to expose their security weaknesses.
+
+    \item \textbf{Design:} Create and analyze novel MPC-friendly tweakable block ciphers to significantly improve the efficiency and reduce the signature size of post-quantum signature schemes like MPCitH.
+        Additionally, investigate their resilience against physical attacks (fault injection, side-channels) in hardware implementations.
+
     \item \textbf{Formalization:} Develop a comprehensive theoretical framework and robust design guidelines for ``ZK-friendly'' primitives, ensuring their security and compatibility across diverse ZKP systems (e.g., R1CS, AIRs).
 \end{enumerate}
 
-% \begin{genericbox}{Summary}[teal!60]
-% This project addresses a critical bottleneck in modern cryptographic protocols: the fundamental tension between the extreme efficiency required by advanced protocols, such as Zero-Knowledge Proofs and their resilience against mathematical and physical attacks.
-% The Center for Cryptography and Cybersecurity (CCS) at the IIT Hyderabad offers an outstanding environment for advancing research in these fields.
-% My research plan is closely aligned with the center’s core areas, including symmetric-key cryptography and cryptanalysis, and zero-knowledge proofs in blockchain.
-% My expertise in the design and cryptanalysis of symmetric-key primitives is uniquely suited to investigating these challenges.
-% \end{genericbox}
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Broader Impact}
+% ─────────────────────────────────────────────────────────────────────────────
+Beyond immediate academic contributions, the proposed research carries significant strategic and societal implications, particularly in establishing technological self-reliance and securing next-generation infrastructure against real-world threats.
+
+\begin{enumerate}[label=\textbf{I\arabic*.}, leftmargin=*, itemsep=2pt, start=1]
+    \item \textbf{Fostering Indigenous Cryptographic Capabilities for Advanced Protocols:}
+    As protocols like ZKPs and MPC become the backbone of next-generation digital public infrastructure, reliance on external or legacy cryptographic standards introduces strategic dependencies.
+    By successfully designing and rigorously evaluating a novel, indigenous MPC-friendly tweakable block cipher, this project directly contributes to national technological sovereignty and builds vital domestic expertise in cutting-edge cryptographic engineering.
+
+    \item \textbf{Securing Post-Quantum Digital Signatures Against Physical Exploits:}
+    The global transition to Post-Quantum Cryptography (PQC) is accelerating, with MPCitH-based digital signatures emerging as highly efficient candidates.
+    However, mathematical security guarantees are rendered void if the physical hardware executing these algorithms is compromised.
+    As these new signatures are deployed in physically accessible environments, such as smart cards, IoT devices, automotive systems, and cryptocurrency hardware wallets, they will inevitably face sophisticated side-channel and fault injection attacks.
+    By providing a systematic analysis against physical exploits, this research bridges a critical gap in current PQC deployment, ensuring real-world resilience.
+\end{enumerate}
+
+\begin{genericbox}{Summary}[teal!60]
+This project addresses a critical bottleneck in modern cryptographic engineering: the fundamental tension between the extreme efficiency required by advanced protocols, such as Zero-Knowledge Proofs and Multi-Party Computation, and their resilience against mathematical and physical attacks.
+The Center for Cryptography and Cybersecurity (CCS) at the IIT Hyderabad offers an outstanding environment for advancing research in these fields.
+My research plan is closely aligned with the center’s core areas, including symmetric-key cryptography and cryptanalysis, post-quantum cryptography (PQC), and zero-knowledge proofs in blockchain.
+My expertise in the design and cryptanalysis of symmetric-key primitives is uniquely suited to investigating these challenges.
+\end{genericbox}
 
 % \subsection{Challenges}
 % At the heart of all modern ZKP systems lies a shared foundational principle: how to represent computations as arithmetic circuits over finite fields, a process known as \emph{arithmetization}.
@@ -106,8 +131,9 @@ This will be achieved through a multi-pronged approach:
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Research Approach \& Feasibility}
 % ─────────────────────────────────────────────────────────────────────────────
-To ensure systematic progress, the research is organized into two progressive thrusts.
+To ensure systematic progress, the research is organized into three progressive thrusts.
 The project advances from short-term objectives that build upon established cryptanalytic techniques, toward long-term goals that require fundamentally new theoretical frameworks.
+The feasibility of this progression is firmly rooted in my core expertise and promising preliminary results.
 
 \subsection{Thrust~1 (Short-term): Cryptanalysis of Existing ZK-friendly Primitives}
 Recent years have seen a surge in the proposal of new primitives tailored for ZKPs, such as \tx~{MiMC}~\cite{DBLP:conf/asiacrypt/Albrecht0R0T16}, the \tx{Marvellous} family~\cite{DBLP:journals/tosc/AlyABDS20}, and \tx{Poseidon}~\cite{DBLP:conf/uss/0001KR0S21} to name a few.
@@ -119,7 +145,39 @@ This has led to many proposed constructions later failing to achieve their claim
 Currently, I am investigating the Gr\"obner basis attacks on the \tx{Polocolo} hash function~\cite{DBLP:journals/iacr/HaHLPS25}, designed for R1CS and PLONK-based proof systems.
 I am also exploring the possibility of applying FFT-based key recovery attacks that I have proposed in~\cite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} for \tx{AES}, on the ciphers defined over prime field ($\mathbb{F}_p^n$) such as \tx{AES-prime}~\cite{DBLP:conf/eurocrypt/MasureMMS23}, which was proposed for efficient use in MPC protocols.
 
-\subsection{Thrust~2 (Long-term): Fomalization of Design Criteria for ZK-friendly Primitives}
+\subsection{Thrust~2 (Medium-term): Design and Analysis of MPC-friendly Primitives}
+A key distinction of MPCitH post-quantum signature schemes is that their security relies solely on the underlying one-way function, providing an alternative hardness assumption for post-quantum cryptography.
+This approach avoids the reduction gaps found in schemes based on specific mathematical problems, making them generally more robust.
+While these signatures do not produce succinct proofs like SNARKs, they are highly efficient for small circuits, such as those used in digital signatures.
+Notably, 6 out of 14 second-round candidates in the 2023 NIST post-quantum competition employ such constructions.
+These schemes mainly differ in their choice of underlying one-way function.
+Options range from symmetric primitive-based functions to problems like syndrome decoding, subset sum, and multivariate quadratic equations.
+While most are built on well-studied security assumptions, their general performance lags behind symmetric primitive-based approaches, which thus attract significant interest.
+A challenge, however, is that standard symmetric primitives are not as efficient for this setting as the custom one-way functions designed for MPCitH.
+For example, the well-known \tx{Picnic} signature~\cite{DBLP:conf/ccs/ChaseDGORRSZ17} uses the MPC-friendly block cipher \tx{LowMC}~\cite{DBLP:conf/eurocrypt/AlbrechtR0TZ15}, which minimizes the number of \txf{AND} gates.
+Still, optimizing for efficiency presents new security challenges, as \tx{LowMC} has faced several devastating attacks.
+This has driven recent schemes, such as \tx{BBQ}~\cite{DBLP:conf/sacrypt/GuilhemMOS19}, \tx{Banquet}~\cite{DBLP:conf/pkc/BaumGKOSZ21}, and \tx{FAEST}~\cite{DBLP:conf/crypto/BaumBGKORS22}, to be based on standard primitives like \tx{AES}.
+However, in this context, attackers typically have access to only one plaintext-ciphertext pair, suggesting that tailored primitives could offer significant gains in signature size and performance, a key motivation for this project.
+Within this research, I will pursue two main directions:
+
+\subsubsection{Designing MPC-friendly Tweakable block ciphers.} 
+With block ciphers as the underlying one-way function, current approaches require changing the master key for every signature, making an MPC-friendly key schedule essential and increasing overhead in both efficiency and signature size. 
+Instead one can benefit from using a tweakable block cipher by changing only the tweak per signature.
+Since tweaks are public, their scheduling need not be MPC-friendly, enabling the adoption of more complex, non-linear algorithms.
+Our previous work on nested tweakey schedule for \tx{ChiChi}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} distinctly separate key and tweak scheduling, and I plan to extend this strategy to design new tweakable block ciphers optimized for such applications.
+
+This MPC-friendly design also enhances resilience against side-channel attacks through masking over groups of prime order.
+While Boolean masking is a common countermeasure, its effectiveness is often limited by practical challenges in maintaining sufficiently noisy leakages (especially for small embedded devices).
+Dziembowski et al.~\cite{DBLP:conf/tcc/DziembowskiFS16} demonstrated that masking over groups of prime order group can benefit from the mismatch between real-world leakage functions and the algebraic structure of the masking field.
+As a result, this field is now rapidly emerging, and we have recently seen several new constructions proposed~\cite{DBLP:conf/eurocrypt/MasureMMS23, DBLP:conf/eurocrypt/GrassiMMMS24}.
+
+\subsubsection{Physical Attacks.} 
+Ensuring resistance to physical attacks such as fault injection and side-channel leakage is critical, especially as these signature schemes are often implemented in hardware (e.g., cryptocurrency cold wallets).
+Recent work has revealed vulnerabilities in components used like polynomial commitment scheme~\cite{DBLP:conf/pqcrypto/GodardAGLM25,DBLP:journals/iacr/JendralD25} and one-way function~\cite{cryptoeprint:2025/1895}.
+However, this field of physical attacks has yet to be explored more deeply, especially for protocols utilizing MPC-friendly primitives, such as \txf{AIMer}~\cite{DBLP:conf/ccs/KimHSLMLLKCY023}, the winner of the Korean Post-Quantum Cryptography Competition.
+This line of research will identify the most vulnerable components within these protocols and guide the development of effective protection strategies using established countermeasures, such as masking or duplication.
+
+\subsection{Thrust~3 (Long-term): Fomalization of Design Criteria for ZK-friendly Primitives}
 The practical realization of ZKPs advanced significantly with the advent of zero-knowledge succinct non-interactive arguments of knowledge (zk-SNARKs), first introduced by Ben-Sasson et al.~\cite{DBLP:conf/uss/Ben-SassonCTV14} in 2013.
 Since then, the field has rapidly expanded to incorporate diverse zk-SNARK protocols, such as \txf{Pinocchio}~\cite{DBLP:journals/cacm/ParnoHG016}, \txf{Groth16}~\cite{DBLP:conf/eurocrypt/Groth16}, \txf{PLONK}~\cite{DBLP:journals/iacr/GabizonWC19}, and many others, as well as Zero-Knowledge Scalable Transparent Arguments of Knowledge (zk-STARKs)~\cite{DBLP:conf/crypto/Ben-SassonBHR19}.
 Notably, different ZKP frameworks use distinct algebraic models depending on their proof system and efficiency goals.
@@ -144,17 +202,25 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
       We will develop GPU-accelerated solvers for these equations, enabling fast and efficient cryptanalysis of ZK-friendly ciphers.
         An open-source library will be made available for reproducible and extensible cryptanalysis by the wider community.
 \end{enumerate}
-\subsection*{Thrust 2 — Formalization of Design Criteria}
+\subsection*{Thrust 2 — Design and Analysis of MPC-friendly Primitives}
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
+  \setcounter{enumi}{2} % Continues numbering from D2
+  \item \textbf{Novel MPC-friendly Tweakable Block Cipher.} 
+        The design, specification, and comprehensive security evaluation of a new tweakable block cipher optimized for MPC-in-the-Head (MPCitH) signature schemes and demonstrating concrete improvements in signature size and verification efficiency compared to AES-based or LowMC-based alternatives.
+        
+  \item \textbf{Vulnerability Reports and Countermeasure Guidelines for Physical Attacks.}
+        Detailed physical security evaluations (side-channel and fault injection) of hardware implementations for prominent MPCitH schemes (e.g., AIMer). Deliverables will include public vulnerability reports and a framework of effective protection strategies.
+\end{enumerate}
+
+\subsection*{Thrust 3 — Formalization of Design Criteria}
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
   \setcounter{enumi}{4} % Continues numbering from D4
   \item \textbf{Robust Design Guidelines for Arithmetization-Friendly Primitives.} 
-      Building on the cryptanalytic insights gained from Thrust 1, I aim to formalize the design criteria needed to balance efficiency and security across different ZKP frameworks.
-      This effort is intended to serve as a foundational guide, helping the broader cryptographic community better navigate these complex design trade-offs
+        A comprehensive formalization detailing the design criteria required to balance efficiency and security across different ZKP frameworks (e.g., R1CS for zk-SNARKs and AIRs for zk-STARKs). This will serve as a foundational manual for future cryptographic designers.
         
   \item \textbf{Theoretical Advancements in Algebraic Cryptanalysis.}
         Publication of refined theoretical methods for algebraic cryptanalysis, specifically improving the efficiency and applicability of Gr\"obner basis and resultant-based attacks on algebraically simple primitives. 
 \end{enumerate}
-
 
 \begin{figure}[htbp]
     \centering
@@ -169,10 +235,10 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
     % Adjust x and y scaling here to fit your document
     \begin{tikzpicture}[scale=0.8, x=0.6cm, y=0.7cm, font=\sffamily\footnotesize]
 
-        % 1. Draw Vertical Grid Lines (Height adjusted to 8.5)
-        \draw[gridgray, thin] (0, 0.5) -- (0, 8.5);
+        % 1. Draw Vertical Grid Lines
+        \draw[gridgray, thin] (0, 0.5) -- (0, 10.5);
         \foreach \i in {1,...,24} {
-            \draw[gridgray, thin] (\i, 0.5) -- (\i, 8.5);
+            \draw[gridgray, thin] (\i, 0.5) -- (\i, 10.5);
         }
 
         % 2. Draw X-axis Numbers (Months)
@@ -180,10 +246,12 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
             \node[anchor=north, text=textgray, font=\sffamily\scriptsize\bfseries] at (\i, 0.5) {\i};
         }
 
-        % 3. Draw the Outer Border (Height adjusted to 8.5)
-        \draw[gridgray, thick] (-9, 0.5) rectangle (24.5, 8.5);
+        % 3. Draw the Outer Border
+        \draw[gridgray, thick] (-9, 0.5) rectangle (24.5, 10.5);
 
         % 4. Define a macro for drawing tasks to keep the code clean
+        % Usage: \task{y-position}{Start Month}{End Month}{Color}{Task Name}
+        % Note: Month 1 starts at x=0 and ends at x=1.
         \newcommand{\task}[5]{
             % Task Label
             \node[anchor=east, text=textgray, font=\sffamily\scriptsize\bfseries] at (-0.2, #1) {#5};
@@ -191,20 +259,25 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
             \fill[#4] (#2, #1 - 0.2) rectangle (#3, #1 + 0.2);
         }
 
-        % 5. Add the Tasks (y-coordinates adjusted to 1 through 7)
-        
+        % 5. Add the Tasks (from bottom to top, matching your image style)
+        % y=1 is the bottom task, y=9 is the top task
+
         \task{1}{0}{3}{barorange}{Equipment Procurement}
         \task{2}{0}{4}{barorange}{Human Resource Hiring}
 
-        \task{3}{3}{10}{barpink}{Cryptanalysis Project Planning} % Expanded to month 10
+        \task{3}{3}{8}{barpink}{Cryptanalysis Project Planing}
 
-        \task{4}{8}{16}{barblue}{GPU-accelerated Solver} % Shifted/expanded to bridge the gap
+        \task{4}{6}{12}{barblue}{GPU-accelerated Solver}
 
         \task{5}{11}{12}{bargreen}{Mid Term Project Report}
 
-        \task{6}{15}{23}{barblue}{Formalization of Design Criteria} % Shifted earlier to cover Year 2
+        \task{6}{10}{17}{barblue}{Design of MPC-friendly Ciphers}
 
-        \task{7}{23}{24}{bargreen}{Final Project Report}
+        \task{7}{14}{21}{barblue}{Physical Attack Analysis}
+
+        \task{8}{17}{23}{barblue}{Formalization of Design Criteria}
+
+        \task{9}{23}{24}{bargreen}{Final Project Report}
 
     \end{tikzpicture}
 
@@ -213,11 +286,11 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
 \end{figure}
 
 
-
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Budget Allocation}
 % ─────────────────────────────────────────────────────────────────────────────
-The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully planned to meet the project’s specific computational, manpower, and dissemination requirements. Here is the detailed budget breakdown:
+The proposed budget of \textbf{Rs. 34.44 Lakhs} over 24 months is carefully planned to meet the project’s specific computational, hardware, manpower, and dissemination requirements.
+Here is the detailed budget breakdown:
 
 \begin{table}[htbp]
 \centering
@@ -227,46 +300,36 @@ The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully pla
 \textbf{Category} & \textbf{Description} & \textbf{Amount (Rs.)} \\
 \hline
 \textbf{Equipment}
-& \textbf{High-Performance Workstation:} \newline High-end Desktop Workstation (e.g., Dell Precision/HP Z series), top-tier multi-core processor (Intel Xeon/Core i9 or AMD Threadripper), 128GB RAM, 2TB NVMe SSD + 4TB HDD, and a high-compute GPU (e.g., NVIDIA RTX 4090 / A6000 class) dedicated to intensive SAT/MILP solvers and algebraic cryptanalysis. & 3,50,000 \\
+& \textbf{High-Performance Workstation:} \newline High-end Desktop Workstation (e.g., Dell Precision/HP Z series), top-tier multi-core processor (Intel Xeon/Core i9 or AMD Threadripper), 128GB RAM, 2TB NVMe SSD + 4TB HDD, and a high-compute GPU (e.g., NVIDIA RTX 4090 / A6000 class). & 3,50,000 \\
+& \textbf{Hardware Security Setup:} \newline Fault injection and side-channel analysis tools (e.g., ChipWhisperer hardware, Electromagnetic Fault Injection (EMFI) tools, high-speed oscilloscope, and FPGA evaluation boards). & 7,82,000 \\
 \cline{2-3}
-& \textit{Equipment Subtotal} & \textit{3,50,000} \\
+& \textit{Equipment Subtotal} & \textit{11,32,000} \\
 \hline
-\textbf{Manpower}
-& \textbf{Ph.D. Scholar Fellowship:} \newline Support for one Ph.D. student for 4 years (Rs. 42,000/month avg.). & 20,16,000 \\
-& \textbf{M.Tech Student Fellowship:} \newline Support for one M.Tech student for 3 years (Rs. 12,500/month avg.). & 4,50,000 \\
-\cline{2-3}
-& \textit{Manpower Subtotal} & \textit{24,66,000} \\
+\textbf{Manpower} & \textbf{Ph.D. Scholar Fellowship:} \newline Support for one Ph.D. student for up to four years (Rs. 36,000/month avg.). & 17,28,000 \\
 \hline
 \textbf{Travel} & Conference presentations, networking, and collaborative visits. & 4,00,000 \\
 \hline
-\textbf{Contingency} & Cloud compute credits (AWS/GCP), software licenses, maintenance, Minor Components, and Consumables. & 2,49,000 \\
+\textbf{Contingency} & Target microcontrollers, probing consumables, software licenses, maintenance, and open-access publication charges. & 2,00,000 \\
 \hline
-\textbf{Total} & & \textbf{34,65,000} \\
+\textbf{Total} & & \textbf{34,60,000} \\
 \hline
 \end{tabular}
 \caption{Detailed Breakdown of the Proposed Budget}
 \label{tab:budget}
 \end{table}
 
-\vspace{1em}
-\noindent\textbf{Justification of Budget Categories:}
+\begin{enumerate}[label=\textbf{C\arabic*.}, leftmargin=*, itemsep=4pt]
+  \item \textbf{Human Resource Development (Rs. 17.28 Lakhs):}
+        This allocation supports the fellowship of one Ph.D. student for four years. The researcher will be trained in the highly specialized intersection of symmetric-key cryptography, automated cryptanalysis, and hardware security, directly contributing to the project deliverables.
 
-\begin{enumerate}[label=\textbf{B\arabic*.}, leftmargin=*, itemsep=4pt]
-  \item \textbf{Human Resource Development (Rs. 24.66 Lakhs):}
-This allocation supports the fellowship of one Ph.D. student for four years and one M.Tech student for three years.
-Cultivating this talent pipeline is essential. 
-Both researchers will be trained in the highly specialized intersection of symmetric-key cryptography, zero-knowledge proofs, and automated cryptanalysis, directly driving the execution of the project deliverables.
-
-  \item \textbf{Computational Resources (Rs. 3.50 Lakhs):}
-The cryptanalysis of ZK-friendly ciphers requires solving massive systems of non-linear equations (e.g., Gr\"obner basis attacks) and running resource-heavy SAT/MILP automated solvers.
-This necessitates a high-end, GPU-accelerated desktop workstation with significant RAM.
+  \item \textbf{Computational \& Hardware Resources (Rs. 11.32 Lakhs):}
+        The cryptanalysis of ZK-friendly ciphers often requires solving massive systems of non-linear equations (Gr\"obner basis) and running resource-heavy automated solvers, necessitating a high-end, GPU-accelerated desktop workstation. Furthermore, to evaluate physical security (fault-injection and side-channel attacks), a dedicated hardware testing setup is required. This includes tools like high-speed oscilloscopes, Electromagnetic Fault Injection (EMFI) equipment, and FPGA boards to accurately mimic and attack real-world hardware deployments.
 
   \item \textbf{Travel and Dissemination (Rs. 4.00 Lakhs):}
-Allocated to promote outreach and collaboration.
-This travel budget will support the Principal Investigator and the students in presenting their findings at top-tier international cryptographic conferences (e.g., CRYPTO, EUROCRYPT, ASIACRYPT) and facilitate vital collaboration visits with global experts in ZKP primitives.
+        Allocated to promote outreach and collaboration. This will support the Principal Investigator and the Ph.D. student in presenting their findings at top-tier international cryptographic conferences (e.g., CRYPTO, EUROCRYPT, CHES, FSE) and facilitate collaboration visits with global experts in MPC and ZKP primitives.
 
-  \item \textbf{Contingency and Consumables (Rs. 1.49 Lakhs):}
-Reserved for supplementary cloud-computing credits (e.g., AWS/GCP instances) to seamlessly scale up GPU tests when on-premise hardware is saturated, as well as necessary software licenses, hardware maintenance, minor components, and consumables.
+  \item \textbf{Contingency and Consumables (Rs. 2.00 Lakhs):}
+        Reserved for day-to-day experimental consumables (such as target embedded boards, cables, and probing needles for physical attacks), software licenses, system maintenance, and open-access publication fees to ensure the research is freely accessible to the global community.
 \end{enumerate}
 
 
