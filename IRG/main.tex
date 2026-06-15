@@ -38,46 +38,47 @@ Web: \href{https://shibamcrs.github.io/}{https://shibamcrs.github.io/}
 \vspace{8pt}
 
 \section{Introduction}
-Zero-knowledge proofs (ZKPs), since their seminal introduction in 1985 by Goldwasser, Micali, and Rackoff~\cite{DBLP:conf/stoc/GoldwasserMR85}, have fundamentally transformed the landscape of cryptographic protocol design.
-ZKPs enable a prover to convince a verifier of possessing a witness $w$ such that $F(x; w) = y$, without revealing $w$.
+Zero-knowledge proofs (\cx{ZKP}s), since their seminal introduction in 1985 by Goldwasser, Micali, and Rackoff~\cite{DBLP:conf/stoc/GoldwasserMR85}, have fundamentally transformed the landscape of cryptographic protocol design.
+\cx{ZKP}s enable a prover to convince a verifier of possessing a witness $w$ such that $F(x; w) = y$, without revealing $w$.
 This remarkable property balances privacy and verifiability, enabling secure information exchange while keeping sensitive data confidential. 
 
 Traditionally, cryptography has focused primarily on protecting data confidentiality and integrity.
-By contrast, ZKPs shift the emphasis toward verifiable computation: they allow one to prove that a function was evaluated correctly without disclosing the underlying inputs.
+By contrast, \cx{ZKP}s shift the emphasis toward verifiable computation: they allow one to prove that a function was evaluated correctly without disclosing the underlying inputs.
 A critical challenge in advancing this domain is optimizing the underlying functions evaluated within these proof systems.
-Therefore, this research proposal focuses on the efficient zero-knowledge proof of computations involving symmetric-key cryptographic primitives, such as hash functions, block ciphers, and pseudorandom functions (PRFs).
+Therefore, this research proposal focuses on the efficient zero-knowledge proof of computations involving symmetric-key cryptographic primitives, such as hash functions, block ciphers, and pseudorandom functions (\cx{PRF}s).
 
 % ───────────────────────────────────────────────────────────────────────
 \subsection{Motivation and Application Landscape}
 % ───────────────────────────────────────────────────────────────────────
-The far-reaching implications of ZKPs have led to their widespread adoption across both academia and industry.
+The far-reaching implications of \cx{ZKP}s have led to their widespread adoption across both academia and industry.
 Their application domains are diverse and rapidly evolving, including blockchain privacy, decentralized ledger scalability, verifiable storage, and cross-chain interoperability. 
-In the financial and Web3 sectors, ZKPs are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which use zk-SNARKs to enable private blockchain transactions.
-Similarly, platforms like StarkWare~\cite{starkware} and zkSync~\cite{zksync} employ ZKPs to provide highly scalable layer-2 solutions on Ethereum~\cite{ethereum}, while Avail~\cite{avail} utilizes them to guarantee verifiable data availability.
-Beyond blockchain technology, ZKPs are increasingly recognized as critical components in electronic voting (Helios~\cite{helios}), privacy-preserving authentication (Microsoft Azure~\cite{azureprivacy}, Polygon ID~\cite{polygonid}, Google Wallet~\cite{googlewallet}), secure delegation of computation to untrusted servers, and privacy-enhanced machine learning.
+In the financial and Web3 sectors, \cx{ZKP}s are central to projects such as Zcash~\cite{zcash} and Aztec~\cite{aztec}, which use zk-SNARKs to enable private blockchain transactions.
+Similarly, platforms like StarkWare~\cite{starkware} and zkSync~\cite{zksync} employ \cx{ZKP}s to provide highly scalable layer-2 solutions on Ethereum~\cite{ethereum}, while Avail~\cite{avail} utilizes them to guarantee verifiable data availability.
+Beyond blockchain technology, \cx{ZKP}s are increasingly recognized as critical components in electronic voting (Helios~\cite{helios}), privacy-preserving authentication (Microsoft Azure~\cite{azureprivacy}, Polygon ID~\cite{polygonid}, Google Wallet~\cite{googlewallet}), secure delegation of computation to untrusted servers, and privacy-enhanced machine learning.
 
 % ───────────────────────────────────────────────────────────────────────
 \subsection{Problem Statement}
 % ───────────────────────────────────────────────────────────────────────
-Despite these rapid advances, significant gaps remain between the theoretical potential of ZKPs and their practical deployment.
+Despite these rapid advances, significant gaps remain between the theoretical potential of \cx{ZKP}s and their practical deployment.
 This is especially true where efficient proofs of computation involve symmetric primitives.
-For example, any ZKP that relies on Merkle proofs necessitates building complex hash function circuits within the proof system.
+For example, any \cx{ZKP} that relies on Merkle proofs necessitates building complex hash function circuits within the proof system.
 This requirement is the primary bottleneck for rollup-based blockchain scalability solutions, which must constantly prove the correctness of Merkleized state updates.
-However, mainstream primitives like \tx{AES} and \tx{SHA-3} were not designed for such proof systems.
+However, mainstream primitives like \cx{AES} and \cx{SHA}-3 were not designed for such proof systems.
 Their internal structures lead to highly inefficient circuit representations, resulting in severe performance overheads.
-Because ZKP systems prioritize algebraic simplicity over traditional software or hardware efficiency metrics, there is a rapidly growing demand for novel, ``ZK-friendly'' symmetric-key primitives.
-Yet, designing ZK-friendly ciphers are inherently risky, as their simplified algebraic structures often expose them to algebraic cryptanalysis.
+Because \cx{ZKP} systems prioritize algebraic simplicity over traditional software or hardware efficiency metrics, there is a rapidly growing demand for novel, ``\cx{ZK}-friendly'' symmetric-key primitives.
+Yet, designing such primitives are inherently risky, as their simplified algebraic structures often expose them to algebraic cryptanalysis.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \subsection{Research Objectives}
 % ─────────────────────────────────────────────────────────────────────────────
 This research project aims to resolve the fundamental tension between security and efficiency in symmetric-key primitives designed for advanced cryptographic protocols.
-The core objective is to systematically investigate, design, and formalize secure primitives tailored for ZKP systems.
+The core objective is to systematically investigate, design, and formalize secure primitives tailored for \cx{ZKP} systems.
 This will be achieved through a multi-pronged approach:
 
 \begin{enumerate}[label=\textbf{O\arabic*.}, leftmargin=*, itemsep=2pt, start=1]
-    \item \textbf{Cryptanalysis:} Rigorously evaluate existing ZKP-friendly designs (e.g., MiMC, Poseidon, Polocolo) using advanced algebraic methods, including Gr\"obner basis and novel FFT-based attacks, to expose their security weaknesses.
-    \item \textbf{Formalization:} Develop a comprehensive theoretical framework and robust design guidelines for ``ZK-friendly'' primitives, ensuring their security and compatibility across diverse ZKP systems (e.g., R1CS, AIRs).
+    \item \textbf{Cryptanalysis:} Rigorously evaluate existing \cx{ZK}-friendly designs (e.g., MiMC, Poseidon, Polocolo) using advanced algebraic methods, including Gr\"obner basis, resultant-based attacks, and novel FFT-based attacks, to analyze their security weaknesses.
+
+    \item \textbf{Formalization:} Develop a comprehensive theoretical framework and robust design guidelines for ``\cx{ZK}-friendly'' primitives, ensuring their security and compatibility across diverse \cx{ZKP} systems (e.g., R1CS, AIRs).
 \end{enumerate}
 
 % \begin{genericbox}{Summary}[teal!60]
@@ -109,20 +110,20 @@ This will be achieved through a multi-pronged approach:
 To ensure systematic progress, the research is organized into two progressive thrusts.
 The project advances from short-term objectives that build upon established cryptanalytic techniques, toward long-term goals that require fundamentally new theoretical frameworks.
 
-\subsection{Thrust~1 (Short-term): Cryptanalysis of Existing ZK-friendly Primitives}
-Recent years have seen a surge in the proposal of new primitives tailored for ZKPs, such as \tx~{MiMC}~\cite{DBLP:conf/asiacrypt/Albrecht0R0T16}, the \tx{Marvellous} family~\cite{DBLP:journals/tosc/AlyABDS20}, and \tx{Poseidon}~\cite{DBLP:conf/uss/0001KR0S21} to name a few.
+\subsection{Thrust~1 (Short-term): Cryptanalysis of Existing \cx{ZK}-friendly Primitives}
+Recent years have seen a surge in the proposal of new primitives tailored for \cx{ZKP}s, such as \cx~{MiMC}~\cite{DBLP:conf/asiacrypt/Albrecht0R0T16}, the \cx{Marvellous} family~\cite{DBLP:journals/tosc/AlyABDS20}, \cx{Poseidon}~\cite{DBLP:conf/uss/0001KR0S21} and \cx{Polocolo}~\cite{DBLP:journals/iacr/HaHLPS25}, to name a few.
 The trend towards algebraic simplicity in those design significantly alters the cryptanalytic landscape.
 Classical statistical attacks, such as differential and linear cryptanalysis, become less effective due to the flexibility of field sizes and rapid mixing with few rounds.
 Instead, as the algebraic representation of these ciphers becomes more concise, their susceptibility to algebraic attacks such as interpolation, GCD attacks, and, most critically, Gröbner basis methods grows.
 Notably, features that aid efficient proof generation (concise polynomial systems) simultaneously assist algebraic attack algorithms, creating a fundamental tension in balancing efficiency and security.
 This has led to many proposed constructions later failing to achieve their claimed security, highlighting the need for more extensive cryptanalysis in this area.
 Currently, I am investigating the Gr\"obner basis attacks on the \tx{Polocolo} hash function~\cite{DBLP:journals/iacr/HaHLPS25}, designed for R1CS and PLONK-based proof systems.
-I am also exploring the possibility of applying FFT-based key recovery attacks that I have proposed in~\cite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} for \tx{AES}, on the ciphers defined over prime field ($\mathbb{F}_p^n$) such as \tx{AES-prime}~\cite{DBLP:conf/eurocrypt/MasureMMS23}, which was proposed for efficient use in MPC protocols.
+I am also exploring the possibility of applying FFT-based key recovery attacks that I have proposed in~\cite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} for \cx{AES}, on the ciphers defined over prime field ($\mathbb{F}_p^n$) such as \cx{AES-prime}~\cite{DBLP:conf/eurocrypt/MasureMMS23}, which was proposed for efficient use in MPC protocols.
 
-\subsection{Thrust~2 (Long-term): Fomalization of Design Criteria for ZK-friendly Primitives}
-The practical realization of ZKPs advanced significantly with the advent of zero-knowledge succinct non-interactive arguments of knowledge (zk-SNARKs), first introduced by Ben-Sasson et al.~\cite{DBLP:conf/uss/Ben-SassonCTV14} in 2013.
+\subsection{Thrust~2 (Long-term): Fomalization of Design Criteria for \cx{ZK}-friendly Primitives}
+The practical realization of \cx{ZKP}s advanced significantly with the advent of zero-knowledge succinct non-interactive arguments of knowledge (zk-SNARKs), first introduced by Ben-Sasson et al.~\cite{DBLP:conf/uss/Ben-SassonCTV14} in 2013.
 Since then, the field has rapidly expanded to incorporate diverse zk-SNARK protocols, such as \txf{Pinocchio}~\cite{DBLP:journals/cacm/ParnoHG016}, \txf{Groth16}~\cite{DBLP:conf/eurocrypt/Groth16}, \txf{PLONK}~\cite{DBLP:journals/iacr/GabizonWC19}, and many others, as well as Zero-Knowledge Scalable Transparent Arguments of Knowledge (zk-STARKs)~\cite{DBLP:conf/crypto/Ben-SassonBHR19}.
-Notably, different ZKP frameworks use distinct algebraic models depending on their proof system and efficiency goals.
+Notably, different \cx{ZKP} frameworks use distinct algebraic models depending on their proof system and efficiency goals.
 For example, zk-SNARKs typically employ Rank-1 Constraint Systems (R1CS) with Quadratic Arithmetic Programs (QAPs), while zk-STARKs utilize Algebraic Intermediate Representations (AIRs).
 Each framework presents unique trade-offs in proof size, verification speed, trust assumptions, and compatibility with various types of symmetric-key primitives.
 My long-term objective is to develop a comprehensive formalization of the fundamental principles underpinning these frameworks and to articulate robust design guidelines for arithmetization-friendly primitives.
@@ -140,15 +141,15 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
         Published attacks in terms of finding new distinguishers and key-recovery results on at least two of the target ciphers, targeting publication at CRYPTO, EUROCRYPT, ASIACRYPT, or IACR ToSC.
 
   \item \textbf{High performance cryptanalysis using GPU.}
-      Cryptanalysis of ZK-friendly block ciphers often required solving system of non-linear equations over large finite fields.
-      We will develop GPU-accelerated solvers for these equations, enabling fast and efficient cryptanalysis of ZK-friendly ciphers.
+      Cryptanalysis of \cx{ZK}-friendly block ciphers often required solving system of non-linear equations over large finite fields.
+      We will develop GPU-accelerated solvers for these equations, enabling fast and efficient cryptanalysis of \cx{ZK}-friendly ciphers.
         An open-source library will be made available for reproducible and extensible cryptanalysis by the wider community.
 \end{enumerate}
 \subsection*{Thrust 2 — Formalization of Design Criteria}
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
   \setcounter{enumi}{4} % Continues numbering from D4
   \item \textbf{Robust Design Guidelines for Arithmetization-Friendly Primitives.} 
-      Building on the cryptanalytic insights gained from Thrust 1, I aim to formalize the design criteria needed to balance efficiency and security across different ZKP frameworks.
+      Building on the cryptanalytic insights gained from Thrust 1, I aim to formalize the design criteria needed to balance efficiency and security across different \cx{ZKP} frameworks.
       This effort is intended to serve as a foundational guide, helping the broader cryptographic community better navigate these complex design trade-offs
         
   \item \textbf{Theoretical Advancements in Algebraic Cryptanalysis.}
@@ -217,7 +218,7 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Budget Allocation}
 % ─────────────────────────────────────────────────────────────────────────────
-The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully planned to meet the project’s specific computational, manpower, and dissemination requirements. Here is the detailed budget breakdown:
+The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully planned to meet the project’s specific computational, manpower, and dissemination requirements. Here is the detailed budget breakdown given in~\cref{tab:budget}.
 
 \begin{table}[htbp]
 \centering
@@ -227,9 +228,9 @@ The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully pla
 \textbf{Category} & \textbf{Description} & \textbf{Amount (Rs.)} \\
 \hline
 \textbf{Equipment}
-& \textbf{High-Performance Workstation:} \newline High-end Desktop Workstation (e.g., Dell Precision/HP Z series), top-tier multi-core processor (Intel Xeon/Core i9 or AMD Threadripper), 128GB RAM, 2TB NVMe SSD + 4TB HDD, and a high-compute GPU (e.g., NVIDIA RTX 4090 / A6000 class) dedicated to intensive SAT/MILP solvers and algebraic cryptanalysis. & 3,50,000 \\
+& \textbf{High-Performance Workstation:} \newline High-end Desktop Workstation (e.g., Dell Precision/HP Z series), top-tier multi-core processor (Intel Xeon/Core i9 or AMD Threadripper), 128GB RAM, 2TB NVMe SSD + 4TB HDD, and a high-compute GPU (e.g., NVIDIA RTX 4090 / A6000 class) dedicated to intensive SAT/MILP solvers and algebraic cryptanalysis. & 2,50,000 \\
 \cline{2-3}
-& \textit{Equipment Subtotal} & \textit{3,50,000} \\
+& \textit{Equipment Subtotal} & \textit{2,50,000} \\
 \hline
 \textbf{Manpower}
 & \textbf{Ph.D. Scholar Fellowship:} \newline Support for one Ph.D. student for 4 years (Rs. 42,000/month avg.). & 20,16,000 \\
@@ -237,7 +238,7 @@ The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully pla
 \cline{2-3}
 & \textit{Manpower Subtotal} & \textit{24,66,000} \\
 \hline
-\textbf{Travel} & Conference presentations, networking, and collaborative visits. & 4,00,000 \\
+\textbf{Travel} & Conference presentations, networking, and collaborative visits. & 5,00,000 \\
 \hline
 \textbf{Contingency} & Cloud compute credits (AWS/GCP), software licenses, maintenance, Minor Components, and Consumables. & 2,49,000 \\
 \hline
@@ -248,26 +249,26 @@ The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully pla
 \label{tab:budget}
 \end{table}
 
-\vspace{1em}
-\noindent\textbf{Justification of Budget Categories:}
+% \vspace{1em}
+% \noindent\textbf{Justification of Budget Categories:}
 
-\begin{enumerate}[label=\textbf{B\arabic*.}, leftmargin=*, itemsep=4pt]
-  \item \textbf{Human Resource Development (Rs. 24.66 Lakhs):}
-This allocation supports the fellowship of one Ph.D. student for four years and one M.Tech student for three years.
-Cultivating this talent pipeline is essential. 
-Both researchers will be trained in the highly specialized intersection of symmetric-key cryptography, zero-knowledge proofs, and automated cryptanalysis, directly driving the execution of the project deliverables.
+% \begin{enumerate}[label=\textbf{B\arabic*.}, leftmargin=*, itemsep=4pt]
+%   \item \textbf{Human Resource Development (Rs. 24.66 Lakhs):}
+% This allocation supports the fellowship of one Ph.D. student for four years and one M.Tech student for three years.
+% Cultivating this talent pipeline is essential. 
+% Both researchers will be trained in the highly specialized intersection of symmetric-key cryptography, zero-knowledge proofs, and automated cryptanalysis, directly driving the execution of the project deliverables.
 
-  \item \textbf{Computational Resources (Rs. 3.50 Lakhs):}
-The cryptanalysis of ZK-friendly ciphers requires solving massive systems of non-linear equations (e.g., Gr\"obner basis attacks) and running resource-heavy SAT/MILP automated solvers.
-This necessitates a high-end, GPU-accelerated desktop workstation with significant RAM.
+%   \item \textbf{Computational Resources (Rs. 3.50 Lakhs):}
+%       The cryptanalysis of \cx{ZK}-friendly primitives requires solving massive systems of non-linear equations (e.g., Gr\"obner basis attacks) and running resource-heavy SAT/MILP automated solvers.
+% This necessitates a high-end, GPU-accelerated desktop workstation with significant RAM.
 
-  \item \textbf{Travel and Dissemination (Rs. 4.00 Lakhs):}
-Allocated to promote outreach and collaboration.
-This travel budget will support the Principal Investigator and the students in presenting their findings at top-tier international cryptographic conferences (e.g., CRYPTO, EUROCRYPT, ASIACRYPT) and facilitate vital collaboration visits with global experts in ZKP primitives.
+%   \item \textbf{Travel and Dissemination (Rs. 4.00 Lakhs):}
+% Allocated to promote outreach and collaboration.
+% This travel budget will support the Principal Investigator and the students in presenting their findings at top-tier international cryptographic conferences (e.g., CRYPTO, EUROCRYPT, ASIACRYPT) and facilitate vital collaboration visits with global experts in \cx{ZKP} primitives.
 
-  \item \textbf{Contingency and Consumables (Rs. 1.49 Lakhs):}
-Reserved for supplementary cloud-computing credits (e.g., AWS/GCP instances) to seamlessly scale up GPU tests when on-premise hardware is saturated, as well as necessary software licenses, hardware maintenance, minor components, and consumables.
-\end{enumerate}
+%   \item \textbf{Contingency and Consumables (Rs. 1.49 Lakhs):}
+% Reserved for supplementary cloud-computing credits (e.g., AWS/GCP instances) to seamlessly scale up GPU tests when on-premise hardware is saturated, as well as necessary software licenses, hardware maintenance, minor components, and consumables.
+% \end{enumerate}
 
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -277,7 +278,7 @@ This project is dedicated to the design and analysis of symmetric primitives tai
 Addressing these specialized requirements presents both opportunities and challenges for cryptography research.
 Through this research, I aim to advance both the theoretical foundations and the practical deployment of tailored primitives, bridging the gap between robust security guarantees and computational efficiency.
 The resulting analysis and frameworks will directly support the standardisation community by providing the rigorous cryptanalytic evidence and clear metrics for technical evaluation.
-% \pagebreak
+\pagebreak
 \bibliographystyle{alpha}
 \bibliography{../bibliography.bib,../myPublications.bib}
 \end{document}
