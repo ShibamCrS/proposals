@@ -23,7 +23,7 @@
     bottom=6pt
 ]
 \centering
-{\LARGE \textbf{SPERK: Symmetric Primitives with Efficient Zero-Knowledge Proofs}}\\[6pt]
+{\LARGE \textbf{SPERK: Symmetric Primitives with Efficient zero-Knowledge proofs}}\\[6pt]
 
 {\large \textbf{Principal Investigator: Shibam Ghosh}}\\
 {\large \textbf{Position: Assistant Professor}}\\ 
@@ -81,12 +81,13 @@ This will be achieved through a multi-pronged approach:
     \item \textbf{Formalization:} Develop a comprehensive theoretical framework and robust design guidelines for ``\cx{ZK}-friendly'' primitives, ensuring their security and compatibility across diverse \cx{ZKP} systems (e.g., R1CS, AIRs).
 \end{enumerate}
 
-% \begin{genericbox}{Summary}[teal!60]
-% This project addresses a critical bottleneck in modern cryptographic protocols: the fundamental tension between the extreme efficiency required by advanced protocols, such as Zero-Knowledge Proofs and their resilience against mathematical and physical attacks.
-% The Center for Cryptography and Cybersecurity (CCS) at the IIT Hyderabad offers an outstanding environment for advancing research in these fields.
-% My research plan is closely aligned with the center’s core areas, including symmetric-key cryptography and cryptanalysis, and zero-knowledge proofs in blockchain.
-% My expertise in the design and cryptanalysis of symmetric-key primitives is uniquely suited to investigating these challenges.
-% \end{genericbox}
+
+\begin{genericbox}{Summary}[teal!60]
+This project aims to develop symmetric-key primitives that are both highly efficient for advanced cryptographic protocols, such as Zero-Knowledge Proofs, and resilient against cryptanalytic attacks.
+The Center for Cryptography and Cybersecurity (CCS) at the IIT Hyderabad offers an outstanding environment for advancing research in these fields.
+My research plan is closely aligned with the center’s core areas, including symmetric-key cryptography and cryptanalysis, and \cx{ZKP}s for blockchains.
+My expertise in the design and analysis of symmetric-key primitives is well-suited to investigate these challenges.
+\end{genericbox}
 
 % \subsection{Challenges}
 % At the heart of all modern ZKP systems lies a shared foundational principle: how to represent computations as arithmetic circuits over finite fields, a process known as \emph{arithmetization}.
@@ -148,14 +149,20 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
 \subsection*{Thrust 2 — Formalization of Design Criteria}
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
   \setcounter{enumi}{4} % Continues numbering from D4
-  \item \textbf{Robust Design Guidelines for Arithmetization-Friendly Primitives.} 
+  \item \textbf{Design Guidelines for \cx{ZK}-Friendly Primitives.} 
       Building on the cryptanalytic insights gained from Thrust 1, I aim to formalize the design criteria needed to balance efficiency and security across different \cx{ZKP} frameworks.
-      This effort is intended to serve as a foundational guide, helping the broader cryptographic community better navigate these complex design trade-offs
+      This is intended to serve as a foundational guide, helping the broader cryptographic community better navigate these complex design trade-offs.
         
   \item \textbf{Theoretical Advancements in Algebraic Cryptanalysis.}
         Publication of refined theoretical methods for algebraic cryptanalysis, specifically improving the efficiency and applicability of Gr\"obner basis and resultant-based attacks on algebraically simple primitives. 
 \end{enumerate}
 
+\subsection*{Training and Capacity Building}
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=7]
+  \item \textbf{Human resource development.}
+        Rigorous training and mentorship of one Ph.D. scholar and two M.Tech. students at the highly specialized intersection of symmetric-key cryptography, advanced protocols, and automated cryptanalysis.
+        Graduates equipped with these skill sets are currently in high demand across both academia and the industry.
+\end{enumerate}
 
 \begin{figure}[htbp]
     \centering
@@ -218,36 +225,108 @@ The anticipated schedule mapping these tasks and milestones across the 24-month 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Budget Allocation}
 % ─────────────────────────────────────────────────────────────────────────────
-The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully planned to meet the project’s specific computational, manpower, and dissemination requirements. Here is the detailed budget breakdown given in~\cref{tab:budget}.
+The proposed budget of \textbf{Rs. 35.86 Lakhs} over a period of two years is carefully structured to meet the project's specific manpower, equipment, and dissemination requirements.
+Heavy computational infrastructure, such as multi-GPU servers for running SAT/MILP solvers and algebraic cryptanalysis, is either already available or can be provisioned on-demand through the \textbf{Center for Cryptography and Cybersecurity (CCS)} at \textbf{IIT Hyderabad}.
+Consequently, the requested equipment budget focuses exclusively on high-performance portable client machines necessary for the research team to conduct algorithm design, code development, debugging, and daily analytical tasks. The detailed financial breakdown is provided in~\cref{tab:budget}.
 
 \begin{table}[htbp]
-\centering
+    \centering
+    
+    % ==========================
+    % 1. THE TABLE PART
+    % ==========================
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{@{} l p{9.5cm} r @{}}
+
+\begin{tabular}{@{} l p{10cm} r @{}}
 \hline
 \textbf{Category} & \textbf{Description} & \textbf{Amount (Rs.)} \\
 \hline
 \textbf{Equipment}
-& \textbf{High-Performance Workstation:} \newline High-end Desktop Workstation (e.g., Dell Precision/HP Z series), top-tier multi-core processor (Intel Xeon/Core i9 or AMD Threadripper), 128GB RAM, 2TB NVMe SSD + 4TB HDD, and a high-compute GPU (e.g., NVIDIA RTX 4090 / A6000 class) dedicated to intensive SAT/MILP solvers and algebraic cryptanalysis. & 2,50,000 \\
+& \textbf{High-Performance Portable Workstation:} \newline 1 $\times$ Apple MacBook Pro (M5 Pro/Max chip) with 32GB+ unified memory. Required for advanced prototyping, local code compilation, and running localized solver benchmarks. & 3,90,800 \\
+& \textbf{GPU-Accelerated Portable Workstation:} \newline 1 $\times$ High-Performance AMD Laptop (e.g., ASUS ROG Strix SCAR 17 or Lenovo Legion Pro, featuring AMD Ryzen 9 7945HX, 32GB RAM, and NVIDIA RTX 4080/4090 GPU). Assigned to the research scholars for GPU-accelerated cryptanalysis, heavy solver execution, and algorithm design. & 3,00,000 \\
 \cline{2-3}
-& \textit{Equipment Subtotal} & \textit{2,50,000} \\
+& \textit{Equipment Subtotal} & \textit{6,90,800} \\
 \hline
 \textbf{Manpower}
-& \textbf{Ph.D. Scholar Fellowship:} \newline Support for one Ph.D. student for 4 years (Rs. 42,000/month avg.). & 20,16,000 \\
-& \textbf{M.Tech Student Fellowship:} \newline Support for one M.Tech student for 3 years (Rs. 12,500/month avg.). & 4,50,000 \\
+& \textbf{Ph.D. Scholar Fellowship (1 Student):} \newline Support for one Ph.D. student for up to 3 years (Rs. 37,000/month + HRA for the first two years and Rs. 42,000/month + HRA for the last year). & 11,16,000 \\
+& \textbf{M.Tech Student Fellowships (2 Students):} \newline Support for two M.Tech students for 3 years (Rs. 15,000/month/student). & 10,80,000 \\
 \cline{2-3}
-& \textit{Manpower Subtotal} & \textit{24,66,000} \\
+& \textit{Manpower Subtotal} & \textit{21,96,000} \\
 \hline
-\textbf{Travel} & Conference presentations, networking, and collaborative visits. & 5,00,000 \\
+\textbf{Travel} & Conference presentations, networking, and collaborative visits to disseminate research outcomes at top-tier venues. & 4,00,000 \\
 \hline
-\textbf{Contingency} & Cloud compute credits (AWS/GCP), software licenses, maintenance, Minor Components, and Consumables. & 2,49,000 \\
+\textbf{Contingency} & Cloud compute credits (AWS/GCP), software licenses, system maintenance, minor electronic components, and lab setup. & 3,00,000 \\
 \hline
-\textbf{Total} & & \textbf{34,65,000} \\
+\textbf{Total} & & \textbf{35,86,800} \\
 \hline
 \end{tabular}
+
+% \begin{tabular}{@{} l p{10cm} r @{}}
+% \hline
+% \textbf{Category} & \textbf{Description} & \textbf{Amount (Rs.)} \\
+% \hline
+% \textbf{Equipment}
+% & \textbf{High-Performance Portable Workstation:} \newline 1 $\times$ Apple MacBook Pro (M5 Pro/Max chip) with 32GB+ unified memory. Required for advanced prototyping, local code compilation, and running localized solver benchmarks. & 3,09,900 \\
+% & \textbf{Standard Portable Client:} \newline 1 $\times$ Apple MacBook Air 13'' (M5) with 16GB unified memory. Assigned to the research scholar for daily algorithm design, literature review, and software development. & 1,19,000 \\
+% \cline{2-3}
+% & \textit{Equipment Subtotal} & \textit{4,28,900} \\
+% \hline
+% \textbf{Manpower}
+% & \textbf{Ph.D. Scholar Fellowships (2 Students):} \newline Support for two Ph.D. students for up to 3 years (Rs. 37,000/month + HRA for the first two years and Rs. 42,000/month + HRA for the last year). & 22,32,000 \\
+% & \textbf{M.Tech Student Fellowship (1 Student):} \newline Support for one M.Tech student for 3 years (Rs. 14,000/month avg.). & 5,04,000 \\
+% \cline{2-3}
+% & \textit{Manpower Subtotal} & \textit{27,36,000} \\
+% \hline
+% \textbf{Travel} & Conference presentations, networking, and collaborative visits to disseminate research outcomes at top-tier venues. & 3,50,000 \\
+% \hline
+% \textbf{Contingency} & Cloud compute credits (AWS/GCP), software licenses, system maintenance, minor electronic components, and open-access publication processing charges (APCs). & 1,65,100 \\
+% \hline
+% \textbf{Total} & & \textbf{36,80,000} \\
+% \hline
+% \end{tabular}
 \caption{Detailed Breakdown of the Proposed Budget}
 \label{tab:budget}
+    % ==========================
+    % 2. THE FIGURE PART
+    % ==========================
+    % \includegraphics[width=\linewidth]{gpu_indiai.png} 
+    % \caption{GPU pricing information available at \url{https://compute.indiaai.gov.in/indiaaipricecalculator}}
+    % \label{fig:pricing}
+
 \end{table}
+
+
+% \begin{tabular}{@{} l p{10cm} r @{}}
+%     \hline
+%     \textbf{Category} & \textbf{Description} & \textbf{Amount (Rs.)} \\
+%     \hline
+%     \textbf{Equipment}
+%     & \textbf{Fixed Workstation 1:} Top-tier multi-core processor (e.g., Intel Core i9 or AMD Ryzen 9), 64GB RAM, 1TB NVMe SSD + 2TB HDD, and a capable mid-to-high tier GPU (e.g., NVIDIA RTX 4080 or RTX 4070 Ti) dedicated to prototyping and profiling intensive solvers for algebraic cryptanalysis. & 3,50,000 \\ 
+%     & \textbf{Fixed Workstation 2:} Top-tier multi-core processor (e.g., Intel Core i9 or AMD Ryzen 9), 64GB RAM, 1TB NVMe SSD + 2TB HDD, and a capable mid-to-high tier GPU (e.g., NVIDIA RTX 4080 or RTX 4070 Ti) dedicated to prototyping and profiling intensive solvers for algebraic cryptanalysis. & 3,50,000 \\ 
+
+%     & \textbf{On Demand GPU:} \newline A100 40GB, GPU Hours: 1000, Pricing model: On Demand, Quantity: 2, GPU Card/Instance: 4, Storage Instance: 4TB (Based on the pricing information available at \url{https://compute.indiaai.gov.in/indiaaipricecalculator}, given in~\cref{fig:pricing}).
+%     & 10,97,011 \\
+%     & \textbf{Portable Client:} Apple MacBook Air 13'' (M4) with 10-core CPU/GPU, 16GB unified memory, and 512GB SSD. & 1,19,000 \\
+%     \cline{2-3}
+%     & \textit{Equipment Subtotal} & \textit{15,66,011} \\
+%     \hline
+%     \textbf{Manpower}
+%     & \textbf{Ph.D. Scholar Fellowship:} Support for one Ph.D. student for up to 3 years (Rs. 37,000/month + HRA for the first two years and Rs. 42,000/month + HRA for the last year). & 11,16,000 \\
+%     & \textbf{M.Tech Student Fellowship:} Support for one M.Tech student for 3 years (Rs. 12,500/month avg.). & 4,50,000 \\
+%     \cline{2-3}
+%     & \textit{Manpower Subtotal} & \textit{15,66,000} \\
+%     \hline
+%     \textbf{Travel} & Conference presentations, networking, and visits. & 4,00,000 \\
+%     \hline
+%     \textbf{Contingency} & Cloud compute credits (AWS/GCP), software licenses, maintenance, minor components, lab setup, and consumables. & 1,47,989 \\
+%     \hline
+%     \textbf{Total} & & \textbf{36,80,000} \\
+%     \hline
+%     \end{tabular}
+    
+%     % Use \captionof so it is numbered as a Table, not a Figure
+%     \captionof{table}{Detailed Breakdown of the Proposed Budget}
+%     \label{tab:budget}
 
 % \vspace{1em}
 % \noindent\textbf{Justification of Budget Categories:}
@@ -270,7 +349,6 @@ The proposed budget of \textbf{Rs. 34.65 Lakhs} over four years is carefully pla
 % Reserved for supplementary cloud-computing credits (e.g., AWS/GCP instances) to seamlessly scale up GPU tests when on-premise hardware is saturated, as well as necessary software licenses, hardware maintenance, minor components, and consumables.
 % \end{enumerate}
 
-
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
 % ─────────────────────────────────────────────────────────────────────────────
@@ -278,6 +356,9 @@ This project is dedicated to the design and analysis of symmetric primitives tai
 Addressing these specialized requirements presents both opportunities and challenges for cryptography research.
 Through this research, I aim to advance both the theoretical foundations and the practical deployment of tailored primitives, bridging the gap between robust security guarantees and computational efficiency.
 The resulting analysis and frameworks will directly support the standardisation community by providing the rigorous cryptanalytic evidence and clear metrics for technical evaluation.
+
+
+
 \pagebreak
 \bibliographystyle{alpha}
 \bibliography{../bibliography.bib,../myPublications.bib}
