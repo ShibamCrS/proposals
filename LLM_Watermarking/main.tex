@@ -1,0 +1,104 @@
+\input{../meta.tex}
+\newcommand{\soptitle}{Cryptographically Secure Audio Watermarking}
+
+\title{\sffamily\bfseries\Large\textcolor{theme}{\soptitle}}\par
+\author{
+	Shibam Ghosh\textsuperscript{1}\\[1ex]
+	\normalsize \textsuperscript{1}Indian Institute of Technology Hyderabad 
+}
+
+\date{} % Leave empty to hide the date, or remove this line
+
+\begin{document}
+	% ---------- Title Box ----------
+	\begin{tcolorbox}[
+		colback=headerbg,
+		colframe=headerbg,
+		boxrule=0pt,
+		width=\textwidth,
+		arc=0mm,
+		left=6pt,
+		right=6pt,
+		top=6pt,
+		bottom=6pt
+		]
+		\centering
+		{\LARGE \textbf{Cryptographically Secure Audio Watermarking}}\\[6pt]
+		
+		{\large \textbf{Principal Investigator: Shibam Ghosh}}\\
+		{\large \textbf{Position: Assistant Professor}}\\ 
+		%{\large \textbf{Joining Date: 27th May, 2026}}\\ 
+		{\large Department of Computer Science and Engineering}\\[4pt]
+		
+		Email: \href{mailto:shibam@cse.iith.ac.in}{shibam@cse.iith.ac.in}
+		\;|\;
+		Web: \href{https://shibamcrs.github.io/}{https://shibamcrs.github.io/}
+	\end{tcolorbox}
+	
+	\vspace{8pt}
+	
+	\section{Introduction}
+	Generative audio models now synthesize speech and music at fidelities indistinguishable from authentic recordings, escalating the need for verifiable provenance and copyright attribution. Digital watermarking embeds verifiable signals directly into media during generation. While systems like SynthID successfully integrate generation-time watermarks robust to benign processing~\cite{Dathathri2024SynthID}, their underlying cryptographic constructions for audio remain proprietary. This project investigates an audio watermarking architecture whose security is explicitly grounded in formal cryptographic primitives rather than proprietary or model-dependent designs.
+	
+	% ───────────────────────────────────────────────────────────────────────
+	\subsection{Motivation and Application Landscape}
+	% ───────────────────────────────────────────────────────────────────────
+	Provenance frameworks like C2PA provide cryptographically verifiable chains of origin via signed manifests~\cite{C2PA2025}. However, these cryptographic ``hard bindings'' rely on ecosystems preserving structural metadata. Signal-level watermarks provide complementary ``soft bindings'', carrying provenance data within the perceptual audio to ensure persistence across analog channels and format discontinuities where metadata is lost.
+	
+	Existing neural audio watermarks, such as XAttnMark~\cite{Liu2025XAttn}, achieve strong imperceptibility and robustness using cross-attention mechanisms. Yet, anchoring security to learned models introduces substantial computational latency, massive storage costs, and complex version-management overhead during deployment.
+	
+	% ───────────────────────────────────────────────────────────────────────
+	\subsection{Problem Statement}
+	% ───────────────────────────────────────────────────────────────────────
+	Crucially, robustness to benign signal processing does not confer resistance against active adversaries. Recent research demonstrates that neural watermarking schemes are highly vulnerable to targeted manipulation; Yao et al. exposed their susceptibility to overwriting attacks across white-, gray-, and black-box settings~\cite{Yao2026Yours}. Because neural embedding and detection rely on learned weights rather than reducible primitives, no formal bound exists on an adversary's forgery or removal advantage. The central research question is therefore: \textit{Can an audio watermark be constructed with provable cryptographic security properties, providing robustness, while imposing substantially lower deployment overhead than model-dependent approaches?}
+	
+	This requires strictly distinguishing between cryptographic security (resistance to unauthorized generation, forgery, or overwriting) and signal robustness (detectability after compression or filtering). Cryptographic security does not automatically guarantee signal robustness; the audio embedding channel introduces a separate attack surface that must be characterized independently.
+	
+	% ─────────────────────────────────────────────────────────────────────────────
+	\subsection{Research Objectives}
+	% ─────────────────────────────────────────────────────────────────────────────
+	To systematically explore this design space, the project establishes the following objectives:
+	
+	\begin{enumerate}[label=\textbf{O\arabic*.}, leftmargin=*, itemsep=2pt, start=1]
+		\item \textbf{Threat Formalization \& Cryptographic Construction:} Define a formal adversary model spanning removal, copying, and overwriting attacks. Design an efficient, keyed embedding scheme reducing unforgeability to standard cryptographic primitives (such as, PRGs, PRFs).
+		
+		\item \textbf{Audio-Domain Embedding:} Develop mechanisms to carry cryptographically generated payloads under psychoacoustic masking constraints, ensuring robust synchronization.
+		
+		\item \textbf{Comparative Evaluation:} Rigorously evaluate the construction's formal security bounds, empirical robustness, and deployment overhead against representative neural and metadata-based approaches.
+	\end{enumerate}
+	
+	% ─────────────────────────────────────────────────────────────────────────────
+	\section{Research Approach \& Feasibility}
+	% ─────────────────────────────────────────────────────────────────────────────
+	To ensure systematic progress, the research is organized into two progressive thrusts, advancing from foundational modeling to active adversarial evaluation.
+	
+	\subsection{Thrust~1 (Short-term): Cryptographic Foundations and Prototyping}
+	This phase establishes theoretical and practical foundations. First, we formalize the threat model, outlining security goals for payload extraction, copying, and forgery to recent overwriting attack frameworks~\cite{Yao2026Yours}. 	
+	Second, we design the construction. By deriving watermark sequences pseudorandomly from a secret key. An initial prototype will be evaluated for imperceptibility, detectability, and robustness to standard operations (compression, resampling, additive noise, time-scale modification).
+	
+	\subsection{Thrust~2 (Long-term): Security Formalization and Attack Resistance}
+	Building on the prototype, the second phase targets adversarial resilience and practical deployment. We will evaluate the construction against active attacks (targeted removal, forgery, overwriting) under the Thrust 1 threat models. A key theoretical objective is developing reduction-based security arguments under explicit assumptions, bounding successful overwriting probabilities. Critically, we will identify vulnerabilities stemming purely from the analog audio channel rather than cryptographic failures.
+	Robustness will be tested against generative re-synthesis to define the precise boundary between cryptographic unforgeability and signal persistence. Finally, we will benchmark key management, verification scalability, and lifecycle overhead against C2PA metadata~\cite{C2PA2025} and neural frameworks~\cite{Liu2025XAttn}, delineating security/efficiency trade-offs.
+	
+	% ─────────────────────────────────────────────────────────────────────────────
+	\section{Expected Deliverables}
+	% ─────────────────────────────────────────────────────────────────────────────
+	To ensure measurable progress, concrete deliverables are outlined below by research thrust:
+	
+	\subsection*{Thrust 1 --- Cryptographic Foundations and Prototyping}
+	\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
+		\item \textbf{Formal Security Framework:} A published technical report defining the threat model and game-based security definitions, explicitly separating cryptographic security from physical robustness.
+		\item \textbf{Watermarking Prototype:} Development of an efficient audio watermarking prototype with an open reference implementation, evaluated against benign transformations.
+	\end{enumerate}
+	
+	\subsection*{Thrust 2 --- Security Formalization and Attack Resistance}
+	\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
+		\setcounter{enumi}{2}
+		\item \textbf{Adversarial Resilience Evaluation:} A comprehensive vulnerability analysis against active forgery, copying, and overwriting attacks in various settings.
+		\item \textbf{Formal Security Arguments and Deployment Analysis:} A peer-reviewed publication detailing the formal security proofs, alongside a comparative efficiency analysis against neural and metadata standards.
+	\end{enumerate}
+	
+	\pagebreak
+	\bibliographystyle{alpha}
+	\bibliography{../bibliography.bib,../myPublications.bib}
+\end{document}
