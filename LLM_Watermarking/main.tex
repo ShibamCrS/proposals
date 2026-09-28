@@ -27,7 +27,7 @@
 		
 		{\large \textbf{PI: Shibam Ghosh, Sandipan Dandapat}}\\
 		% {\large \textbf{Position: Assistant Professor}}\\ 
-		{\large Department of Computer Science and Engineering}\\[4pt]
+		{\large Department of Computer Science and Engineering, IIT Hyderabad}\\[4pt]
 		
         Email: \href{mailto:shibam@cse.iith.ac.in}{shibam@cse.iith.ac.in}\; | \;\href{mailto:sdandapat@cse.iith.ac.in}{sdandapat@cse.iith.ac.in}
 		
@@ -37,7 +37,8 @@
 	\vspace{8pt}
 	
 	\section{Introduction}
-Generative audio models can now synthesize speech and music with increasingly high fidelity, making it increasingly difficult to distinguish synthetic content from authentic recordings and heightening the need for verifiable provenance and copyright attribution.
+%Generative audio models can now synthesize speech and music with increasingly high fidelity, making it increasingly difficult to distinguish synthetic content from authentic recordings and heightening the need for verifiable provenance and copyright attribution.
+Generative audio models can now synthesize speech and music with increasingly high fidelity, enabling realistic audio deepfakes, voice impersonation, and unauthorized reuse of generated content. As synthetic audio becomes increasingly difficult to distinguish from authentic recordings, there is a growing need for verifiable provenance and copyright attribution.
 Digital watermarking provides one approach by embedding verifiable signals directly into media during generation.
 Systems such as SynthID~\cite{Dathathri2024SynthID} demonstrate the feasibility of generation-time watermarking for text and image generation; however, their underlying cryptographic constructions for audio remain proprietary.
 Moreover, the robustness of existing watermarking methods under diverse adversarial transformations is not yet fully understood, and their security properties are often closely tied to specific model architectures and training procedures, limiting their generalizability.
@@ -51,11 +52,11 @@ However, their security properties are closely coupled to the underlying learned
 Practical deployment also introduces additional considerations, including inference cost, model storage, and model-version management.
 
 % ───────────────────────────────────────────────────────────────────────
-\subsection{Motivation}
+\section{Motivation}
 % ───────────────────────────────────────────────────────────────────────
 These limitations motivate a complementary approach in which the watermarking mechanism is designed around well-studied cryptographic primitives with explicit security properties.
 In particular, for generation-time and seed-based watermarking schemes, cryptographically secure randomness can form a critical part of the security boundary: the unpredictability and secrecy of the underlying random process can directly affect the unforgeability of the watermark.
-More generally, predictable or distinguishable randomness may allow an adversary to infer, reproduce, or manipulate the signals underlying the watermark, thereby weakening its provenance guarantees.
+More generally, predictable or distinguishable randomness may allow an adversary to infer, reproduce, or manipulate the signals underlying the watermark, thereby weakening its provenance guarantees. This is particularly important in the context of audio deepfakes, where an adversary may actively attempt to remove, forge, or overwrite provenance signals while preserving the perceptual quality of the audio.
 This motivates a design in which security is grounded in established cryptographic assumptions rather than relying primarily on statistical randomness or the security of a proprietary, model-dependent construction.
 
 Beyond designing new constructions, it is important to evaluate existing watermarking techniques from an adversarial perspective.
@@ -68,7 +69,7 @@ At the same time, cryptographic security alone is insufficient for a practical a
 Thus, the desired architecture must jointly address cryptographic security, adversarial robustness, signal robustness, imperceptibility, and computational efficiency.
 
 % ───────────────────────────────────────────────────────────────────────
-\subsection{Problem Statement}
+\section{Problem Statement}
 % ───────────────────────────────────────────────────────────────────────
 
 We have two separate but complementary security requirements.
@@ -83,11 +84,13 @@ This trade-off is particularly important for generative audio systems, where wat
 \begin{genericbox}{Summary}[teal!60]
 Can existing and newly designed audio watermarking architectures be systematically analyzed under realistic adversarial models, and can we construct an audio watermark with explicit and analyzable cryptographic security properties while providing robustness against practical signal transformations and substantially lower deployment overhead than model-dependent approaches?
 The goal is to establish an explicit security-efficiency trade-off based on well-studied cryptographic primitives, while rigorously characterizing both the strengths and vulnerabilities of existing techniques and retaining the robustness, imperceptibility, and computational efficiency required for practical deployment.
-Our combined expertise in the design and analysis of symmetric-key primitives and natural language processing (NLP) is well-suited to investigate these challenges.
+Our combined expertise in the design and analysis of crypto systems and natural language processing (NLP) is well-suited to investigate these challenges.
 \end{genericbox}
+
 	
 	% ─────────────────────────────────────────────────────────────────────────────
-	\subsection{Research Objectives}
+
+    \subsection{Research Objectives}
 	% ─────────────────────────────────────────────────────────────────────────────
     To systematically explore this design space, the project pursues the following objectives:
 
@@ -100,7 +103,13 @@ Our combined expertise in the design and analysis of symmetric-key primitives an
 
 \end{enumerate}
 
-	% % ─────────────────────────────────────────────────────────────────────────────
+\section{Why Dolby will be interested?}
+The project addresses key challenges in trustworthy and secure audio watermarking that are increasingly relevant to organizations developing generative audio technologies, including Dolby Laboratories. The proposed approach combines cryptographic security, adversarial robustness, perceptual transparency, and computational efficiency to develop watermarking mechanisms suitable for practical generative-audio systems. The work also provides a systematic security analysis of existing watermarking approaches, including XAttnMark, and explores cryptographically grounded alternatives with explicit security guarantees and lower deployment overhead. This can complement Dolby’s expertise in audio processing and watermarking by providing formal security foundations and adversarial evaluation methodologies for future secure audio technologies.
+
+\section{PI Expertise and Relevant Experience}
+Shibam Ghosh has expertise in cryptography and security analysis, while Sandipan Dandapat has expertise in machine learning, NLP, and generative AI. Their complementary expertise provides a strong foundation for addressing the security, robustness, and efficiency of audio watermarking. Details of their relevant publications and research contributions are available on their individual webpages: \href{https://shibamcrs.github.io/}{Shibam Ghosh} and \href{https://people.iith.ac.in/sdandapat/index.html}{Sandipan Dandapat}. 
+
+% % ─────────────────────────────────────────────────────────────────────────────
 	% \section{Research Approach \& Feasibility}
 	% % ─────────────────────────────────────────────────────────────────────────────
 	% To ensure systematic progress, the research is organized into two progressive thrusts, advancing from foundational modeling to active adversarial evaluation.
@@ -131,7 +140,7 @@ Our combined expertise in the design and analysis of symmetric-key primitives an
 	% 	\item \textbf{Formal Security Arguments and Deployment Analysis:} A peer-reviewed publication detailing the formal security proofs, alongside a comparative efficiency analysis against neural and metadata standards.
 	% \end{enumerate}
 	
-	\pagebreak
 	\bibliographystyle{alpha}
-	\bibliography{../bibliography.bib,../myPublications.bib}
+	\bibliography{./bibliography.bib,./myPublications.bib}
 \end{document}
+
