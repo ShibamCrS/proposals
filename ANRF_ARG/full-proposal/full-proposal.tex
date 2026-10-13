@@ -136,8 +136,8 @@ Figure~\ref{fig:design-space} situates this domain within the broader landscape 
 \label{fig:design-space}
 \end{figure}
 
-\section{Research Objectives, Hypotheses \& Success Metrics}
 % \subsection{Primitives for Low-Latency Crypto}
+\section{Research Objectives, Hypotheses \& Success Metrics}
 
 Latency, or the time delay from input to output, is critical especially in applications requiring hardware-assisted mechanisms to protect against software exploitation.
 Memory and code protection stand out as crucial: while in contemporary processor architectures it is common to protect the CPU within secure enclaves to safeguard sensitive computations, extending such protections to any external memory remains impractical due to physical and architectural constraints.
@@ -145,7 +145,7 @@ As a result, \emph{data-in-use} in RAM remains a common target for physical atta
 This underscores the importance of schemes that protect cryptographic memory and code.
 To be practical in high-performance systems, the primitives used in this context must offer minimal added latency.
 
-Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE} and \textsf{FLUSH+RELOAD}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
+Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05} and \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
 As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimised cryptographic primitives become available.
 While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
 In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation --- one where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
@@ -158,6 +158,73 @@ Yet the security of the small, fast designs that meet this constraint is far les
 This proposal addresses that gap directly.
 \end{genericbox}
 
+\subsection{Research Objectives and Hypotheses}
+
+\paragraph{Objective 1: Automated cryptanalysis of low-latency ciphers.}
+Develop CP/SAT/MILP-based methods and hybrid machine-learning
+approaches to improve the cryptanalysis of low-latency block ciphers.
+
+\textbf{Hypothesis H1:}
+Automated and hybrid cryptanalytic methods can reveal new
+weaknesses or improve the analysis of existing low-latency ciphers.
+
+\textbf{Success metrics:}
+Cryptanalytic results on at least two target ciphers, evaluation
+of a hybrid approach on at least one cipher, and an open-source
+constraint-model library.
+
+\paragraph{Objective 2: Physical attacks on fully unrolled
+implementations.}
+Develop automated methods to identify fault-related distinguishers
+and validate potential attacks experimentally.
+
+\textbf{Hypothesis H2:}
+Automated fault analysis can identify exploitable properties
+of fully unrolled implementations and guide practical fault attacks.
+
+\textbf{Success metrics:}
+A publicly released fault-analysis tool, experimental validation
+of at least one fault attack, and evidence-based hardening guidelines.
+
+\paragraph{Objective 3: Microarchitectural security.}
+Analyse the cryptographic components of CPU memory-encryption
+or pointer-authentication mechanisms under realistic threat models.
+
+\textbf{Hypothesis H3:}
+Microarchitectural threat modelling can reveal security limitations
+not adequately captured by primitive-level analysis alone.
+
+\textbf{Success metrics:}
+Security evaluation of at least one target mechanism and,
+where warranted, cryptographic improvements or hardening
+recommendations supported by appropriate evidence.
+
+\paragraph{Objective 4: Security--performance trade-offs.}
+Evaluate the relationship between cryptographic security,
+implementation characteristics, and the latency requirements
+of target applications.
+
+\textbf{Hypothesis H4:}
+Joint consideration of security and implementation characteristics
+provides a more informative basis for evaluating low-latency
+cryptographic primitives.
+
+\textbf{Success metrics:}
+Documented implementation metrics, comparisons with relevant
+baselines, and evidence-based design recommendations.
+
+\paragraph{Objective 5: Reproducibility and research training.}
+Develop reusable research artefacts and strengthen expertise
+in symmetric-key cryptography, automated analysis, and hardware security.
+
+\textbf{Hypothesis H5:}
+Reproducible tools and documented experiments facilitate
+independent verification and further research.
+
+\textbf{Success metrics:}
+Open-source tools and datasets accompanying publications,
+documented experimental procedures, and training of at least
+two PhD students and one postdoctoral researcher.
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Scientific Novelty, Advancement of Knowledge \& Utility}
 % ─────────────────────────────────────────────────────────────────────────────
@@ -222,7 +289,7 @@ The resulting analysis and frameworks are intended to directly support the stand
 The immediate objective is to perform rigorous cryptanalytic evaluation of the current generation of low-latency block ciphers.
 Automatic tools such as CP, SAT, and MILP are particularly powerful for uncovering new distinguishers and key-recovery attacks; we have used them extensively in prior work.
 Leveraging such tools to identify the best distinguishers that facilitate optimal key-recovery attacks is a central methodological pillar.
-Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} establishes both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}, \tx{ChiLow}, \tx{SCARF}, and related designs.
+Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} establishes both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}~\cite{cryptoeprint:2024/1240}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and related designs.
 
 In parallel, we will investigate the use of machine learning for the analysis of cryptographic algorithms.
 While not entirely new as a direction, many open questions remain, particularly regarding the combination of ML-based distinguishers with classical cryptanalytic techniques in principled hybrid approaches.
@@ -242,14 +309,6 @@ We therefore aim to identify the most vulnerable components within these impleme
 Building on our prior work introducing fault-invariant distinguishers~\owncite{Kundu_Ghosh_Aikata_Saha_2025}, we will apply SAT/CP/MILP solvers to automate the discovery of fault-attack-friendly distinguishers and to perform key recovery from actual hardware measurements during post-processing.
 This approach could significantly advance the ability to analyse and harden low-latency primitives against fault attacks.
 
-\medskip
-\noindent\textbf{Team expertise and existing infrastructure.}
-The team brings extensive and demonstrated expertise to this thrust, spanning both the theoretical modelling of fault attacks and their physical realisation in laboratory settings.
-Prior publications on fault analysis of GIFT-family ciphers~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025} have involved end-to-end experimental validation, from distinguisher derivation through to actual key recovery on hardware.
-Crucially, an operational experimental infrastructure, including ChipWhisperer-based clock-glitch and power-analysis platforms as well as electromagnetic fault injection (EMFI) equipment, is already in place within the team.
-This means that hardware validation of theoretical fault-attack results can proceed immediately, without any capital expenditure from this proposal.
-The funding requested under this thrust is therefore directed entirely toward personnel and computational resources, rendering it a low-overhead, high-impact research direction with a clear and near-term path to results.
-
 \subsection{Thrust~3 (Long-term): Microarchitectural Security of CPU Cryptographic Features}
 
 Security of modern CPUs has received significant attention in the wake of diverse microarchitectural attacks.
@@ -257,15 +316,24 @@ Hardware-based mitigations increasingly rely on encrypted communication between 
 The long-term objective is to systematically analyse the cryptographic sub-systems of various CPU architectures, identify potential security vulnerabilities arising from their microarchitectural context, and develop efficient cryptographic solutions that safeguard against emerging threats.
 
 % ─────────────────────────────────────────────────────────────────────────────
-\section{Expected Deliverables}
+\section{Expected Knowledge Outcomes, Utility, Impact \& Future Translation}
 % ─────────────────────────────────────────────────────────────────────────────
+The proposed project aims to advance the scientific understanding of low-latency symmetric-key cryptography through three complementary directions: automated cryptanalysis of existing designs, physical security analysis of fully unrolled implementations, and microarchitectural security of CPU.
+The expected outcomes include new cryptanalytic results, reusable analysis frameworks, experimentally validated attack methodologies, and evidence-based recommendations for improving security.
+Beyond individual research contributions, the project will establish methodologies and resources that can support the systematic evaluation and future development of low-latency cryptographic primitives.
 
-The deliverables are organised by research thrust and are intended to be concrete, verifiable, and directly useful to the cryptographic community and standardisation bodies.
+\subsection{Advancement of Fundamental Knowledge}
+The project will address the identified knowledge gaps through the following research outcomes, organised by research thrust and are intended to be concrete, verifiable, and directly useful to the cryptographic community and standardisation bodies.
 
 \subsection*{Thrust 1 — Cryptanalysis of Low-Latency Ciphers}
+The project will advance the understanding of the security of existing low-latency block ciphers, including \tx{ARADI}~\cite{cryptoeprint:2024/1240}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and \tx{QARMAv2}~\cite{DBLP:journals/tosc/AvanziBDEGNR23}.
+Although automated cryptanalysis has proved effective for conventional symmetric-key primitives, its systematic application to low-latency designs, particularly for jointly optimising distinguishers and key-recovery attacks, remains an important research direction. The project will investigate this problem using constraint programming (CP), SAT, and mixed integer linear programming (MILP), alongside hybrid approaches combining machine-learning-based distinguishers with classical cryptanalysis. The expected outcomes are:
+
+
+
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
   \item \textbf{Cryptanalytic results on deployed ciphers.}
-        Published attacks in terms of finding new distinguishers and key-recovery results on at least two of the target ciphers (\tx{ARADI}, \tx{ChiLow}, \tx{SCARF}, \tx{QARMAv2}), targeting publication at CRYPTO, EUROCRYPT, ASIACRYPT, or IACR ToSC.
+New distinguishers and key-recovery results targeting at least two of the selected ciphers, with publication targets including CRYPTO, EUROCRYPT, ASIACRYPT, or IACR Transactions on Symmetric Cryptology (ToSC).
 
   \item \textbf{Automated constraint-model library.}
         An open-source library of CP/SAT/MILP constraint models for the full family of low-latency block ciphers studied, enabling reproducible and extensible cryptanalysis by the wider community.
@@ -275,6 +343,10 @@ The deliverables are organised by research thrust and are intended to be concret
 \end{enumerate}
 
 \subsection*{Thrust 2 — Physical Attacks on Low-Latency Implementations}
+Fully unrolled implementations execute all rounds through simultaneously instantiated hardware logic.
+Their physical security characteristics differ from those of iterative implementations, particularly in terms of fault injection, fault propagation, and the spatial distribution of vulnerable components.
+The project will investigate these characteristics by combining automated distinguisher searches with experimental fault analysis. The expected outcomes are:
+
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=4]
   \item \textbf{Fault-attack-friendly distinguisher search tool.}
         A solver-based automated tool for finding fault-invariant and fault-propagation distinguishers in fully-unrolled hardware implementations, released publicly.
@@ -287,6 +359,8 @@ The deliverables are organised by research thrust and are intended to be concret
 \end{enumerate}
 
 \subsection*{Thrust 3 — Microarchitectural Security}
+The project will investigate the cryptographic components underlying CPU security mechanisms, focusing on at least one memory-encryption or pointer-authentication mechanism.
+The objective is to understand how the cryptographic security of these components interacts with the microarchitectural context in which they are deployed and to identify opportunities for improvement. The expected outcomes are:
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=7]
   \item \textbf{Vulnerability analysis of CPU cryptographic features.}
         A systematic security analysis of the cryptographic components underpinning at least one hardware memory-encryption or pointer-authentication mechanism, targeting top security venues (IEEE S\&P, ACM CCS, USENIX Security).
@@ -295,27 +369,87 @@ The deliverables are organised by research thrust and are intended to be concret
         Concrete primitive proposals or hardening constructions for identified vulnerabilities, with security proofs or cryptanalytic evidence of their adequacy.
 \end{enumerate}
 
-\subsection*{Training and Dissemination}
+These outcomes will bridge cryptographic analysis and systems-security evaluation by examining security assumptions in the context of actual hardware-assisted mechanisms.
+Where weaknesses are identified, the project will investigate appropriate cryptographic improvements or hardening approaches.
+
+
+\subsection{Improvement over the Scientific and Technological Baseline and Potential Utility}
+
+The potential utility of these outcomes includes:
+\begin{itemize}
+    \item Supporting cryptographic researchers and designers in evaluating the security of existing and future low-latency primitives.
+
+    \item Providing reusable, open-source tools and experimental resources that facilitate independent verification and extension of the project's findings.
+
+    \item Helping hardware-security researchers identify vulnerable components and assess the effectiveness of implementation-level countermeasures.
+
+    \item Informing the evaluation and potential strengthening of memory-encryption, pointer-authentication, and secure-cache mechanisms.
+
+    \item Providing evidence-based design and hardening recommendations that account for security, latency, and implementation constraints.
+\end{itemize}
+
+The project does not assume that new practical attacks will necessarily be found against every target or that every identified weakness will lead to an exploitable vulnerability.
+Improvements over the baseline may also take the form of stronger security evaluations, improved search procedures, reproducible negative results, or better-supported design recommendations.
+
+\subsection{Long-Term Impact and Future Translation}
+
+The project's findings may contribute to the longer-term development of more secure hardware-assisted cryptographic mechanisms.
+Its potential technological impact includes improved methods for evaluating the security of primitives used in memory encryption, pointer authentication, and
+cache randomisation, as well as better understanding of the trade-offs between low latency and implementation-level protection. The principal translational pathways will be:
+
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
   \item \textbf{Human resource development.}
-        Training of at least two PhD students and one postdoctoral researcher in the intersection of symmetric-key cryptography, hardware security, and automated analysis.
+        Training of at least one PhD student and one postdoctoral researcher in the intersection of symmetric-key cryptography, hardware security, and automated analysis. Furthermore, we aim to train one PhD student in the area of ML-based cryptanalysis, which is a relatively new and rapidly evolving research area.
 
   \item \textbf{Open dissemination.}
         All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artefacts accompanying the corresponding publications.
+
+    \item \textbf{Design and implementation guidance:}
+    The findings from the three research thrusts will be
+    consolidated into recommendations for evaluating and
+    hardening low-latency cryptographic designs and their
+    hardware implementations.
+
+    \item \textbf{Engagement with the cryptographic community:}
+    Research publications and dissemination of reproducible
+    results will support independent scrutiny and may inform
+    future cipher-design revisions and standardisation
+    discussions.
 \end{enumerate}
 
-\section{Expected Knowledge Outcomes, Utility, Impact \& Future Translation}
+In the longer term, the methodologies developed in this project may be extended to other symmetric-key constructions and security-sensitive computing environments. 
+The open-source tools, validated analyses, and trained researchers will provide
+a foundation for continued research and potential collaboration with cryptographic designers, hardware-security teams, and standardisation communities. 
+Any direct industrial adoption will depend on subsequent evaluation and integration by the relevant stakeholders.
+
+% \subsection*{Training and Dissemination}
+% \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
+%   \item \textbf{Human resource development.}
+%         Training of at least two PhD students and one postdoctoral researcher in the intersection of symmetric-key cryptography, hardware security, and automated analysis.
+
+%   \item \textbf{Open dissemination.}
+%         All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artefacts accompanying the corresponding publications.
+% \end{enumerate}
+
 % ─────────────────────────────────────────────────────────────────────────────
 
 \section{Timeline \& Milestones}
 
-\section{Team, Expertise \& Institutional Facilities}
+% \section{Team, Expertise \& Institutional Facilities}
+% \medskip
+% \noindent\textbf{Team expertise and existing infrastructure.}
+% The team brings extensive and demonstrated expertise to this thrust, spanning both the theoretical modelling of fault attacks and their physical realisation in laboratory settings.
+% Prior publications on fault analysis of GIFT-family ciphers~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025} have involved end-to-end experimental validation, from distinguisher derivation through to actual key recovery on hardware.
+% Crucially, an operational experimental infrastructure, including ChipWhisperer-based clock-glitch and power-analysis platforms as well as electromagnetic fault injection (EMFI) equipment, is already in place within the team.
+% This means that hardware validation of theoretical fault-attack results can proceed immediately, without any capital expenditure from this proposal.
+% The funding requested under this thrust is therefore directed entirely toward personnel and computational resources, rendering it a low-overhead, high-impact research direction with a clear and near-term path to results.
 
-\section{Justification for proposed budget}
 
-\section{Current Financial Support (Other Than This Proposal)}
+% \section{Justification for proposed budget}
 
-\section{Name and address of experts / institution interested in the subject/outcome of the project}
+% \section{Current Financial Support (Other Than This Proposal)}
+
+% \section{Name and address of experts / institution interested in the subject/outcome of the project}
 \section*{Conclusion}
 
 This proposal focuses on the design and analysis of symmetric-key primitives in one critical and emerging domain: low-latency cryptography.
