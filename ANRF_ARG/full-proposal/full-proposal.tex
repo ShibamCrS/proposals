@@ -22,7 +22,7 @@ Shibam Ghosh\textsuperscript{1} (PI) \quad Dhiman Saha\textsuperscript{2} (Co-PI
 % ─────────────────────────────────────────────────────────────────────────────
 
 The design of symmetric-key cryptographic primitives has historically been heavily influenced by the specific requirements of their target applications.
-A cryptographic primitive, such as a block cipher, hash function, or pseudorandom function, that is optimized for one context may be ill-suited for others, making the process a balancing act between security and efficiency dictated by each target environment.
+A cryptographic primitive, such as a block cipher, hash function, or pseudorandom function (PRF), that is optimized for one context may be ill-suited for others, making the process a balancing act between security and efficiency dictated by each target environment.
 Thus, different applications, ranging from high-throughput primitives for network communications to lightweight ciphers for constrained devices, have led to different corners of the design space being explored.
 This diversity in requirements underscores the importance of designing new symmetric-key primitives that are well-adapted to their intended applications.
 This proposal focuses on one such domain with unique requirements: symmetric-key primitives for applications demanding \emph{low-latency} cryptographic operations.
@@ -33,7 +33,7 @@ Figure~\ref{fig:design-space} situates this domain within the broader landscape 
 \begin{tikzpicture}[scale=0.72, font=\sffamily]
 
 \tikzset{
-  rtitle/.style  = {font=\small\sffamily\bfseries, align=center},
+  rtitle/.style  = {font=\fontsize{8.5}{10}\selectfont\sffamily\bfseries, align=center},
   rciphers/.style= {font=\fontsize{6.2}{7.5}\selectfont\sffamily\itshape, align=center},
   rapplic/.style = {font=\fontsize{5.8}{7}\selectfont\sffamily, text=gray!70, align=center},
   rnote/.style   = {font=\fontsize{6}{7}\selectfont\sffamily\itshape, align=center},
@@ -150,13 +150,13 @@ To be practical in high-performance systems, the primitives used in this context
 Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05} and \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
 As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimised cryptographic primitives become available.
 While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
-In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation --- one where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
+In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation, where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
 Although the recently completed NIST lightweight encryption/authentication standardisation effort addressed small area and low-power budgets, the design of low-latency cryptographic primitives remains a relatively new and rapidly evolving research field.
 
 \subsection{State of the Art in India and Abroad}
 
 Internationally, low-latency cipher design is concentrated in a few groups.
-The PRINCE family~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12,DBLP:conf/sacrypt/BozilovEKLLMNRT20}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} come from Ruhr University Bochum and its collaborators; \tx{QARMA} and \tx{QARMAv2}~\cite{DBLP:journals/tosc/Avanzi17,DBLP:journals/tosc/AvanziBDEGNR23} from Arm and Qualcomm with academic partners; \tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16} from the SKINNY team; and \tx{ARADI}~\cite{cryptoeprint:2024/1240} from the NSA.
+The PRINCE family~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12,DBLP:conf/sacrypt/BozilovEKLLMNRT20}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} come from Ruhr University Bochum and its collaborators; \tx{QARMA} and \tx{QARMAv2}~\cite{DBLP:journals/tosc/Avanzi17,DBLP:journals/tosc/AvanziBDEGNR23} from Arm and Qualcomm with academic partners; \tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16} from the SKINNY team; and \tx{ARADI}~\cite{cryptoeprint:2024/1240} from the US National Security Agency (NSA).
 Third-party cryptanalysis of these designs is thin.
 Among the few published third-party results, three come from the investigators: the PI's SAT-based differential attack on the \tx{QARMA}-based pointer-authentication function~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of 16 rounds of \tx{ARADI} by the PI with Inria~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}, the first third-party cryptanalysis of that cipher, at ASIACRYPT~2024~\owncite{DBLP:conf/asiacrypt/BouraRST24}.
 Physical attacks on fully unrolled implementations have received almost no attention; the fault-invariant distinguishers of the investigators~\owncite{Kundu_Ghosh_Aikata_Saha_2025} are, to our knowledge, the first systematic treatment.
