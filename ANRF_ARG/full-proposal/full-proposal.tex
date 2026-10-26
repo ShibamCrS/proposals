@@ -2,6 +2,7 @@
 \input{meta-full.tex}
 \newcommand{\soptitle}{DARC: Design and Analysis of Rapid Cryptography}
 \newcommand{\sopsubtitle}{Full Proposal -- Technical Document, Category II (Use-Inspired Basic Research)}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 \begin{document}
 \begin{center}
 \vspace*{-0.8cm}
@@ -347,7 +348,7 @@ Every technical work package has a clear hand-over: WP1 and WP2 deliver attack m
 \midrule
 WP1 & Constraint models; joint distinguisher and key-recovery search; GPU-accelerated attack implementations & IITH & O1 & 1--30 & D1, D2 \\
 WP2 & Neural distinguishers; ML--classical hybrid framework & IITH & O1 & 7--36 & D3 \\
-WP3 & Fault-friendly distinguisher search tool; unrolled hardware targets; EMFI and ChipWhisperer campaigns; hardening guidelines & IIT Bhilai & O2 & 7--42 & D4, D5, D6 \\
+WP3 & Fault-friendly distinguisher search tool; unrolled hardware targets; glitch and EMFI campaigns; hardening guidelines & IIT Bhilai & O2 & 7--42 & D4, D5, D6 \\
 WP4 & Threat modelling and analysis of PAC, memory-encryption and cache-randomisation mechanisms; countermeasures & joint & O3 & 19--48 & D7, D8 \\
 WP5 & Design criteria and trade-off study; \tx{DARC} specification, self-analysis, hardware benchmarking & joint & O4 & 19--48 & D9 \\
 WP6 & Recruitment and training; open-source releases; reporting and dissemination & both & O5 & 1--48 & D10--D13 \\
@@ -368,8 +369,8 @@ The postdoctoral researchers at the two sites are the day-to-day integration poi
 A rigorous, reproducible negative result (a proven bound from the solver models) is still a publishable security evaluation and feeds WP5 directly.
 (ii) \emph{ML distinguishers do not outperform classical ones on the targets.}
 The hybrid framework is designed so that the classical component stands alone; the ML part is an add-on, not a dependency.
-(iii) \emph{EMFI campaigns on unrolled targets prove harder than modelled.}
-The bench already exists and clock-glitch and voltage-glitch fall-backs are available; the fault-friendly distinguisher tool (D4) is independent of the physical result.
+(iii) \emph{EMFI procurement is delayed, or EMFI campaigns on unrolled targets prove harder than modelled.}
+The ChipWhisperer clock-glitch and voltage-glitch bench is already operational and the first campaigns (months 19--24) will run on it; EMFI, which is being added under an institute grant, extends rather than gates WP3. The fault-friendly distinguisher tool (D4) is independent of the physical result.
 (iv) \emph{Recruitment delays.}
 Both groups have a pipeline of MTech and PhD students in the area; the RA positions can start with internal candidates.
 (v) \emph{Scope of the design thrust.}
@@ -378,7 +379,7 @@ Both groups have a pipeline of MTech and PhD students in the area; the RA positi
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Expected Knowledge Outcomes, Utility, Impact \& Future Translation}
 % ─────────────────────────────────────────────────────────────────────────────
-The proposed project aims to advance the scientific understanding of low-latency symmetric-key cryptography through three complementary directions: automated cryptanalysis of existing designs, physical security analysis of fully unrolled implementations, and microarchitectural security of CPU.
+The proposed project aims to advance the scientific understanding of low-latency symmetric-key cryptography through four complementary directions: automated cryptanalysis of existing designs, physical security analysis of fully unrolled implementations, microarchitectural security of CPU features, and the design of an indigenous low-latency cipher.
 The expected outcomes include new cryptanalytic results, reusable analysis frameworks, experimentally validated attack methodologies, and evidence-based recommendations for improving security.
 Beyond individual research contributions, the project will establish methodologies and resources that can support the systematic evaluation and future development of low-latency cryptographic primitives.
 
@@ -393,7 +394,8 @@ Although automated cryptanalysis has proved effective for conventional symmetric
 
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
   \item \textbf{Cryptanalytic results on deployed ciphers.}
-New distinguishers and key-recovery results targeting at least two of the selected ciphers, with publication targets including CRYPTO, EUROCRYPT, ASIACRYPT, or IACR Transactions on Symmetric Cryptology (ToSC).
+        New distinguishers and key-recovery results targeting at least two of the selected ciphers, with GPU-accelerated implementations verifying the claimed complexities.
+        Publication targets are CRYPTO, EUROCRYPT, ASIACRYPT, or IACR Transactions on Symmetric Cryptology (ToSC).
 
   \item \textbf{Automated constraint-model library.}
         An open-source library of CP/SAT/MILP constraint models for the full family of low-latency block ciphers studied, enabling reproducible and extensible cryptanalysis by the wider community.
@@ -412,7 +414,7 @@ The project will investigate these characteristics by combining automated distin
         A solver-based automated tool for finding fault-invariant and fault-propagation distinguishers in fully-unrolled hardware implementations, released publicly.
 
   \item \textbf{Experimental fault-attack results.}
-        End-to-end hardware validation of theoretical fault attacks on at least one low-latency cipher, leveraging the team's existing EMFI and ChipWhisperer infrastructure, targeting publication at IACR TCHES or USENIX Security.
+        End-to-end hardware validation of theoretical fault attacks on at least one low-latency cipher, using the ChipWhisperer-based glitching bench already operational at IIT~Bhilai and the EMFI setup being added to it, targeting publication at IACR TCHES or USENIX Security.
 
   \item \textbf{Hardening guidelines.}
         A set of actionable design recommendations for protecting fully-unrolled implementations against fault injection, informed by the vulnerabilities uncovered during the project.
@@ -431,6 +433,14 @@ The objective is to understand how the cryptographic security of these component
 
 These outcomes will bridge cryptographic analysis and systems-security evaluation by examining security assumptions in the context of actual hardware-assisted mechanisms.
 Where weaknesses are identified, the project will investigate appropriate cryptographic improvements or hardening approaches.
+
+\subsection*{Thrust 4 — Design Criteria and the \tx{DARC} Cipher}
+The findings of Thrusts~1--3 will be consolidated into design criteria and realised in a new primitive. The expected outcome is:
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
+  \item \textbf{The \tx{DARC} cipher.}
+        A public specification of an indigenous low-latency block cipher, with reference software, unrolled hardware implementations and latency/area figures benchmarked against \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI}.
+        The specification will carry a security analysis against the attack classes of Thrusts~1--3 and an explicit statement of the design criteria it follows.
+\end{enumerate}
 
 
 \subsection{Improvement over the Scientific and Technological Baseline and Potential Utility}
@@ -457,7 +467,7 @@ The project's findings may contribute to the longer-term development of more sec
 Its potential technological impact includes improved methods for evaluating the security of primitives used in memory encryption, pointer authentication, and
 cache randomisation, as well as better understanding of the trade-offs between low latency and implementation-level protection. The principal translational pathways will be:
 
-\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
+\begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=10]
   \item \textbf{Human resource development.}
         Training of two PhD students and two postdoctoral researchers at the intersection of symmetric-key cryptography, hardware security, and automated analysis.
         The IIT Hyderabad PhD student will work on automated and ML-based cryptanalysis, a relatively new and rapidly evolving area; the IIT Bhilai PhD student on fault analysis of unrolled hardware.
@@ -467,7 +477,7 @@ cache randomisation, as well as better understanding of the trade-offs between l
         All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artefacts accompanying the corresponding publications.
 
     \item \textbf{Design and implementation guidance:}
-    The findings from the three research thrusts will be
+    The findings from the four research thrusts will be
     consolidated into recommendations for evaluating and
     hardening low-latency cryptographic designs and their
     hardware implementations.
@@ -497,6 +507,141 @@ Any direct industrial adoption will depend on subsequent evaluation and integrat
 
 \section{Timeline \& Milestones}
 
+The project runs for 48 months.
+Figure~\ref{fig:gantt} shows the year-wise Gantt chart of the six work packages of Table~\ref{tab:wp}, with eight milestones (M1--M8).
+Milestones M1--M4 fall within the first three years and are the checkpoints for the phased (3+1) release of support; M5--M8 cover the fourth year.
+Each milestone is tied to a deliverable of Section~5, so progress can be verified against concrete outputs.
+
+\begin{figure}[t!]
+\centering
+\begin{ganttchart}[
+  canvas/.append style={draw=theme!30},
+  x unit=0.24cm, y unit chart=0.42cm, y unit title=0.48cm,
+  hgrid={*1{draw=theme!12}}, vgrid={*2{draw=none}, {draw=theme!25, dotted}},
+  title/.append style={fill=theme!12, draw=theme!40},
+  title label font=\sffamily\footnotesize,
+  bar/.append style={fill=theme!50, draw=theme!80!black, rounded corners=1pt},
+  bar height=0.55, bar label font=\sffamily\scriptsize,
+  milestone/.append style={fill=accent, draw=accent!60!black},
+  milestone height=0.6, milestone label font=\sffamily\scriptsize,
+  group/.append style={fill=theme!85!black, draw=theme!85!black},
+  group label font=\sffamily\scriptsize\bfseries,
+  group right shift=0, group left shift=0, group height=.28, group peaks height=.18,
+]{1}{48}
+\gantttitle{Year 1}{12}\gantttitle{Year 2}{12}\gantttitle{Year 3}{12}\gantttitle{Year 4}{12} \\
+\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3}\gantttitle{Q1}{3}\gantttitle{Q2}{3}\gantttitle{Q3}{3}\gantttitle{Q4}{3} \\
+\ganttgroup{WP1 Automated cryptanalysis (O1)}{1}{30} \\
+\ganttbar{Constraint models for the four targets}{1}{12} \\
+\ganttbar{Joint distinguisher + key-recovery search}{7}{24} \\
+\ganttbar{GPU-accelerated attack implementations}{13}{30} \\
+\ganttmilestone{M1: first attack result submitted (D1)}{12} \\
+\ganttmilestone{M3: model library v1 public (D2)}{24} \\
+\ganttgroup{WP2 ML--classical hybrid (O1)}{7}{36} \\
+\ganttbar{Neural distinguishers for targets}{7}{18} \\
+\ganttbar{Hybrid MITM / boomerang framework}{19}{36} \\
+\ganttmilestone{M4: hybrid framework validated (D3)}{36} \\
+\ganttgroup{WP3 Physical attacks (O2)}{7}{42} \\
+\ganttbar{Fault-friendly distinguisher search tool}{7}{24} \\
+\ganttbar{Unrolled HW targets; EMFI campaigns}{19}{36} \\
+\ganttbar{Hardening guidelines}{31}{42} \\
+\ganttmilestone{M2: fault tool released (D4)}{24} \\
+\ganttmilestone{M5: hardware-validated attack (D5)}{36} \\
+\ganttgroup{WP4 Microarchitectural security (O3)}{19}{48} \\
+\ganttbar{Threat models: PAC, memory enc., caches}{19}{30} \\
+\ganttbar{Analysis of target mechanism}{25}{42} \\
+\ganttbar{Countermeasures / hardening}{37}{48} \\
+\ganttmilestone{M6: mechanism analysis submitted (D7)}{42} \\
+\ganttgroup{WP5 Design criteria \& DARC (O4)}{19}{48} \\
+\ganttbar{Security--latency trade-off study}{19}{30} \\
+\ganttbar{DARC specification and self-analysis}{31}{42} \\
+\ganttbar{HW implementation and benchmarking}{37}{48} \\
+\ganttmilestone{M7: DARC specification public (D9)}{42} \\
+\ganttgroup{WP6 Training and dissemination (O5)}{1}{48} \\
+\ganttbar{Recruitment; PhD and postdoc training}{1}{48} \\
+\ganttbar{Open-source releases; reports}{13}{48} \\
+\ganttmilestone{M8: final report; all artefacts public}{48}
+\end{ganttchart}
+\caption{Year-wise Gantt chart of work packages and milestones. Months are counted from the date of sanction.}
+\label{fig:gantt}
+\end{figure}
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Team, Expertise \& Institutional Facilities}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Expertise available with the PI and Co-PI}
+
+\textbf{Shibam Ghosh (PI, IIT Hyderabad)} works on the design and cryptanalysis of symmetric-key primitives, with a focus on automated SAT/CP/MILP tools and low-latency designs.
+He is a co-designer of \tx{QARMAv2}~\owncite{DBLP:journals/tosc/AvanziBDEGNR23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}.
+He co-authored the SAT-based differential attack on the \tx{QARMA}-based pointer-authentication function in Arm's \textsf{FEAT\_PACQARMA3}~\owncite{DBLP:journals/tosc/AvanziDG25}, and, with Inria Paris, a differential meet-in-the-middle key-recovery attack on 14 of the 16 rounds of \tx{ARADI}~\owncite{cryptoeprint:2025/1918}.
+His doctoral work (University of Haifa, with Orr Dunkelman) and post-doctoral work (Inria Paris) covered division-property, differential and meet-in-the-middle cryptanalysis, including improved attacks on round-reduced AES~\owncite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} and the \textsf{AutoDiVer} tool for verifying differential characteristics~\owncite{DBLP:journals/tosc/NagelerGJE25}.
+
+\textbf{Dhiman Saha (Co-PI, IIT Bhilai)} leads the de.ci.phe.red laboratory, which works on fault and side-channel analysis of symmetric-key and post-quantum primitives, automated distinguisher search, and hardware security.
+He was PI of the MeitY-funded FinTeQ project on quantum-safe financial transactions (2023--2026) and leads the institute's Fault Injection Analysis (FIA) laboratory funded under the National Quantum Mission.
+With the PI he co-authored the fault-invariant distinguisher framework \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025}, the division-property-based fault attacks \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, the \textsf{BIZness} distinguishers~\owncite{DBLP:conf/indocrypt/GhoshKRS24} and the structural zero-sum work of~\owncite{DBLP:journals/dcc/SuryawanshiGSR25}.
+All of the fault-attack results above were validated end to end on hardware in his laboratory.
+
+The two investigators have an established collaboration, with four joint publications since 2023.
+This is reflected directly in the work-package leads: solver-based and ML-based cryptanalysis is led from IIT~Hyderabad, physical-attack experimentation and hardware implementation from IIT~Bhilai, and the microarchitectural and design work packages are shared.
+
+\subsection{Roles and responsibilities of the investigators}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{3.0cm}p{1.4cm}p{11.6cm}@{}}
+\toprule
+\textbf{Investigator} & \textbf{Role} & \textbf{Key responsibilities} \\
+\midrule
+Shibam Ghosh, IIT Hyderabad & PI &
+Overall technical and administrative lead; point of contact with ANRF.
+Lead of WP1 and WP2: constraint models, joint distinguisher and key-recovery search, GPU-accelerated attacks, ML--classical hybrids.
+Co-lead of WP4 (threat modelling of PAC and memory encryption) and WP5 (\tx{DARC} design and self-analysis).
+Supervision of the IITH PhD student and postdoctoral researcher. \\
+\addlinespace
+Dhiman Saha, IIT Bhilai & Co-PI &
+Lead of WP3: fault-friendly distinguisher tool, unrolled hardware targets, fault-injection campaigns, hardening guidelines.
+Co-lead of WP4 (experimental evaluation of mitigation mechanisms) and WP5 (hardware implementation and latency/area benchmarking of \tx{DARC}).
+Supervision of the IIT Bhilai PhD student and postdoctoral researcher; WP6 artefact releases. \\
+\bottomrule
+\end{tabular}
+\caption{Roles and responsibilities.}
+\label{tab:roles}
+\end{table}
+
+\subsection{Five key publications of the investigators in the last five years}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{0.5cm}p{10.2cm}p{5.3cm}@{}}
+\toprule
+& \textbf{Publication} & \textbf{Venue} \\
+\midrule
+1 & Avanzi, Dunkelman, \textbf{Ghosh}. Differential cryptanalysis of the reduced pointer authentication code function used in Arm's FEAT\_PACQARMA3 feature~\owncite{DBLP:journals/tosc/AvanziDG25}. & IACR ToSC 2025(1). CORE~A \\
+2 & Kundu, \textbf{Ghosh}, Aikata, \textbf{Saha}. ToFA: Towards fault analysis of GIFT and GIFT-like ciphers leveraging truncated impossible differentials~\owncite{Kundu_Ghosh_Aikata_Saha_2025}. & IACR TCHES 2025(3). CORE~A \\
+3 & Belkheyar, Derbez, \textbf{Ghosh}, Leander, Mella, Perrin, Rasoolzadeh, Stennes, Sun, Van Assche, Viz\'ar. ChiLow and ChiChi: New constructions for code encryption~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}. & EUROCRYPT 2025. CORE~A* \\
+4 & Avanzi, Banik, Dunkelman, Eichlseder, \textbf{Ghosh}, Nageler, Regazzoni. The QARMAv2 family of tweakable block ciphers~\owncite{DBLP:journals/tosc/AvanziBDEGNR23}. & IACR ToSC 2023(3). CORE~A \\
+5 & Suryawanshi, \textbf{Ghosh}, \textbf{Saha}, Ram. Simple vs.\ vectorial: Exploiting structural symmetry to beat the ZeroSum distinguisher~\owncite{DBLP:journals/dcc/SuryawanshiGSR25}. & Designs, Codes and Cryptography 93, 2025. IF~1.4 \\
+\bottomrule
+\end{tabular}
+\caption{Key publications relevant to the proposal theme. IACR Transactions (ToSC, TCHES) and IACR conferences do not carry a JCR impact factor; the CORE conference ranking is given instead.}
+\label{tab:pubs}
+\end{table}
+
+\subsection{Infrastructural facilities available at the host institutes}
+
+\textbf{IIT Bhilai: Fault Injection Analysis (FIA) laboratory, de.ci.phe.red lab.}
+The laboratory is funded under the National Quantum Mission and is operational.
+Its fault-injection and side-channel bench comprises:
+two ChipWhisperer-Husky capture and glitch units with Level-2 starter kits, two ChipWhisperer-Lite ARM kits, two CW305 Artix-7 FPGA target boards for unrolled cipher implementations, and a high-frequency synthesised clock generator with OCXO timebase for precise clock-glitch injection.
+These support clock-glitch, voltage-glitch and power-analysis experiments on FPGA and ARM Cortex-M targets.
+An electromagnetic fault-injection (EMFI) probe kit with an XYZ positioning stage and a trigger pattern detector are being added under an institute matching grant; vendor quotations are in hand.
+Computing resources include a dedicated FIA-lab workstation, three GPU workstations (NVIDIA RTX A5000 24\,GB, RTX A4000 16\,GB, RTX 3060\,Ti) for solver runs and GPU-accelerated attacks, and access to the institute compute cluster (nodes of 100--120 vCPU and 100--128\,GB RAM).
+No equipment is requested from this project.
+
+\textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
+\todo{PI to add two or three sentences: departmental compute servers or GPU nodes available for solver and ML workloads, institute HPC access, and lab space for the project staff.}
+
 % \section{Team, Expertise \& Institutional Facilities}
 % \medskip
 % \noindent\textbf{Team expertise and existing infrastructure.}
@@ -507,7 +652,113 @@ Any direct industrial adoption will depend on subsequent evaluation and integrat
 % The funding requested under this thrust is therefore directed entirely toward personnel and computational resources, rendering it a low-overhead, high-impact research direction with a clear and near-term path to results.
 
 
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Justification for Proposed Budget}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The budget covers 48 months and is split between IIT~Hyderabad and IIT~Bhilai according to the work-package leads of Table~\ref{tab:roles}.
+Both institutes carry the same personnel structure, so that each site can run its work packages independently while sharing tools and results.
+The institute-wise and year-wise tables are entered in the online form; this section justifies each head.
+
+\paragraph{Equipment.}
+None requested.
+The fault-injection bench, GPU workstations and cluster access needed for WP1 and WP3 already exist at IIT~Bhilai (Section~7.4), and the EMFI extension is funded separately by the institute.
+Solver and ML workloads at IIT~Hyderabad run on departmental and institute compute.
+
+\paragraph{Research personnel.}
+Each institute requests one Junior Research Fellow (JRF, upgraded to SRF after two years as per ANRF norms) and one Research Associate-I for the full 48 months, at the emoluments notified by ANRF plus HRA as admissible.
+At IIT~Hyderabad the JRF will pursue a PhD on automated and ML-assisted cryptanalysis (WP1, WP2).
+The RA will build and maintain the constraint-model library and the GPU attack implementations (WP1) and contribute to WP4 and WP5.
+At IIT~Bhilai the JRF will pursue a PhD on fault analysis of unrolled implementations (WP3).
+The RA, with a hardware-design background, will implement the unrolled targets, run the glitch and EMFI campaigns, and later carry out the \tx{DARC} hardware benchmarking (WP3, WP5).
+Two JRFs and two RAs are the minimum staffing for five parallel technical work packages across two sites, and the training outcome (D10) depends directly on these positions.
+
+\paragraph{Consumables.}
+IIT~Bhilai: FPGA development boards and target chips for unrolled implementations, EMFI probe tips, replacement components, and cabling for the fault-injection bench.
+IIT~Hyderabad: commercial solver licences (Gurobi or CPLEX academic renewals), ML-framework and cloud-GPU credits for large distinguisher-training runs, and software subscriptions.
+
+\paragraph{Travel.}
+Inter-institute visits between Hyderabad and Bhilai for joint experiments (two per year, both directions), presentation of results at IACR conferences and workshops, and participation in standardisation meetings.
+International travel for conference presentation is included within this head.
+The total requested (Rs.~5~lakh: 4~lakh at IIT~Hyderabad, 1~lakh at IIT~Bhilai) is within the ARG ceiling of Rs.~5~lakh per project.
+
+\paragraph{Contingency.}
+Open-access publication charges, conference registration fees, minor hardware and spare parts, and documentation.
+The total requested (Rs.~4~lakh: 3~lakh at IIT~Hyderabad, 1~lakh at IIT~Bhilai) is within the ARG ceiling of Rs.~5~lakh per project.
+
+\paragraph{Other costs.}
+\todo{If the portal exposes an ``Other costs'' recurring head, move cloud compute credits, solver licences and publication charges here from consumables and contingency; otherwise delete this paragraph.}
+
+\paragraph{Overheads.}
+As per ANRF norms, payable to the two host institutes.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Head (48 months)} & \textbf{IIT Hyderabad} & \textbf{IIT Bhilai} & \textbf{Total} \\
+\midrule
+Research personnel (1 JRF/SRF + 1 RA-I each) & 52,93,200 & 52,93,200 & 1,05,86,400 \\
+Consumables & 6,00,000 & 4,00,000 & 10,00,000 \\
+Travel & 4,00,000 & 1,00,000 & 5,00,000 \\
+Contingency & 3,00,000 & 1,00,000 & 4,00,000 \\
+Equipment & 0 & 0 & 0 \\
+\midrule
+Recurring subtotal & 65,93,200 & 58,93,200 & 1,24,86,400 \\
+Overheads (20\%) & 13,18,640 & 11,78,640 & 24,97,280 \\
+\midrule
+\textbf{Total} & \textbf{79,11,840} & \textbf{70,71,840} & \textbf{1,49,83,680} \\
+\bottomrule
+\end{tabular}
+\caption{Budget summary (amounts in INR). Year-wise breakup is given in the online form.}
+\label{tab:budget}
+\end{table}
+
 % \section{Justification for proposed budget}
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Current Financial Support (Other Than This Proposal)}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{1.0cm}p{4.6cm}p{2.8cm}p{1.9cm}p{2.2cm}p{2.5cm}@{}}
+\toprule
+\textbf{Who} & \textbf{Project title} & \textbf{Funding agency} & \textbf{Amount} & \textbf{Duration} & \textbf{Overlap with this proposal} \\
+\midrule
+PI & None (joined IIT Hyderabad in May 2026) \todo{PI to confirm, or add seed grant} & -- & -- & -- & -- \\
+\addlinespace
+Co-PI & DASH: Digital Cash Solutions Based on CBDC & IBITF (IIT Bhilai TIH), DIAL scheme & \todo{total sanctioned amount} & May 2025 -- May 2028 (3 years) & None. CBDC token protocols and hardware wallet. \\
+\addlinespace
+Co-PI & Symmetric Cryptanalysis via Higher Order Vectorial Derivative (MTR/2023/001161) & SERB (now ANRF), MATRICS & Rs.~6,60,000 & Jan 2024 -- Jan 2027 (3 years) & None. Zero-sum distinguishers for hash functions; ends before this project starts. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+The Co-PI's MeitY-funded project FinTeQ (Quantum-Safe Financial Transaction Framework, 2023--2026) was completed in September 2026 and is not listed above.
+Neither investigator holds more than the permitted number of ANRF/SERB projects.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Experts / Institutions Interested in the Subject or Outcome of the Project}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{0.9cm}p{3.4cm}p{4.2cm}p{3.4cm}p{3.3cm}@{}}
+\toprule
+\textbf{S.No.} & \textbf{Name of expert} & \textbf{Affiliation} & \textbf{Email} & \textbf{Area of expertise} \\
+\midrule
+1 & \todo{Roberto Avanzi} & \todo{Arm / Qualcomm} & \todo{} & Low-latency cipher design (QARMA), pointer authentication \\
+2 & \todo{Orr Dunkelman} & University of Haifa, Israel & \todo{} & Symmetric-key cryptanalysis \\
+3 & \todo{Mar\'ia Naya-Plasencia} & Inria Paris, France & \todo{} & Cryptanalysis, low-latency and lightweight designs \\
+4 & \todo{Gregor Leander} & Ruhr University Bochum, Germany & \todo{} & Low-latency ciphers (PRINCE, SCARF, ChiLow) \\
+5 & \todo{Indian expert, e.g.\ Debdeep Mukhopadhyay, IIT Kharagpur} & \todo{} & \todo{} & Hardware security, fault and side-channel attacks \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % \section{Current Financial Support (Other Than This Proposal)}
 
