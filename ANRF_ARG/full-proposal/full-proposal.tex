@@ -139,8 +139,7 @@ Figure~\ref{fig:design-space} situates this domain within the broader landscape 
 \label{fig:design-space}
 \end{figure}
 
-% \subsection{Primitives for Low-Latency Crypto}
-\section{Research Objectives, Hypotheses \& Success Metrics}
+\subsection{Primitives for Low-Latency Cryptography}
 
 Latency, or the time delay from input to output, is critical especially in applications requiring hardware-assisted mechanisms to protect against software exploitation.
 Memory and code protection stand out as crucial: while in contemporary processor architectures it is common to protect the CPU within secure enclaves to safeguard sensitive computations, extending such protections to any external memory remains impractical due to physical and architectural constraints.
@@ -154,12 +153,34 @@ While throughput can benefit from pipelining and parallelism, designing a secure
 In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation --- one where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
 Although the recently completed NIST lightweight encryption/authentication standardisation effort addressed small area and low-power budgets, the design of low-latency cryptographic primitives remains a relatively new and rapidly evolving research field.
 
-\begin{genericbox}{Why This Problem Matters}[teal!60]
-Low-latency symmetric-key primitives underpin a growing class of hardware security mechanisms, from transparent memory encryption and pointer authentication to secure caches and automotive real-time networks.
-Because these mechanisms sit on the critical path of processor execution, any added latency directly degrades system performance.
-Yet the security of the small, fast designs that meet this constraint is far less understood than that of conventional block ciphers.
-This proposal addresses that gap directly.
+\subsection{State of the Art in India and Abroad}
+
+Internationally, low-latency cipher design is concentrated in a few groups.
+The PRINCE family~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12,DBLP:conf/sacrypt/BozilovEKLLMNRT20}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} come from Ruhr University Bochum and its collaborators; \tx{QARMA} and \tx{QARMAv2}~\cite{DBLP:journals/tosc/Avanzi17,DBLP:journals/tosc/AvanziBDEGNR23} from Arm and Qualcomm with academic partners; \tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16} from the SKINNY team; and \tx{ARADI}~\cite{cryptoeprint:2024/1240} from the NSA.
+Third-party cryptanalysis of these designs is thin.
+The best published results are the PI's SAT-based differential attack on the \tx{QARMA}-based pointer-authentication function~\owncite{DBLP:journals/tosc/AvanziDG25} and the differential meet-in-the-middle attack on 14 of 16 rounds of \tx{ARADI} by the PI with Inria~\owncite{cryptoeprint:2025/1918}.
+Physical attacks on fully unrolled implementations have received almost no attention; the fault-invariant distinguishers of the investigators~\owncite{Kundu_Ghosh_Aikata_Saha_2025} are, to our knowledge, the first systematic treatment.
+On the systems side, memory encryption, pointer authentication and cache randomisation are studied by the microarchitectural-security community, largely without cryptanalytic input.
+
+In India, symmetric-key cryptanalysis and hardware security are active at ISI Kolkata, IIT Kharagpur, IIT Madras, TCG CREST and the two host institutes, with strong records in fault attacks, side-channel analysis and distinguisher search.
+The investigators themselves have contributed the fault-attack~\owncite{DBLP:conf/acns/KunduGSR23,Kundu_Ghosh_Aikata_Saha_2025} and distinguisher results~\owncite{DBLP:conf/indocrypt/GhoshKRS24,DBLP:journals/dcc/SuryawanshiGSR25} cited above.
+No Indian group has yet worked on low-latency ciphers specifically, and no indigenous low-latency design exists.
+This proposal would establish that capability.
+
+\begin{genericbox}{Knowledge Gap}[teal!60]
+Low-latency primitives sit on the critical path of processor security mechanisms, so any added latency directly degrades system performance.
+To meet this constraint they use shallow S-boxes, few rounds and trivial key schedules, which concentrates the security burden on few components.
+Three things are missing:
+(i) systematic, tool-supported cryptanalysis of the current generation of these ciphers;
+(ii) an understanding of how fully unrolled implementations behave under fault and probing attacks; and
+(iii) an evaluation of these primitives in the microarchitectural context in which they are actually deployed.
+Without these, neither designers nor standardisation bodies can judge whether a low-latency design is adequately secure.
+This proposal addresses all three gaps and uses the answers to design an indigenous low-latency cipher.
 \end{genericbox}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Research Objectives, Hypotheses \& Success Metrics}
+% ─────────────────────────────────────────────────────────────────────────────
 
 \subsection{Research Objectives and Hypotheses}
 
