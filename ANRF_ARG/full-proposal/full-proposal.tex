@@ -158,13 +158,13 @@ Although the recently completed NIST lightweight encryption/authentication stand
 Internationally, low-latency cipher design is concentrated in a few groups.
 The PRINCE family~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12,DBLP:conf/sacrypt/BozilovEKLLMNRT20}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} come from Ruhr University Bochum and its collaborators; \tx{QARMA} and \tx{QARMAv2}~\cite{DBLP:journals/tosc/Avanzi17,DBLP:journals/tosc/AvanziBDEGNR23} from Arm and Qualcomm with academic partners; \tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16} from the SKINNY team; and \tx{ARADI}~\cite{cryptoeprint:2024/1240} from the NSA.
 Third-party cryptanalysis of these designs is thin.
-The best published results are the PI's SAT-based differential attack on the \tx{QARMA}-based pointer-authentication function~\owncite{DBLP:journals/tosc/AvanziDG25} and the differential meet-in-the-middle attack on 14 of 16 rounds of \tx{ARADI} by the PI with Inria~\owncite{cryptoeprint:2025/1918}.
+Among the few published third-party results, three come from the investigators: the PI's SAT-based differential attack on the \tx{QARMA}-based pointer-authentication function~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of 16 rounds of \tx{ARADI} by the PI with Inria~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}, the first third-party cryptanalysis of that cipher, at ASIACRYPT~2024\owncite{DBLP:conf/asiacrypt/BouraRST24}.
 Physical attacks on fully unrolled implementations have received almost no attention; the fault-invariant distinguishers of the investigators~\owncite{Kundu_Ghosh_Aikata_Saha_2025} are, to our knowledge, the first systematic treatment.
 On the systems side, memory encryption, pointer authentication and cache randomisation are studied by the microarchitectural-security community, largely without cryptanalytic input.
 
 In India, symmetric-key cryptanalysis and hardware security are active at ISI Kolkata, IIT Kharagpur, IIT Madras, TCG CREST and the two host institutes, with strong records in fault attacks, side-channel analysis and distinguisher search.
 The investigators themselves have contributed the fault-attack~\owncite{DBLP:conf/acns/KunduGSR23,Kundu_Ghosh_Aikata_Saha_2025} and distinguisher results~\owncite{DBLP:conf/indocrypt/GhoshKRS24,DBLP:journals/dcc/SuryawanshiGSR25} cited above.
-No Indian group has yet worked on low-latency ciphers specifically, and no indigenous low-latency design exists.
+Apart from the investigators' own results above, no Indian group has worked on low-latency ciphers specifically, and no indigenous low-latency design exists.
 This proposal would establish that capability.
 
 \begin{genericbox}{Knowledge Gap}[teal!60]
@@ -275,7 +275,7 @@ While this makes them efficient, it also concentrates the security burden on few
 
 \paragraph{Automated distinguisher and key-recovery search.}
 Constraint-solving tools, such as CP, SAT, and MILP have proven powerful for uncovering new distinguishers and key-recovery attacks in conventional ciphers, but their systematic application to the low-latency cipher family is nascent.
-Our prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods demonstrates the viability of this approach and establishes a concrete baseline.
+Our prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}\owncite{DBLP:conf/asiacrypt/BouraRST24}, which exploits the large tweak space that cache randomisation exposes to the attacker, demonstrate the viability of this approach and establish a concrete baseline.
 A key novelty of this proposal is to jointly optimise distinguisher quality and key-recovery complexity, going beyond the typical practice of treating them as separate problems.
 
 \paragraph{Machine-learning and classical hybrid cryptanalysis.}
@@ -293,11 +293,36 @@ Hardware-based mitigations for important microarchitectural attacks such as memo
 We propose to systematically analyse the cryptographic components of these mitigation mechanisms to identify vulnerabilities specific to their microarchitectural deployment context.
 This direction is novel in that it bridges the gap between the cryptographic and systems-security communities.
 
+
+\paragraph{Design criteria and an indigenous cipher.}
+Existing low-latency designs were each optimised for one deployment (memory encryption, pointer authentication, cache randomisation) and evaluated mainly against classical cryptanalysis.
+None was designed with the fault and probing exposure of its own unrolled circuit, or with the constraints of its microarchitectural context, as explicit inputs.
+\tx{DARC} will be the first low-latency cipher designed from criteria that combine all three, and the first such design from India.
+
+\subsection{Limitations of Current Approaches and Target Improvement}
+
+Current security evaluations of low-latency ciphers rest on designers' own bounds and on a handful of third-party attacks.
+Distinguisher search and key recovery are treated separately, attacks are rarely verified beyond small-scale simulation, and the physical and microarchitectural dimensions are evaluated by different communities, if at all.
+The improvements this project targets over that baseline are measurable:
+(i) more rounds attacked, or lower complexity, than the best published attack on at least two target ciphers, verified by GPU implementation;
+(ii) a public constraint-model library and a fault-analysis tool where today none exist for this cipher family;
+(iii) the first hardware-validated fault attack on an unrolled low-latency implementation; and
+(iv) a cipher specification whose security argument covers all three dimensions, at latency and area comparable to \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI}.
+
+\subsection{Preliminary Results and Proof of Concept}
+
+Three results obtained by the investigators establish that each thrust starts from a working baseline.
+(i) \emph{Automated cryptanalysis.} The PI's SAT-based differential attack on the reduced \tx{QARMA} function used in Arm's pointer authentication~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of the 16 rounds of \tx{ARADI} with Inria Paris~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}\owncite{DBLP:conf/asiacrypt/BouraRST24} give the investigators published third-party cryptanalysis of three of the four target ciphers.
+All three were found with the solver-assisted methodology that WP1 generalises; the \textsf{AutoDiVer} tool~\owncite{DBLP:journals/tosc/NagelerGJE25} co-developed by the PI already verifies differential characteristics automatically.
+(ii) \emph{Physical attacks.} The fault-invariant distinguishers of \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025} and the division-property fault attacks of \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, both joint work of the PI and Co-PI, were carried through to key recovery on hardware in the Co-PI's laboratory.
+WP3 applies the same pipeline to unrolled low-latency targets.
+(iii) \emph{Design.} The PI is a co-designer of \tx{QARMAv2}~\owncite{DBLP:journals/tosc/AvanziBDEGNR23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, two of the four target ciphers of Objective~1, so the design thrust builds on direct experience of this design space.
+
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Research Approach, Methodology, Integration \& Feasibility}
 % ─────────────────────────────────────────────────────────────────────────────
 
-The research is structured into three temporally ordered thrusts, progressing from problems where established techniques provide a clear starting point (short-term) to problems that demand fundamentally new conceptual frameworks (long-term).
+The research is structured into four temporally ordered thrusts, progressing from problems where established techniques provide a clear starting point (short-term) to problems that demand fundamentally new conceptual frameworks (long-term), and ending in a design thrust that consumes the results of the first three.
 Feasibility at each stage is grounded in the team's existing expertise and preliminary results.
 
 \begin{genericbox}{Research Summary}[teal!60]
@@ -312,7 +337,7 @@ The resulting analysis and frameworks are intended to directly support the stand
 The immediate objective is to perform rigorous cryptanalytic evaluation of the current generation of low-latency block ciphers.
 Automatic tools such as CP, SAT, and MILP are particularly powerful for uncovering new distinguishers and key-recovery attacks; we have used them extensively in prior work.
 Leveraging such tools to identify the best distinguishers that facilitate optimal key-recovery attacks is a central methodological pillar.
-Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} establishes both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}~\cite{cryptoeprint:2024/1240}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and related designs.
+Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} and the multiple-tweak differential attack on \tx{SCARF}\owncite{DBLP:conf/asiacrypt/BouraRST24} establish both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}~\cite{cryptoeprint:2024/1240}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and related designs.
 
 In parallel, we will investigate the use of machine learning for the analysis of cryptographic algorithms.
 While not entirely new as a direction, many open questions remain, particularly regarding the combination of ML-based distinguishers with classical cryptanalytic techniques in principled hybrid approaches.
@@ -342,7 +367,7 @@ This approach could significantly advance the ability to analyse and harden low-
 Security of modern CPUs has received significant attention in the wake of diverse microarchitectural attacks.
 Hardware-based mitigations increasingly rely on encrypted communication between the CPU and its surrounding components, using techniques such as memory encryption, pointer authentication, and secure caches, all of which require low-latency primitives.
 The long-term objective is to systematically analyse the cryptographic sub-systems of various CPU architectures, identify potential security vulnerabilities arising from their microarchitectural context, and develop efficient cryptographic solutions that safeguard against emerging threats.
-Concrete initial targets are Arm pointer authentication (\textsf{FEAT\_PACQARMA3}, which the PI has already analysed~\owncite{DBLP:journals/tosc/AvanziDG25}), memory-encryption engines of the kind \tx{ARADI} was designed for, and cache-randomisation schemes built on \tx{SCARF}.
+Concrete initial targets are Arm pointer authentication (\textsf{FEAT\_PACQARMA3}, which the PI has already analysed~\owncite{DBLP:journals/tosc/AvanziDG25}), memory-encryption engines of the kind \tx{ARADI} was designed for, and cache-randomisation schemes built on \tx{SCARF}, whose cipher the Co-PI has already analysed~\owncite{DBLP:conf/asiacrypt/BouraRST24}.
 For each, we will state the threat model that the deployment context actually implies (truncated outputs, tweak and address reuse, attacker-controlled plaintexts, fault and probing access) and evaluate the primitive under that model rather than in isolation.
 
 \subsection{Thrust~4 (Long-term): Design Criteria and the \tx{DARC} Cipher}
@@ -380,7 +405,7 @@ WP6 & Recruitment and training; open-source releases; reporting and disseminatio
 \end{table}
 
 \paragraph{Integration across the two sites.}
-IIT~Hyderabad leads the solver-based and ML-based cryptanalysis; IIT~Bhilai leads the physical experimentation and hardware implementation.
+IIT~Hyderabad leads the solver-based and ML-based cryptanalysis; IIT~Bhilai leads the physical experimentation and hardware implementation, and contributes the \tx{SCARF} line of attack to WP1.
 The two groups already collaborate, with four joint publications since 2023, including hardware-validated fault attacks~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025}.
 The project will run a shared code repository, a fortnightly joint meeting, and two in-person exchange visits per year.
 The postdoctoral researchers at the two sites are the day-to-day integration points.
@@ -600,6 +625,7 @@ Furthermore while working in Inria Paris, a differential meet-in-the-middle key-
 His doctoral work (University of Haifa, with Orr Dunkelman) and post-doctoral work (Inria Paris) covered division-property, differential and meet-in-the-middle cryptanalysis, including the best attack on 6-round \AES~\owncite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} and the \textsf{AutoDiVer} tool for verifying differential characteristics~\owncite{DBLP:journals/tosc/NagelerGJE25}.
 
 \textbf{Dhiman Saha (Co-PI, IIT Bhilai)} leads the de.ci.phe.red laboratory, which works on fault and side-channel analysis of symmetric-key and post-quantum primitives, automated distinguisher search, and hardware security.
+He co-authored, with Boura, Rasoolzadeh and Todo, the first third-party cryptanalysis of the low-latency cache-randomisation cipher \tx{SCARF} (ASIACRYPT~2024)\owncite{DBLP:conf/asiacrypt/BouraRST24}.
 He was PI of the MeitY-funded FinTeQ project on quantum-safe financial transactions (2023--2026) and leads the institute's Fault Injection Analysis (FIA) laboratory funded under the National Quantum Mission.
 With the PI he co-authored the fault-invariant distinguisher framework \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025}, the division-property-based fault attacks \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, the \textsf{BIZness} distinguishers~\owncite{DBLP:conf/indocrypt/GhoshKRS24} and the structural zero-sum work of~\owncite{DBLP:journals/dcc/SuryawanshiGSR25}.
 All of the fault-attack results above were validated end to end on hardware in his laboratory.
@@ -624,6 +650,7 @@ Supervision of the IITH PhD student and postdoctoral researcher. \\
 \addlinespace
 \makecell[l]{Dhiman Saha\\IIT Bhilai} & Co-PI &
 Lead of WP3: fault-friendly distinguisher tool, unrolled hardware targets, fault-injection campaigns, hardening guidelines.
+Contributor to WP1 for the \tx{SCARF} and cache-randomisation targets.
 Co-lead of WP4 (experimental evaluation of mitigation mechanisms) and WP5 (hardware implementation and latency/area benchmarking of \tx{DARC}).
 Supervision of the IIT Bhilai PhD student and postdoctoral researcher; WP6 artifact releases. \\
 \bottomrule
@@ -644,7 +671,7 @@ Supervision of the IIT Bhilai PhD student and postdoctoral researcher; WP6 artif
 2 & Kundu, \textbf{Ghosh}, Aikata, \textbf{Saha}. ToFA: Towards fault analysis of GIFT and GIFT-like ciphers leveraging truncated impossible differentials~\owncite{Kundu_Ghosh_Aikata_Saha_2025}. & IACR TCHES 2025(3). CORE~A \\
 3 & Belkheyar, Derbez, \textbf{Ghosh}, Leander, Mella, Perrin, Rasoolzadeh, Stennes, Sun, Van Assche, Viz\'ar. ChiLow and ChiChi: New constructions for code encryption~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}. & EUROCRYPT 2025. CORE~A* \\
 4 & Avanzi, Banik, Dunkelman, Eichlseder, \textbf{Ghosh}, Nageler, Regazzoni. The QARMAv2 family of tweakable block ciphers~\owncite{DBLP:journals/tosc/AvanziBDEGNR23}. & IACR ToSC 2023(3). CORE~A \\
-5 & Suryawanshi, \textbf{Ghosh}, \textbf{Saha}, Ram. Simple vs.\ vectorial: Exploiting structural symmetry to beat the ZeroSum distinguisher~\owncite{DBLP:journals/dcc/SuryawanshiGSR25}. & Designs, Codes and Cryptography 93, 2025. IF~1.4 \\
+5 & Boura, Rasoolzadeh, \textbf{Saha}, Todo. Multiple-tweak differential attack against SCARF\owncite{DBLP:conf/asiacrypt/BouraRST24}. & ASIACRYPT 2024. CORE~A* \\
 \bottomrule
 \end{tabular}
 \caption{Key publications relevant to the proposal theme. IACR Transactions (ToSC, TCHES) and IACR conferences do not carry a JCR impact factor; the CORE conference ranking is given instead.}
