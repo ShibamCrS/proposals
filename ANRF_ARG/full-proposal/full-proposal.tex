@@ -1,12 +1,14 @@
 \PassOptionsToPackage{numbers}{natbib}
-\input{../technical/meta.tex}
-\newcommand{\soptitle}{Technical Document: Category II (Use-Inspired Basic Research)}
+\input{meta-full.tex}
+\newcommand{\soptitle}{DARC: Design and Analysis of Rapid Cryptography}
+\newcommand{\sopsubtitle}{Full Proposal -- Technical Document, Category II (Use-Inspired Basic Research)}
 \begin{document}
 \begin{center}
 \vspace*{-0.8cm}
 {\sffamily\bfseries\Large \textcolor{theme}{\soptitle}}\par
 \vspace{2pt}
-Shibam Ghosh\textsuperscript{1} \quad Dhiman Saha\textsuperscript{2} \\[1ex]
+{\sffamily\sopsubtitle}\\[4pt]
+Shibam Ghosh\textsuperscript{1} (PI) \quad Dhiman Saha\textsuperscript{2} (Co-PI) \\[1ex]
 \small \textsuperscript{1}Indian Institute of Technology Hyderabad
   \small \textsuperscript{2}Indian Institute of Technology Bhilai \\[1ex]
 % {\small \yourname, Dhiman Saha}
@@ -160,18 +162,17 @@ This proposal addresses that gap directly.
 
 \subsection{Research Objectives and Hypotheses}
 
-\paragraph{Objective 1: Automated cryptanalysis of low-latency ciphers.}
-Develop CP/SAT/MILP-based methods and hybrid machine-learning
-approaches to improve the cryptanalysis of low-latency block ciphers.
+\paragraph{Objective 1: Automated, accelerated and hybrid cryptanalysis of low-latency ciphers.}
+Develop CP/SAT/MILP-based methods to jointly search for distinguishers and key-recovery attacks on low-latency block ciphers; tailor the resulting attack algorithms for high-performance GPU implementation so that the attack complexities found by the solvers can be verified and pushed further in practice; and combine machine-learning-based distinguishers with classical techniques in principled hybrid approaches.
 
 \textbf{Hypothesis H1:}
-Automated and hybrid cryptanalytic methods can reveal new
-weaknesses or improve the analysis of existing low-latency ciphers.
+Automated and hybrid cryptanalytic methods, backed by GPU-accelerated implementations, can reveal new weaknesses or improve the best known analysis of existing low-latency ciphers.
 
 \textbf{Success metrics:}
-Cryptanalytic results on at least two target ciphers, evaluation
-of a hybrid approach on at least one cipher, and an open-source
-constraint-model library.
+New distinguishers or key-recovery results on at least two of \tx{ARADI}, \tx{ChiLow}, \tx{SCARF} and \tx{QARMAv2}, each improving on the best published attack in rounds covered or in complexity;
+at least one attack implemented on GPU with a measured speed-up over its CPU reference;
+evaluation of a hybrid ML--classical distinguisher on at least one target cipher;
+and an open-source constraint-model library covering all four target ciphers.
 
 \paragraph{Objective 2: Physical attacks on fully unrolled
 implementations.}
@@ -199,19 +200,16 @@ Security evaluation of at least one target mechanism and,
 where warranted, cryptographic improvements or hardening
 recommendations supported by appropriate evidence.
 
-\paragraph{Objective 4: Security--performance trade-offs.}
-Evaluate the relationship between cryptographic security,
-implementation characteristics, and the latency requirements
-of target applications.
+\paragraph{Objective 4: Design criteria and an indigenous low-latency cipher.}
+Formalise the relationship between cryptographic security, implementation characteristics (gate depth, area, fault and probing exposure of the unrolled circuit), and the latency requirements of the target applications; and, using these criteria together with the findings of Objectives~1--3, design and evaluate \tx{DARC}, an indigenous low-latency block cipher tailored to secure-hardware and microarchitectural use.
 
 \textbf{Hypothesis H4:}
-Joint consideration of security and implementation characteristics
-provides a more informative basis for evaluating low-latency
-cryptographic primitives.
+Design criteria that jointly account for algorithmic security, physical-attack exposure and microarchitectural context yield a low-latency primitive with a stronger security argument than existing designs at comparable latency.
 
 \textbf{Success metrics:}
-Documented implementation metrics, comparisons with relevant
-baselines, and evidence-based design recommendations.
+A documented set of design criteria with implementation metrics and comparisons against \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI};
+a complete public specification of \tx{DARC} with reference software and unrolled hardware implementations;
+and a security analysis covering the attack classes of Objectives~1--3, with latency and area benchmarked against the above baselines.
 
 \paragraph{Objective 5: Reproducibility and research training.}
 Develop reusable research artefacts and strengthen expertise
