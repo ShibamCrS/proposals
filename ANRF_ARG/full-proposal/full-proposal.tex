@@ -163,16 +163,18 @@ This proposal addresses that gap directly.
 \subsection{Research Objectives and Hypotheses}
 
 \paragraph{Objective 1: Automated, accelerated and hybrid cryptanalysis of low-latency ciphers.}
-Develop CP/SAT/MILP-based methods to jointly search for distinguishers and key-recovery attacks on low-latency block ciphers; tailor the resulting attack algorithms for high-performance GPU implementation so that the attack complexities found by the solvers can be verified and pushed further in practice; and combine machine-learning-based distinguishers with classical techniques in principled hybrid approaches.
+Develop CP/SAT/MILP-based methods that jointly search for distinguishers and key-recovery attacks on low-latency block ciphers.
+Tailor the resulting attack algorithms for high-performance GPU implementation, so that solver-found attacks can be verified and pushed further in practice.
+Combine machine-learning-based distinguishers with classical techniques in principled hybrid approaches.
 
 \textbf{Hypothesis H1:}
-Automated and hybrid cryptanalytic methods, backed by GPU-accelerated implementations, can reveal new weaknesses or improve the best known analysis of existing low-latency ciphers.
+Automated and hybrid cryptanalytic methods, backed by GPU-accelerated implementations, can reveal new weaknesses in existing low-latency ciphers or improve their best known analysis.
 
 \textbf{Success metrics:}
-New distinguishers or key-recovery results on at least two of \tx{ARADI}, \tx{ChiLow}, \tx{SCARF} and \tx{QARMAv2}, each improving on the best published attack in rounds covered or in complexity;
-at least one attack implemented on GPU with a measured speed-up over its CPU reference;
-evaluation of a hybrid ML--classical distinguisher on at least one target cipher;
-and an open-source constraint-model library covering all four target ciphers.
+(i) New distinguishers or key-recovery results on at least two of \tx{ARADI}, \tx{ChiLow}, \tx{SCARF} and \tx{QARMAv2}, each improving on the best published attack in rounds covered or in complexity.
+(ii) At least one attack implemented on GPU, with a measured speed-up over its CPU reference.
+(iii) A hybrid ML--classical distinguisher evaluated on at least one target cipher.
+(iv) An open-source constraint-model library covering all four target ciphers.
 
 \paragraph{Objective 2: Physical attacks on fully unrolled
 implementations.}
@@ -184,8 +186,9 @@ Automated fault analysis can identify exploitable properties
 of fully unrolled implementations and guide practical fault attacks.
 
 \textbf{Success metrics:}
-A publicly released fault-analysis tool, experimental validation
-of at least one fault attack, and evidence-based hardening guidelines.
+(i) A publicly released fault-analysis tool.
+(ii) Experimental validation of at least one fault attack on hardware.
+(iii) Evidence-based hardening guidelines.
 
 \paragraph{Objective 3: Microarchitectural security.}
 Analyse the cryptographic components of CPU memory-encryption
@@ -196,20 +199,20 @@ Microarchitectural threat modelling can reveal security limitations
 not adequately captured by primitive-level analysis alone.
 
 \textbf{Success metrics:}
-Security evaluation of at least one target mechanism and,
-where warranted, cryptographic improvements or hardening
-recommendations supported by appropriate evidence.
+(i) Security evaluation of at least one target mechanism.
+(ii) Where warranted, cryptographic improvements or hardening recommendations supported by appropriate evidence.
 
 \paragraph{Objective 4: Design criteria and an indigenous low-latency cipher.}
-Formalise the relationship between cryptographic security, implementation characteristics (gate depth, area, fault and probing exposure of the unrolled circuit), and the latency requirements of the target applications; and, using these criteria together with the findings of Objectives~1--3, design and evaluate \tx{DARC}, an indigenous low-latency block cipher tailored to secure-hardware and microarchitectural use.
+Formalise how cryptographic security relates to implementation characteristics (gate depth, area, fault and probing exposure of the unrolled circuit) and to the latency requirements of the target applications.
+Use these criteria, together with the findings of Objectives~1--3, to design and evaluate \tx{DARC}: an indigenous low-latency block cipher tailored to secure-hardware and microarchitectural use.
 
 \textbf{Hypothesis H4:}
-Design criteria that jointly account for algorithmic security, physical-attack exposure and microarchitectural context yield a low-latency primitive with a stronger security argument than existing designs at comparable latency.
+Design criteria that jointly account for algorithmic security, physical-attack exposure and microarchitectural context lead to a low-latency primitive with a stronger security argument than existing designs, at comparable latency.
 
 \textbf{Success metrics:}
-A documented set of design criteria with implementation metrics and comparisons against \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI};
-a complete public specification of \tx{DARC} with reference software and unrolled hardware implementations;
-and a security analysis covering the attack classes of Objectives~1--3, with latency and area benchmarked against the above baselines.
+(i) A documented set of design criteria, with implementation metrics compared against \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI}.
+(ii) A complete public specification of \tx{DARC}, with reference software and unrolled hardware implementations.
+(iii) A security analysis of \tx{DARC} covering the attack classes of Objectives~1--3, with latency and area benchmarked against the above baselines.
 
 \paragraph{Objective 5: Reproducibility and research training.}
 Develop reusable research artefacts and strengthen expertise
@@ -220,9 +223,9 @@ Reproducible tools and documented experiments facilitate
 independent verification and further research.
 
 \textbf{Success metrics:}
-Open-source tools and datasets accompanying publications,
-documented experimental procedures, and training of at least
-two PhD students and one postdoctoral researcher.
+(i) Open-source tools and datasets accompanying every publication, with documented experimental procedures.
+(ii) Two PhD students trained, one at each institute: one on automated and ML-assisted cryptanalysis, one on fault analysis of unrolled implementations.
+(iii) Two postdoctoral researchers trained, one at each institute: one driving the constraint-model and GPU toolchain, one driving the hardware experimentation and the \tx{DARC} implementation.
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Scientific Novelty, Advancement of Knowledge \& Utility}
 % ─────────────────────────────────────────────────────────────────────────────
@@ -293,6 +296,11 @@ In parallel, we will investigate the use of machine learning for the analysis of
 While not entirely new as a direction, many open questions remain, particularly regarding the combination of ML-based distinguishers with classical cryptanalytic techniques in principled hybrid approaches.
 Such combinations have the potential to complement traditional tools and provide new security insights into modern low-latency cipher designs.
 
+Solver-found attacks are only as credible as their verification.
+We will therefore tailor the key-recovery procedures to high-performance GPU implementation, exploiting the bit-sliced structure and shallow depth of low-latency ciphers.
+This serves two purposes: experimentally confirming the complexities predicted by the models, and pushing attacks beyond what CPU implementations can reach in practice.
+The GPU workstations already available at IIT~Bhilai (Section~7.4) are sufficient for this task.
+
 \subsection{Thrust~2 (Medium-term): Physical Attacks on Low-Latency Implementations}
 
 Physical security threats emerge at the circuit level, where attackers can directly observe or manipulate computations.
@@ -312,6 +320,60 @@ This approach could significantly advance the ability to analyse and harden low-
 Security of modern CPUs has received significant attention in the wake of diverse microarchitectural attacks.
 Hardware-based mitigations increasingly rely on encrypted communication between the CPU and its surrounding components, using techniques such as memory encryption, pointer authentication, and secure caches, all of which require low-latency primitives.
 The long-term objective is to systematically analyse the cryptographic sub-systems of various CPU architectures, identify potential security vulnerabilities arising from their microarchitectural context, and develop efficient cryptographic solutions that safeguard against emerging threats.
+Concrete initial targets are Arm pointer authentication (\textsf{FEAT\_PACQARMA3}, which the PI has already analysed~\owncite{DBLP:journals/tosc/AvanziDG25}), memory-encryption engines of the kind \tx{ARADI} was designed for, and cache-randomisation schemes built on \tx{SCARF}.
+For each, we will state the threat model that the deployment context actually implies (truncated outputs, tweak and address reuse, attacker-controlled plaintexts, fault and probing access) and evaluate the primitive under that model rather than in isolation.
+
+\subsection{Thrust~4 (Long-term): Design Criteria and the \tx{DARC} Cipher}
+
+The analysis thrusts feed a design thrust.
+Thrust~1 tells us which structural choices (S-box depth, linear-layer branch number, key-schedule simplicity) leave the most room for attacks.
+Thrust~2 tells us which parts of an unrolled circuit are most exposed to faults and probing.
+Thrust~3 tells us what the deployment context demands of the primitive.
+We will consolidate these findings into explicit design criteria and quantify the security--latency trade-off they imply, benchmarked against \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI}.
+Using these criteria we will design \tx{DARC}, an indigenous low-latency block cipher.
+The design will be accompanied by self-analysis with the tools of Thrust~1, by unrolled hardware implementations and latency/area figures from IIT~Bhilai, and by a public specification inviting third-party cryptanalysis.
+This thrust starts only in the second half of the project, once the analysis results are available.
+
+\subsection{Work Packages, Integration and Risk Management}
+
+Table~\ref{tab:wp} maps the thrusts onto six work packages, each with a lead institute, the objective it serves, and its duration.
+Every technical work package has a clear hand-over: WP1 and WP2 deliver attack models and tools that WP3 reuses for fault-friendly distinguishers; WP3 and WP4 deliver the exposure and threat-model data that WP5 consumes.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{0.9cm}p{5.5cm}p{1.8cm}p{1.1cm}p{1.4cm}p{3.6cm}@{}}
+\toprule
+\textbf{WP} & \textbf{Scope} & \textbf{Lead} & \textbf{Obj.} & \textbf{Months} & \textbf{Main outputs} \\
+\midrule
+WP1 & Constraint models; joint distinguisher and key-recovery search; GPU-accelerated attack implementations & IITH & O1 & 1--30 & D1, D2 \\
+WP2 & Neural distinguishers; ML--classical hybrid framework & IITH & O1 & 7--36 & D3 \\
+WP3 & Fault-friendly distinguisher search tool; unrolled hardware targets; EMFI and ChipWhisperer campaigns; hardening guidelines & IIT Bhilai & O2 & 7--42 & D4, D5, D6 \\
+WP4 & Threat modelling and analysis of PAC, memory-encryption and cache-randomisation mechanisms; countermeasures & joint & O3 & 19--48 & D7, D8 \\
+WP5 & Design criteria and trade-off study; \tx{DARC} specification, self-analysis, hardware benchmarking & joint & O4 & 19--48 & D9 \\
+WP6 & Recruitment and training; open-source releases; reporting and dissemination & both & O5 & 1--48 & D10--D13 \\
+\bottomrule
+\end{tabular}
+\caption{Work packages. Deliverable numbers refer to Section~5.}
+\label{tab:wp}
+\end{table}
+
+\paragraph{Integration across the two sites.}
+IIT~Hyderabad leads the solver-based and ML-based cryptanalysis; IIT~Bhilai leads the physical experimentation and hardware implementation.
+The two groups already collaborate, with four joint publications since 2023, including hardware-validated fault attacks~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025}.
+The project will run a shared code repository, a fortnightly joint meeting, and two in-person exchange visits per year.
+The postdoctoral researchers at the two sites are the day-to-day integration points.
+
+\paragraph{Risks and mitigation.}
+(i) \emph{No improved attack is found on a target cipher.}
+A rigorous, reproducible negative result (a proven bound from the solver models) is still a publishable security evaluation and feeds WP5 directly.
+(ii) \emph{ML distinguishers do not outperform classical ones on the targets.}
+The hybrid framework is designed so that the classical component stands alone; the ML part is an add-on, not a dependency.
+(iii) \emph{EMFI campaigns on unrolled targets prove harder than modelled.}
+The bench already exists and clock-glitch and voltage-glitch fall-backs are available; the fault-friendly distinguisher tool (D4) is independent of the physical result.
+(iv) \emph{Recruitment delays.}
+Both groups have a pipeline of MTech and PhD students in the area; the RA positions can start with internal candidates.
+(v) \emph{Scope of the design thrust.}
+\tx{DARC} starts only in month~19, with a defined fall-back of publishing the design criteria and a candidate specification if full third-party-ready documentation is not reached by month~48.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Expected Knowledge Outcomes, Utility, Impact \& Future Translation}
@@ -397,7 +459,9 @@ cache randomisation, as well as better understanding of the trade-offs between l
 
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
   \item \textbf{Human resource development.}
-        Training of at least one PhD student and one postdoctoral researcher in the intersection of symmetric-key cryptography, hardware security, and automated analysis. Furthermore, we aim to train one PhD student in the area of ML-based cryptanalysis, which is a relatively new and rapidly evolving research area.
+        Training of two PhD students and two postdoctoral researchers at the intersection of symmetric-key cryptography, hardware security, and automated analysis.
+        The IIT Hyderabad PhD student will work on automated and ML-based cryptanalysis, a relatively new and rapidly evolving area; the IIT Bhilai PhD student on fault analysis of unrolled hardware.
+        One postdoctoral researcher at each institute will lead, respectively, the solver and GPU toolchain and the hardware experimentation and \tx{DARC} implementation.
 
   \item \textbf{Open dissemination.}
         All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artefacts accompanying the corresponding publications.
