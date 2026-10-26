@@ -275,7 +275,7 @@ While this makes them efficient, it also concentrates the security burden on few
 
 \paragraph{Automated distinguisher and key-recovery search.}
 Constraint-solving tools, such as CP, SAT, and MILP have proven powerful for uncovering new distinguishers and key-recovery attacks in conventional ciphers, but their systematic application to the low-latency cipher family is nascent.
-Our prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}\owncite{DBLP:conf/asiacrypt/BouraRST24}, which exploits the large tweak space that cache randomisation exposes to the attacker, demonstrate the viability of this approach and establish a concrete baseline.
+Our prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}~\owncite{DBLP:conf/asiacrypt/BouraRST24}, which exploits the large tweak space that cache randomisation exposes to the attacker, demonstrate the viability of this approach and establish a concrete baseline.
 A key novelty of this proposal is to jointly optimise distinguisher quality and key-recovery complexity, going beyond the typical practice of treating them as separate problems.
 
 \paragraph{Machine-learning and classical hybrid cryptanalysis.}
@@ -312,7 +312,7 @@ The improvements this project targets over that baseline are measurable:
 \subsection{Preliminary Results and Proof of Concept}
 
 Three results obtained by the investigators establish that each thrust starts from a working baseline.
-(i) \emph{Automated cryptanalysis.} The PI's SAT-based differential attack on the reduced \tx{QARMA} function used in Arm's pointer authentication~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of the 16 rounds of \tx{ARADI} with Inria Paris~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}\owncite{DBLP:conf/asiacrypt/BouraRST24} give the investigators published third-party cryptanalysis of three of the four target ciphers.
+(i) \emph{Automated cryptanalysis.} The PI's SAT-based differential attack on the reduced \tx{QARMA} function used in Arm's pointer authentication~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of the 16 rounds of \tx{ARADI} with Inria Paris~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}~\owncite{DBLP:conf/asiacrypt/BouraRST24} give the investigators published third-party cryptanalysis of three of the four target ciphers.
 All three were found with the solver-assisted methodology that WP1 generalises; the \textsf{AutoDiVer} tool~\owncite{DBLP:journals/tosc/NagelerGJE25} co-developed by the PI already verifies differential characteristics automatically.
 (ii) \emph{Physical attacks.} The fault-invariant distinguishers of \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025} and the division-property fault attacks of \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, both joint work of the PI and Co-PI, were carried through to key recovery on hardware in the Co-PI's laboratory.
 WP3 applies the same pipeline to unrolled low-latency targets.
@@ -337,7 +337,7 @@ The resulting analysis and frameworks are intended to directly support the stand
 The immediate objective is to perform rigorous cryptanalytic evaluation of the current generation of low-latency block ciphers.
 Automatic tools such as CP, SAT, and MILP are particularly powerful for uncovering new distinguishers and key-recovery attacks; we have used them extensively in prior work.
 Leveraging such tools to identify the best distinguishers that facilitate optimal key-recovery attacks is a central methodological pillar.
-Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} and the multiple-tweak differential attack on \tx{SCARF}\owncite{DBLP:conf/asiacrypt/BouraRST24} establish both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}~\cite{cryptoeprint:2024/1240}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and related designs.
+Our SAT-based attack on \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} and the multiple-tweak differential attack on \tx{SCARF}~\owncite{DBLP:conf/asiacrypt/BouraRST24} establish both the feasibility and the productivity of this approach; we see significant opportunities to extend it to \tx{ARADI}~\cite{cryptoeprint:2024/1240}, \tx{ChiLow}~\cite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23}, and related designs.
 
 In parallel, we will investigate the use of machine learning for the analysis of cryptographic algorithms.
 While not entirely new as a direction, many open questions remain, particularly regarding the combination of ML-based distinguishers with classical cryptanalytic techniques in principled hybrid approaches.
@@ -625,7 +625,7 @@ Furthermore while working in Inria Paris, a differential meet-in-the-middle key-
 His doctoral work (University of Haifa, with Orr Dunkelman) and post-doctoral work (Inria Paris) covered division-property, differential and meet-in-the-middle cryptanalysis, including the best attack on 6-round \AES~\owncite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} and the \textsf{AutoDiVer} tool for verifying differential characteristics~\owncite{DBLP:journals/tosc/NagelerGJE25}.
 
 \textbf{Dhiman Saha (Co-PI, IIT Bhilai)} leads the de.ci.phe.red laboratory, which works on fault and side-channel analysis of symmetric-key and post-quantum primitives, automated distinguisher search, and hardware security.
-He co-authored, with Boura, Rasoolzadeh and Todo, the first third-party cryptanalysis of the low-latency cache-randomisation cipher \tx{SCARF} (ASIACRYPT~2024)\owncite{DBLP:conf/asiacrypt/BouraRST24}.
+He co-authored, with Boura, Rasoolzadeh and Todo, the first third-party cryptanalysis of the low-latency cache-randomisation cipher \tx{SCARF} (ASIACRYPT~2024)~\owncite{DBLP:conf/asiacrypt/BouraRST24}.
 He was PI of the MeitY-funded FinTeQ project on quantum-safe financial transactions (2023--2026) and leads the institute's Fault Injection Analysis (FIA) laboratory funded under the National Quantum Mission.
 With the PI he co-authored the fault-invariant distinguisher framework \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025}, the division-property-based fault attacks \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, the \textsf{BIZness} distinguishers~\owncite{DBLP:conf/indocrypt/GhoshKRS24} and the structural zero-sum work of~\owncite{DBLP:journals/dcc/SuryawanshiGSR25}.
 All of the fault-attack results above were validated end to end on hardware in his laboratory.
@@ -671,7 +671,7 @@ Supervision of the IIT Bhilai PhD student and postdoctoral researcher; WP6 artif
 2 & Kundu, \textbf{Ghosh}, Aikata, \textbf{Saha}. ToFA: Towards fault analysis of GIFT and GIFT-like ciphers leveraging truncated impossible differentials~\owncite{Kundu_Ghosh_Aikata_Saha_2025}. & IACR TCHES 2025(3). CORE~A \\
 3 & Belkheyar, Derbez, \textbf{Ghosh}, Leander, Mella, Perrin, Rasoolzadeh, Stennes, Sun, Van Assche, Viz\'ar. ChiLow and ChiChi: New constructions for code encryption~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}. & EUROCRYPT 2025. CORE~A* \\
 4 & Avanzi, Banik, Dunkelman, Eichlseder, \textbf{Ghosh}, Nageler, Regazzoni. The QARMAv2 family of tweakable block ciphers~\owncite{DBLP:journals/tosc/AvanziBDEGNR23}. & IACR ToSC 2023(3). CORE~A \\
-5 & Boura, Rasoolzadeh, \textbf{Saha}, Todo. Multiple-tweak differential attack against SCARF\owncite{DBLP:conf/asiacrypt/BouraRST24}. & ASIACRYPT 2024. CORE~A* \\
+5 & Boura, Rasoolzadeh, \textbf{Saha}, Todo. Multiple-tweak differential attack against SCARF~\owncite{DBLP:conf/asiacrypt/BouraRST24}. & ASIACRYPT 2024. CORE~A* \\
 \bottomrule
 \end{tabular}
 \caption{Key publications relevant to the proposal theme. IACR Transactions (ToSC, TCHES) and IACR conferences do not carry a JCR impact factor; the CORE conference ranking is given instead.}
