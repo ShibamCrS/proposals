@@ -730,7 +730,7 @@ two ChipWhisperer-Husky capture and glitch units with Level-2 starter kits, two 
 These support clock-glitch, voltage-glitch and power-analysis experiments on FPGA and ARM Cortex-M targets.
 An electromagnetic fault-injection (EMFI) probe kit with an XYZ positioning stage and a trigger pattern detector are being added under an institute matching grant; vendor quotations are in hand.
 Computing resources include a dedicated FIA-lab workstation, three GPU workstations (NVIDIA RTX A5000 24\,GB, RTX A4000 16\,GB, RTX 3060\,Ti) for solver runs and GPU-accelerated attacks, and access to the institute compute cluster (nodes of 100--120 vCPU and 100--128\,GB RAM).
-One GPU workstation is requested from this project to serve the GPU-accelerated attacks and the \tx{DARC} synthesis runs, since the existing workstations are shared across the laboratory's other projects (Section~8).
+No workstation is requested from this project; the equipment requested for IIT~Bhilai is limited to targets and measurement items that the bench lacks for unrolled designs (Section~8).
 
 \textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
 The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support solver-based cryptanalysis, automated analysis, and ML-assisted attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
@@ -756,12 +756,11 @@ Each site is staffed to run its own work packages independently while sharing to
 The institute-wise and year-wise tables are entered in the online form; this section justifies each head.
 
 \paragraph{Equipment.}
-IIT~Bhilai requests one GPU workstation (AMD EPYC 9555 64-core, 128\,GB DDR5 ECC, NVIDIA RTX PRO 5000 Blackwell 48\,GB, 1.92\,TB NVMe and 3.84\,TB SSD, 3-year on-site warranty), quoted at Rs.~30,12,000 plus GST (Rs.~35,54,160).
-It is the compute platform for the GPU-accelerated attack implementations of WP1, the large solver campaigns feeding the fault-friendly distinguisher search of WP3, and the synthesis and benchmarking runs of \tx{DARC} in WP5.
-The laboratory's existing GPU workstations are older (Ampere generation, 8--24\,GB) and fully committed to its other funded projects, so they cannot carry a four-year campaign of this size; the fault-injection bench itself needs no new equipment, and the EMFI extension is funded separately by the institute.
-The workstation will be procured in year~1 and used throughout the project.
-In addition, each institute requests two laptops (Rs.~1,10,000 each, Rs.~4,40,000 in total) for the project personnel, the JRF and the RA at each site, who need portable machines for development, for running experiments at the fault-injection bench and for inter-institute visits.
-For WP4, IIT~Hyderabad requests one Apple M-series Mac~mini (Rs.~1,20,000) as a commodity target in which Arm pointer authentication is enabled and exercised by the operating system, so that the PAC analysis of Thrust~3 can be validated against a deployed implementation; the AMD EPYC processor of the IIT~Bhilai workstation, which supports SME and SEV-SNP memory encryption, serves as the memory-encryption test bed at no extra cost.
+IIT~Bhilai requests no workstation: the fault-injection bench, the existing GPU workstations and the institute cluster cover WP3 and the IIT~Bhilai share of WP1 and WP5, and the EMFI extension is funded separately by the institute.
+\todo{IIT Bhilai: add the chosen FPGA target / EM probe items with quoted prices.}
+In addition, each institute requests two laptops (Rs.~1,10,008 each, Rs.~4,40,032 in total) for the project personnel, the JRF and the RA at each site, who need portable machines for development, for running experiments at the fault-injection bench and for inter-institute visits.
+For WP4, IIT~Hyderabad requests one Apple M-series Mac~mini (Rs.~1,20,000) as a commodity target in which Arm pointer authentication is enabled and exercised by the operating system, so that the PAC analysis of Thrust~3 can be validated against a deployed implementation.
+Memory-encryption mechanisms (AMD SEV-SNP, Intel TDX) will be studied on confidential-computing cloud instances rented under the IIT~Hyderabad consumables head, which gives access to current server engines without purchasing a server.
 In IIT Hyderabad, the project requests one high-end GPU, the NVIDIA RTX PRO 6000 Blackwell Workstation Edition (96 GB VRAM), quoted at Rs.~22,53,800 inclusive of GST, to be integrated into an existing workstation available in the Department of Computer Science and Engineering at IIT Hyderabad. This GPU will support GPU-accelerated cryptanalysis, large-scale automated distinguisher and key-recovery searches, and ML-assisted cryptanalysis under WP1 and WP2. Reusing the existing workstation will minimise infrastructure costs while providing the computational capacity required for the project's solver and GPU toolchain development.
 % Solver and ML workloads at IIT~Hyderabad run on departmental and institute compute.
 
@@ -787,7 +786,7 @@ IIT~Hyderabad: commercial solver licences (Gurobi or CPLEX academic renewals), M
 \paragraph{Travel.}
 Inter-institute visits between Hyderabad and Bhilai for joint experiments (two per year, both directions), presentation of results at IACR conferences and workshops, and participation in standardisation meetings.
 International travel for conference presentation is included within this head.
-The total requested (Rs.~5~lakh: 4~lakh at IIT~Hyderabad, 1~lakh at IIT~Bhilai) is within the ARG ceiling of Rs.~5~lakh per project.
+The total requested (Rs.~5~lakh: 3.5~lakh at IIT~Hyderabad, 1.5~lakh at IIT~Bhilai) is within the ARG ceiling of Rs.~5~lakh per project.
 
 \paragraph{Contingency.}
 Stipends for short-term research interns (MTech and senior BTech students) engaged at both institutes on well-defined tasks such as implementing cipher models, running attack campaigns and hardware testing; open-access publication charges, conference registration fees, minor hardware and spare parts, and documentation.
@@ -807,17 +806,17 @@ As per ANRF norms, payable to the two host institutes.
 \midrule
 Research personnel (1 JRF/SRF + 1 RA-I each) & 52,93,200 & 52,93,200 & 1,05,86,400 \\
 Consumables & 6,00,000 & 4,00,000 & 10,00,000 \\
-Travel & 4,00,000 & 1,00,000 & 5,00,000 \\
+Travel & 3,50,000 & 1,50,000 & 5,00,000 \\
 Contingency & 3,00,000 & 2,00,000 & 5,00,000 \\
 \midrule
-Recurring subtotal & 65,93,200 & 59,93,200 & 1,25,86,400 \\
-Overheads (20\% of recurring) & 13,18,640 & 11,98,640 & 25,17,280 \\
-Equipment (non-recurring) & 25,93,800 & 37,74,160 & 63,67,960 \\
+Recurring subtotal & 65,43,200 & 60,43,200 & 1,25,86,400 \\
+Overheads (20\% of recurring) & 13,08,640 & 12,08,640 & 25,17,280 \\
+Equipment (non-recurring) & 25,93,816 & 2,20,016\textsuperscript{b} & 28,13,832 \\
 \midrule
-\textbf{Total} & \textbf{1,05,05,640} & \textbf{1,09,66,000} & \textbf{2,14,51,640} \\
+\textbf{Total} & \textbf{1,04,45,656} & \textbf{74,71,856} & \textbf{1,79,17,512} \\
 \bottomrule
 \end{tabular}
-\caption{Budget summary (amounts in INR). Year-wise breakup is given in the online form.}
+\caption{Budget summary (amounts in INR). \textsuperscript{b}Laptops only; FPGA target and EM probe items to be added once quoted. Year-wise breakup is given in the online form.}
 \label{tab:budget}
 \end{table}
 
