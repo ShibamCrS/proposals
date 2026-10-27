@@ -734,7 +734,8 @@ Computing resources include a dedicated FIA-lab workstation, three GPU workstati
 No equipment is requested from this project.
 
 \textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
-\todo{PI to add two or three sentences: departmental compute servers or GPU nodes available for solver and ML workloads, institute HPC access, and lab space for the project staff.}
+The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support solver-based cryptanalysis, automated analysis, and ML-assisted attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
+% \todo{PI to add two or three sentences: departmental compute servers or GPU nodes available for solver and ML workloads, institute HPC access, and lab space for the project staff.}
 
 % \section{Team, Expertise \& Institutional Facilities}
 % \medskip
@@ -756,17 +757,25 @@ Both institutes carry the same personnel structure, so that each site can run it
 The institute-wise and year-wise tables are entered in the online form; this section justifies each head.
 
 \paragraph{Equipment.}
-None requested.
+None requested for IIT Bhilai.
 The fault-injection bench, GPU workstations and cluster access needed for WP1 and WP3 already exist at IIT~Bhilai (Section~7.4), and the EMFI extension is funded separately by the institute.
-Solver and ML workloads at IIT~Hyderabad run on departmental and institute compute.
+In IIT Hyderabad, the project requests one high-end GPU, the NVIDIA RTX PRO 6000 Blackwell Workstation Edition (96 GB), to be integrated into an existing workstation available in the Department of Computer Science and Engineering at IIT Hyderabad. This GPU will support GPU-accelerated cryptanalysis, large-scale automated distinguisher and key-recovery searches, and ML-assisted cryptanalysis under WP1 and WP2. Reusing the existing workstation will minimise infrastructure costs while providing the computational capacity required for the project's solver and GPU toolchain development.
+% Solver and ML workloads at IIT~Hyderabad run on departmental and institute compute.
 
 \paragraph{Research personnel.}
-Each institute requests one Junior Research Fellow (JRF, upgraded to SRF after two years as per ANRF norms) and one Research Associate-I for the full 48 months, at the emoluments notified by ANRF plus HRA as admissible.
-At IIT~Hyderabad the JRF will pursue a PhD on automated and ML-assisted cryptanalysis (WP1, WP2).
+The project requests three Junior Research Fellows (JRFs, upgraded to Senior Research Fellows (SRFs) after two years as per ANRF norms) and two Research Associate-I (RA-Is) for the full 48 months, at the emoluments notified by ANRF plus HRA as admissible.
+At IIT~Hyderabad, two JRFs will pursue PhDs on automated and ML-assisted cryptanalysis (WP1, WP2) and microarchitectural security (WP4), respectively. 
 The RA will build and maintain the constraint-model library and the GPU attack implementations (WP1) and contribute to WP4 and WP5.
 At IIT~Bhilai the JRF will pursue a PhD on fault analysis of unrolled implementations (WP3).
 The RA, with a hardware-design background, will implement the unrolled targets, run the glitch and EMFI campaigns, and later carry out the \tx{DARC} hardware benchmarking (WP3, WP5).
-Two JRFs and two RAs are the minimum staffing for five parallel technical work packages across two sites, and the training outcome (D10) depends directly on these positions.
+Three JRFs and two RAs are the minimum staffing for five parallel technical work packages across two sites, and the training outcome (D10) depends directly on these positions.
+
+% Each institute requests one Junior Research Fellow (JRF, upgraded to SRF after two years as per ANRF norms) and one Research Associate-I for the full 48 months, at the emoluments notified by ANRF plus HRA as admissible.
+% At IIT~Hyderabad the JRF will pursue a PhD on automated and ML-assisted cryptanalysis (WP1, WP2).
+% The RA will build and maintain the constraint-model library and the GPU attack implementations (WP1) and contribute to WP4 and WP5.
+% At IIT~Bhilai the JRF will pursue a PhD on fault analysis of unrolled implementations (WP3).
+% The RA, with a hardware-design background, will implement the unrolled targets, run the glitch and EMFI campaigns, and later carry out the \tx{DARC} hardware benchmarking (WP3, WP5).
+% Two JRFs and two RAs are the minimum staffing for five parallel technical work packages across two sites, and the training outcome (D10) depends directly on these positions.
 
 \paragraph{Consumables.}
 IIT~Bhilai: FPGA development boards and target chips for unrolled implementations, EMFI probe tips, replacement components, and cabling for the fault-injection bench.
@@ -818,11 +827,11 @@ Overheads (20\%) & 13,18,640 & 11,98,640 & 25,17,280 \\
 Already available financial support of the investigators are given in~\cref{tab:fin}.
 \begin{table}[htbp]
 \centering\small
-\begin{tabular}{@{}p{1.0cm}p{4.6cm}p{2.8cm}p{1.9cm}p{2.2cm}p{2.5cm}@{}}
+\begin{tabular}{@{}p{1cm}p{4cm}p{3.5cm}p{1.9cm}p{2.2cm}p{2.5cm}@{}}
 \toprule
 \textbf{Who} & \textbf{Project title} & \textbf{Funding agency} & \textbf{Amount} & \textbf{Duration} & \textbf{Overlap with this proposal} \\
 \midrule
-PI & SEED Grant for newly joined faculty (joined IIT Hyderabad in May 2026) & IIT Hyderabad& Rs. 35 lakh & Sept. 2026 -- Sept. 2028 & None. Symmetric Primitives with Efficient zero-Knowledge proofs.\\
+PI & SEED Grant for newly joined faculty (joined IIT Hyderabad in May 2026) & IIT Hyderabad & Rs. 35 lakh & Sept. 2026 -- Sept. 2028 (2 years) & None. Symmetric Primitives with Efficient zero-Knowledge proofs.\\
 \addlinespace
 Co-PI & DASH: Digital Cash Solutions Based on CBDC & IBITF (IIT Bhilai TIH), DIAL scheme & Rs.~2.99~crore total; IIT Bhilai share Rs.~75~lakh & May 2025 -- May 2028 (3 years) & None. CBDC token protocols and hardware wallet. \\
 \addlinespace
