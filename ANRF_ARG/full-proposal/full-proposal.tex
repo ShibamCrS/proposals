@@ -757,16 +757,22 @@ Each site is staffed to run its own work packages independently while sharing to
 The institute-wise and year-wise tables are entered in the online form; this section justifies each head.
 
 \paragraph{Equipment.}
-IIT~Bhilai requests no workstation or oscilloscope: the fault-injection bench, the existing GPU workstations and the institute cluster cover WP3 and the IIT~Bhilai share of WP1 and WP5; the EMFI positioning system has been ordered by the institute and the oscilloscopes are funded under an institute matching grant.
-Two items are requested that the bench lacks for unrolled designs.
-(i) A larger FPGA target board (NewAE CW310 class, Kintex UltraScale), indicative Rs.~8,50,000 inclusive of duties and GST: the present Artix-7 targets cannot hold a fully unrolled \tx{QARMAv2} or \tx{ARADI} together with the measurement instrumentation, and D5 and D9 both require such implementations.
-(ii) A near-field EM probe set with a low-noise preamplifier (Langer ICR-HH probes with PA~303 class amplifier), indicative Rs.~6,75,000 inclusive of duties and GST: the EMFI system injects faults but cannot measure emanations, and locating the vulnerable regions of the unrolled circuit, the stated aim of Thrust~2, requires spatially resolved EM measurement.
-Both items will be procured in year~1.
-In addition, each institute requests two laptops (Rs.~1,10,008 each, Rs.~4,40,032 in total) for the project personnel, the JRF and the RA at each site, who need portable machines for development, for running experiments at the fault-injection bench and for inter-institute visits.
-For WP4, IIT~Hyderabad requests one Apple M-series Mac~mini (Rs.~1,20,000) as a commodity target in which Arm pointer authentication is enabled and exercised by the operating system, so that the PAC analysis of Thrust~3 can be validated against a deployed implementation.
-Memory-encryption mechanisms (AMD SEV-SNP, Intel TDX) will be studied on confidential-computing cloud instances rented under the IIT~Hyderabad consumables head, which gives access to current server engines without purchasing a server.
-In IIT Hyderabad, the project requests one high-end GPU, the NVIDIA RTX PRO 6000 Blackwell Workstation Edition (96 GB VRAM), quoted at Rs.~22,53,800 inclusive of GST, to be integrated into an existing workstation available in the Department of Computer Science and Engineering at IIT Hyderabad. This GPU will support GPU-accelerated cryptanalysis, large-scale automated distinguisher and key-recovery searches, and ML-assisted cryptanalysis under WP1 and WP2. Reusing the existing workstation will minimise infrastructure costs while providing the computational capacity required for the project's solver and GPU toolchain development.
-% Solver and ML workloads at IIT~Hyderabad run on departmental and institute compute.
+All items are procured in year~1 and used throughout the project.
+No workstation, oscilloscope or fault-injection instrument is requested: the IIT~Bhilai bench, its EMFI positioning system ordered by the institute, and the oscilloscopes funded under an institute matching grant cover WP3; the existing GPU workstations and institute cluster at IIT~Bhilai, and departmental compute at IIT~Hyderabad, cover the rest.
+\begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=*, itemsep=1pt]
+  \item \textbf{GPU for the IIT~Hyderabad workstation} (NVIDIA RTX PRO 6000 Blackwell, 96\,GB; Rs.~22,53,800 incl.\ GST).
+        Fitted into an existing departmental workstation.
+        Runs the GPU-accelerated attack implementations of WP1, the large distinguisher and key-recovery searches, and the ML training of WP2; the 96\,GB memory is needed for solver instances and neural models that do not fit on the department's current cards.
+  \item \textbf{Larger FPGA target for unrolled designs, IIT~Bhilai} (NewAE CW310 class, Kintex UltraScale; indicative Rs.~8,50,000 incl.\ duties and GST).
+        The present Artix-7 CW305 targets cannot hold a fully unrolled \tx{QARMAv2} or \tx{ARADI} with the measurement instrumentation; D5 and D9 both require such implementations.
+  \item \textbf{Near-field EM probe set with preamplifier, IIT~Bhilai} (Langer ICR-HH probes with PA~303 class amplifier; indicative Rs.~6,75,000 incl.\ duties and GST).
+        The EMFI system injects faults but cannot measure emanations; locating the vulnerable regions of an unrolled circuit, the stated aim of Thrust~2, needs spatially resolved EM measurement.
+  \item \textbf{Pointer-authentication target, IIT~Hyderabad} (Apple M-series Mac~mini; Rs.~1,20,000).
+        A commodity platform on which Arm PAC is enabled and exercised by the operating system, so that the WP4 analysis can be validated against a deployed implementation.
+        Memory-encryption engines (AMD SEV-SNP, Intel TDX) will be studied on confidential-computing cloud instances under the IIT~Hyderabad consumables head.
+  \item \textbf{Laptops for project personnel} (two per institute, Rs.~1,10,008 each; Rs.~4,40,032 in total).
+        For the JRF and RA at each site: development, running experiments at the bench, and inter-institute visits.
+\end{enumerate}
 
 \paragraph{Research personnel.}
 Each institute requests one Junior Research Fellow (JRF, upgraded to Senior Research Fellow after two years as per ANRF norms) and one Research Associate-I (RA-I) for the full 48 months, at the emoluments notified by ANRF plus HRA as admissible.
