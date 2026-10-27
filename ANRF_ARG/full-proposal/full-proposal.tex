@@ -728,9 +728,9 @@ The laboratory is funded under the National Quantum Mission and is operational.
 Its fault-injection and side-channel bench comprises:
 two ChipWhisperer-Husky capture and glitch units with Level-2 starter kits, two ChipWhisperer-Lite ARM kits, two CW305 Artix-7 FPGA target boards for unrolled cipher implementations, and a high-frequency synthesised clock generator with OCXO timebase for precise clock-glitch injection.
 These support clock-glitch, voltage-glitch and power-analysis experiments on FPGA and ARM Cortex-M targets.
-An electromagnetic fault-injection (EMFI) probe kit with an XYZ positioning stage and a trigger pattern detector are being added under an institute matching grant; vendor quotations are in hand.
+An electromagnetic fault-injection (EMFI) positioning system (ChipShover XYZ stage with controller) has been ordered by the institute in October~2026, and a 500\,MHz mixed-signal oscilloscope, a ChipWhisperer-Husky~Plus and a second synthesised clock generator are being added under an institute matching grant.
 Computing resources include a dedicated FIA-lab workstation, three GPU workstations (NVIDIA RTX A5000 24\,GB, RTX A4000 16\,GB, RTX 3060\,Ti) for solver runs and GPU-accelerated attacks, and access to the institute compute cluster (nodes of 100--120 vCPU and 100--128\,GB RAM).
-No workstation is requested from this project; the equipment requested for IIT~Bhilai is limited to targets and measurement items that the bench lacks for unrolled designs (Section~8).
+No workstation or oscilloscope is requested from this project; the equipment requested for IIT~Bhilai is limited to a larger FPGA target and near-field EM probes, which the bench lacks for unrolled designs (Section~8).
 
 \textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
 The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support solver-based cryptanalysis, automated analysis, and ML-assisted attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
@@ -756,8 +756,11 @@ Each site is staffed to run its own work packages independently while sharing to
 The institute-wise and year-wise tables are entered in the online form; this section justifies each head.
 
 \paragraph{Equipment.}
-IIT~Bhilai requests no workstation: the fault-injection bench, the existing GPU workstations and the institute cluster cover WP3 and the IIT~Bhilai share of WP1 and WP5, and the EMFI extension is funded separately by the institute.
-\todo{IIT Bhilai: add the chosen FPGA target / EM probe items with quoted prices.}
+IIT~Bhilai requests no workstation or oscilloscope: the fault-injection bench, the existing GPU workstations and the institute cluster cover WP3 and the IIT~Bhilai share of WP1 and WP5; the EMFI positioning system has been ordered by the institute and the oscilloscopes are funded under an institute matching grant.
+Two items are requested that the bench lacks for unrolled designs.
+(i) A larger FPGA target board (NewAE CW310 class, Kintex UltraScale), indicative Rs.~6,00,000 with duties: the present Artix-7 targets cannot hold a fully unrolled \tx{QARMAv2} or \tx{ARADI} together with the measurement instrumentation, and D5 and D9 both require such implementations.
+(ii) A near-field EM probe set with a low-noise preamplifier (Langer ICR-HH probes with PA~303 class amplifier), indicative Rs.~5,00,000: the EMFI system injects faults but cannot measure emanations, and locating the vulnerable regions of the unrolled circuit, the stated aim of Thrust~2, requires spatially resolved EM measurement.
+Both items will be procured in year~1.
 In addition, each institute requests two laptops (Rs.~1,10,008 each, Rs.~4,40,032 in total) for the project personnel, the JRF and the RA at each site, who need portable machines for development, for running experiments at the fault-injection bench and for inter-institute visits.
 For WP4, IIT~Hyderabad requests one Apple M-series Mac~mini (Rs.~1,20,000) as a commodity target in which Arm pointer authentication is enabled and exercised by the operating system, so that the PAC analysis of Thrust~3 can be validated against a deployed implementation.
 Memory-encryption mechanisms (AMD SEV-SNP, Intel TDX) will be studied on confidential-computing cloud instances rented under the IIT~Hyderabad consumables head, which gives access to current server engines without purchasing a server.
@@ -811,12 +814,12 @@ Contingency & 3,00,000 & 2,00,000 & 5,00,000 \\
 \midrule
 Recurring subtotal & 65,43,200 & 60,43,200 & 1,25,86,400 \\
 Overheads (20\% of recurring) & 13,08,640 & 12,08,640 & 25,17,280 \\
-Equipment (non-recurring) & 25,93,816 & 2,20,016\textsuperscript{b} & 28,13,832 \\
+Equipment (non-recurring) & 25,93,816 & 13,20,016 & 39,13,832 \\
 \midrule
-\textbf{Total} & \textbf{1,04,45,656} & \textbf{74,71,856} & \textbf{1,79,17,512} \\
+\textbf{Total} & \textbf{1,04,45,656} & \textbf{85,71,856} & \textbf{1,90,17,512} \\
 \bottomrule
 \end{tabular}
-\caption{Budget summary (amounts in INR). \textsuperscript{b}Laptops only; FPGA target and EM probe items to be added once quoted. Year-wise breakup is given in the online form.}
+\caption{Budget summary (amounts in INR). Year-wise breakup is given in the online form.}
 \label{tab:budget}
 \end{table}
 

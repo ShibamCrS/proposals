@@ -42,7 +42,8 @@ appear as part of Objective 1 and Objective 4 respectively.
   96 GB GPU for an existing departmental workstation, Rs 22,53,800 incl. GST,
   two laptops (HP 440 G11, Rs 1,10,008 each) and one Apple M-series Mac mini
   (Rs 1,20,000) as a pointer-authentication target for WP4. IIT Bhilai: two
-  laptops (Rs 1,10,008 each); FPGA target and EM probe items to be added.
+  laptops (Rs 1,10,008 each), one CW310-class Kintex UltraScale FPGA target
+  (Rs 6,00,000) and one near-field EM probe set with preamplifier (Rs 5,00,000).
 - [Optional, if obtained] Letter of intent from <collaborator> (<institution>)
   as Honorary Investigator is attached.
 - Administrative nodal contact at the host institute: <name, designation,
@@ -96,12 +97,13 @@ Research Personnel             12,54,000   12,98,400   13,70,400   13,70,400    
 Consumables                     1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
 Travel                                 0      50,000      50,000      50,000      1,50,000
 Contingency                       50,000      50,000      50,000      50,000      2,00,000
-Equipment (non-recurring)       2,20,016           0           0           0      2,20,016
-  (2 laptops; FPGA target / EM probe items to be added once quoted)
+Equipment (non-recurring)      13,20,016           0           0           0     13,20,016
+  (2 laptops 2,20,016 + CW310-class FPGA target 6,00,000 + EM probe set with
+   preamplifier 5,00,000; last two indicative, replace with quotes if available)
 Overhead                        as computed by the portal (20% of recurring)   12,08,640
-Grand Total (excl. overhead)   16,24,016   14,98,400   15,70,400   15,70,400     62,63,216
+Grand Total (excl. overhead)   27,24,016   14,98,400   15,70,400   15,70,400     73,63,216
 
-=== Project total (incl. overhead) ===   1,79,17,512
+=== Project total (incl. overhead) ===   1,90,17,512
 
 Note: the portal draft entered overhead as a flat 3,59,660 / 3,24,660 per
 year. If the portal computes overhead itself, let it; only the recurring
