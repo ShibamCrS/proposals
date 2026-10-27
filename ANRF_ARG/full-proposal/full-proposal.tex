@@ -153,25 +153,35 @@ While throughput can benefit from pipelining and parallelism, designing a secure
 In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation, where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
 Although the recently completed NIST lightweight encryption/authentication standardisation effort addressed small area and low-power budgets, the design of low-latency cryptographic primitives remains a relatively new and rapidly evolving research field.
 
+\subsection{Cryptanalysis of Low-Latency Primitives} On the other hand, the introduction of such application-specific optimizations raises fresh challenges in security evaluation.
+\emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
+Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
+It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain trust in their algorithms.
+As new applications and threats emerge, these disciplines continue to evolve.
+
+
 \subsection{State of the Art in India and Abroad}
 
-Internationally, low-latency cipher design is concentrated in a few groups.
-The PRINCE family~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12,DBLP:conf/sacrypt/BozilovEKLLMNRT20}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} come from Ruhr University Bochum and its collaborators; \tx{QARMA} and \tx{QARMAv2}~\cite{DBLP:journals/tosc/Avanzi17,DBLP:journals/tosc/AvanziBDEGNR23} from Arm and Qualcomm with academic partners; \tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16} from the SKINNY team; and \tx{ARADI}~\cite{cryptoeprint:2024/1240} from the US National Security Agency (NSA).
-Third-party cryptanalysis of these designs is thin.
-Among the few published third-party results, three come from the investigators: the PI's SAT-based differential attack on the \tx{QARMA}-based pointer-authentication function~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of 16 rounds of \tx{ARADI} by the PI with Inria~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}, the first third-party cryptanalysis of that cipher, at ASIACRYPT~2024~\owncite{DBLP:conf/asiacrypt/BouraRST24}.
-Physical attacks on fully unrolled implementations have received almost no attention; the fault-invariant distinguishers of the investigators~\owncite{Kundu_Ghosh_Aikata_Saha_2025} are, to our knowledge, the first systematic treatment.
-On the systems side, memory encryption, pointer authentication and cache randomisation are studied by the microarchitectural-security community, largely without cryptanalytic input.
+Internationally, research on low-latency cipher design is concentrated in a relatively small number of research groups and industry–academia collaborations. 
+The \tx{PRINCE} family~\cite{DBLP:conf/asiacrypt/BorghoffCGKKKLNPRRTY12,DBLP:conf/sacrypt/BozilovEKLLMNRT20}, \tx{SCARF}~\cite{DBLP:conf/uss/CanaleGLTTU23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} are associated with research teams at Ruhr University Bochum and their collaborators; 
+\tx{QARMA}~\cite{DBLP:journals/tosc/Avanzi17} and \tx{QARMAv2}~\owncite{DBLP:journals/tosc/AvanziBDEGNR23} were developed through collaborations involving Arm, Qualcomm, and academic partners; 
+\tx{MANTIS}~\cite{DBLP:conf/crypto/BeierleJKL0PSSS16} from the SKINNY team; and \tx{ARADI}~\cite{cryptoeprint:2024/1240} from the US National Security Agency (NSA).
+The PI of this project is a co-designer of \tx{QARMAv2} and \tx{ChiLow}, developed in collaboration with industry and academic partners.
 
-In India, symmetric-key cryptanalysis and hardware security are active at ISI Kolkata, IIT Kharagpur, IIT Madras, TCG CREST and the two host institutes, with strong records in fault attacks, side-channel analysis and distinguisher search.
-The investigators themselves have contributed the fault-attack~\owncite{DBLP:conf/acns/KunduGSR23,Kundu_Ghosh_Aikata_Saha_2025} and distinguisher results~\owncite{DBLP:conf/indocrypt/GhoshKRS24,DBLP:journals/dcc/SuryawanshiGSR25} cited above.
-Apart from the investigators' own results above, no Indian group has worked on low-latency ciphers specifically, and no indigenous low-latency design exists.
-This proposal would establish that capability.
+Independent cryptanalysis of these designs remains comparatively limited. Among the published third-party results are three contributions from the investigators: the PI's SAT-based differential attack on the \tx{QARMA} block cipher in the context of the Arm's pointer-authentication function~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of 16 rounds of \tx{ARADI}~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}, the first third-party cryptanalysis of that cipher, at ASIACRYPT~2024~\owncite{DBLP:conf/asiacrypt/BouraRST24}.
+Physical attacks on fully unrolled implementations have received almost no attention; the fault-invariant distinguishers of the investigators~\owncite{Kundu_Ghosh_Aikata_Saha_2025} are, to our knowledge, the first systematic treatment.
+Meanwhile, research on memory encryption, pointer authentication, and cache randomisation within the systems-security community has largely developed along a separate track from cryptanalysis, leaving opportunities for closer integration between cryptographic and microarchitectural security.
+
+In India, symmetric-key cryptanalysis and hardware security are actively pursued at institutions including ISI Kolkata, IIT Kharagpur, IIT Madras, TCG CREST, and the two host institutes.
+Existing strengths include fault attacks, side-channel analysis, and automated distinguisher search.
+However, dedicated research combining the design of low-latency ciphers with systematic cryptanalytic evaluation appears to remain underdeveloped nationally.
+The proposed project aims to address this gap by establishing an integrated capability for low-latency cipher design, automated cryptanalysis, and physical security evaluation, with the longer-term goal of contributing to indigenous cipher designs and their rigorous evaluation.
 
 \begin{genericbox}{Knowledge Gap}[teal!60]
 Low-latency primitives sit on the critical path of processor security mechanisms, so any added latency directly degrades system performance.
-To meet this constraint they use shallow S-boxes, few rounds and trivial key schedules, which concentrates the security burden on few components.
+To meet this constraint they use shallow S-boxes, few rounds and simple key schedules, which concentrates the security burden on few components.
 Three things are missing:
-(i) systematic, tool-supported cryptanalysis of the current generation of these ciphers;
+(i) systematic design guidelines and tool-supported cryptanalysis of the current generation of these ciphers;
 (ii) an understanding of how fully unrolled implementations behave under fault and probing attacks; and
 (iii) an evaluation of these primitives in the microarchitectural context in which they are actually deployed.
 Without these, neither designers nor standardisation bodies can judge whether a low-latency design is adequately secure.
@@ -186,8 +196,8 @@ This proposal addresses all three gaps and uses the answers to design an indigen
 
 \paragraph{Objective 1: Automated, accelerated and hybrid cryptanalysis of low-latency ciphers.}
 Develop CP/SAT/MILP-based methods that jointly search for distinguishers and key-recovery attacks on low-latency block ciphers.
-Tailor the resulting attack algorithms for high-performance GPU implementation, so that solver-found attacks can be verified and pushed further in practice.
-Combine machine-learning-based distinguishers with classical techniques in principled hybrid approaches.
+Tailor the resulting attack algorithms for high-performance GPU implementation, so that attacks can be verified and pushed further in practice.
+Combine machine-learning-based distinguishers with classical techniques in hybrid approaches.
 
 \textbf{Hypothesis H1:}
 Automated and hybrid cryptanalytic methods, backed by GPU-accelerated implementations, can reveal new weaknesses in existing low-latency ciphers or improve their best known analysis.
@@ -252,10 +262,10 @@ independent verification and further research.
 \section{Scientific Novelty, Advancement of Knowledge \& Utility}
 % ─────────────────────────────────────────────────────────────────────────────
 
-The introduction of application-specific optimisations raises fresh challenges in security evaluation.
-\emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
-Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
-It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain \emph{trust} in their algorithms.
+% The introduction of application-specific optimisations raises fresh challenges in security evaluation.
+% \emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
+% Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
+% It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain \emph{trust} in their algorithms.
 
 \subsection{State of the Art and Open Problems}
 
@@ -279,7 +289,7 @@ Our prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} usin
 A key novelty of this proposal is to jointly optimise distinguisher quality and key-recovery complexity, going beyond the typical practice of treating them as separate problems.
 
 \paragraph{Machine-learning and classical hybrid cryptanalysis.}
-Neural differential distinguishers have been explored for AES-like designs, yet their principled combination with classical techniques such as meet-in-the-middle and boomerang attacks remains largely open.
+Neural differential distinguishers have been explored for \tx{Speck}-like designs, yet their principled combination with classical techniques such as meet-in-the-middle and integral attacks remains largely open.
 This proposal pursues a systematic investigation of such hybrid approaches, which have the potential to provide new insights into the security of low-latency cipher designs.
 
 \paragraph{Physical attacks on fully-unrolled implementations.}
@@ -297,7 +307,7 @@ This direction is novel in that it bridges the gap between the cryptographic and
 \paragraph{Design criteria and an indigenous cipher.}
 Existing low-latency designs were each optimised for one deployment (memory encryption, pointer authentication, cache randomisation) and evaluated mainly against classical cryptanalysis.
 None was designed with the fault and probing exposure of its own unrolled circuit, or with the constraints of its microarchitectural context, as explicit inputs.
-\tx{DARC} will be the first low-latency cipher designed from criteria that combine all three, and the first such design from India.
+\tx{DARC} will introduce the first low-latency cipher designed from criteria that combine all three, and the first such design from India.
 
 \subsection{Limitations of Current Approaches and Target Improvement}
 
@@ -312,11 +322,17 @@ The improvements this project targets over that baseline are measurable:
 \subsection{Preliminary Results and Proof of Concept}
 
 Three results obtained by the investigators establish that each thrust starts from a working baseline.
-(i) \emph{Automated cryptanalysis.} The PI's SAT-based differential attack on the reduced \tx{QARMA} function used in Arm's pointer authentication~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of the 16 rounds of \tx{ARADI} with Inria Paris~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}~\owncite{DBLP:conf/asiacrypt/BouraRST24} give the investigators published third-party cryptanalysis of three of the four target ciphers.
+
+\begin{itemize}
+    \item \emph{Automated cryptanalysis.} The PI's SAT-based differential attack on the reduced \tx{QARMA} block cipher used in Arm's pointer authentication~\owncite{DBLP:journals/tosc/AvanziDG25}, the differential meet-in-the-middle attack on 14 of the 16 rounds of \tx{ARADI}~\owncite{cryptoeprint:2025/1918}, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}~\owncite{DBLP:conf/asiacrypt/BouraRST24} give the investigators published third-party cryptanalysis of three of the four target ciphers.
 All three were found with the solver-assisted methodology that WP1 generalises; the \textsf{AutoDiVer} tool~\owncite{DBLP:journals/tosc/NagelerGJE25} co-developed by the PI already verifies differential characteristics automatically.
-(ii) \emph{Physical attacks.} The fault-invariant distinguishers of \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025} and the division-property fault attacks of \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, both joint work of the PI and Co-PI, were carried through to key recovery on hardware in the Co-PI's laboratory.
+
+\item \emph{Physical attacks.} The fault-invariant distinguishers of \textsf{ToFA}~\owncite{Kundu_Ghosh_Aikata_Saha_2025} and the division-property fault attacks of \textsf{DiFA}~\owncite{DBLP:conf/acns/KunduGSR23}, both joint work of the PI and Co-PI, were carried through to key recovery on hardware in the Co-PI's laboratory.
 WP3 applies the same pipeline to unrolled low-latency targets.
-(iii) \emph{Design.} The PI is a co-designer of \tx{QARMAv2}~\owncite{DBLP:journals/tosc/AvanziBDEGNR23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, two of the four target ciphers of Objective~1, so the design thrust builds on direct experience of this design space.
+
+\item \emph{Design.} The PI is a co-designer of \tx{QARMAv2}~\owncite{DBLP:journals/tosc/AvanziBDEGNR23} and \tx{ChiLow}~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, two of the four target ciphers of Objective~1, so the design thrust builds on direct experience of this design space.
+\end{itemize}
+
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Research Approach, Methodology, Integration \& Feasibility}
@@ -343,7 +359,7 @@ In parallel, we will investigate the use of machine learning for the analysis of
 While not entirely new as a direction, many open questions remain, particularly regarding the combination of ML-based distinguishers with classical cryptanalytic techniques in principled hybrid approaches.
 Such combinations have the potential to complement traditional tools and provide new security insights into modern low-latency cipher designs.
 
-Solver-found attacks are only as credible as their verification.
+Attacks founded by automatic tools are only as credible as their verification.
 We will therefore tailor the key-recovery procedures to high-performance GPU implementation, exploiting the bit-sliced structure and shallow depth of low-latency ciphers.
 This serves two purposes: experimentally confirming the complexities predicted by the models, and pushing attacks beyond what CPU implementations can reach in practice.
 The GPU workstations already available at IIT~Bhilai (Section~7.4) are sufficient for this task.
@@ -373,7 +389,7 @@ For each, we will state the threat model that the deployment context actually im
 \subsection{Thrust~4 (Long-term): Design Criteria and the \tx{DARC} Cipher}
 
 The analysis thrusts feed a design thrust.
-Thrust~1 tells us which structural choices (S-box depth, linear-layer branch number, key-schedule simplicity) leave the most room for attacks.
+Thrust~1 tells us which structural choices (e.g., circuit depth of S-box and linear layer, branch number of the linear layer, key-schedule) leave the most room for attacks.
 Thrust~2 tells us which parts of an unrolled circuit are most exposed to faults and probing.
 Thrust~3 tells us what the deployment context demands of the primitive.
 We will consolidate these findings into explicit design criteria and quantify the security--latency trade-off they imply, benchmarked against \tx{PRINCEv2}, \tx{QARMAv2} and \tx{ARADI}.
@@ -383,7 +399,7 @@ This thrust starts only in the second half of the project, once the analysis res
 
 \subsection{Work Packages, Integration and Risk Management}
 
-Table~\ref{tab:wp} maps the thrusts onto six work packages, each with a lead institute, the objective it serves, and its duration.
+\cref{tab:wp} maps the thrusts onto six work packages, each with a lead institute, the objective it serves, and its duration.
 Every technical work package has a clear hand-over: WP1 and WP2 deliver attack models and tools that WP3 reuses for fault-friendly distinguishers; WP3 and WP4 deliver the exposure and threat-model data that WP5 consumes.
 
 \begin{table}[htbp]
@@ -405,21 +421,21 @@ WP6 & Recruitment and training; open-source releases; reporting and disseminatio
 \end{table}
 
 \paragraph{Integration across the two sites.}
-IIT~Hyderabad leads the solver-based and ML-based cryptanalysis; IIT~Bhilai leads the physical experimentation and hardware implementation, and contributes the \tx{SCARF} line of attack to WP1.
-The two groups already collaborate, with four joint publications since 2023, including hardware-validated fault attacks~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025}.
+IIT~Hyderabad leads the solver-based and ML-based cryptanalysis; IIT~Bhilai leads the physical experimentation and hardware implementation.
+The two groups already collaborate, with four joint publications since 2023~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025,DBLP:journals/dcc/SuryawanshiGSR25,DBLP:conf/indocrypt/GhoshKRS24}.
 The project will run a shared code repository, a fortnightly joint meeting, and two in-person exchange visits per year.
 The postdoctoral researchers at the two sites are the day-to-day integration points.
 
 \paragraph{Risks and mitigation.}
-(i) \emph{No improved attack is found on a target cipher.}
+(i) \emph{No improved attack is found on a target cipher:}
 A rigorous, reproducible negative result (a proven bound from the solver models) is still a publishable security evaluation and feeds WP5 directly.
-(ii) \emph{ML distinguishers do not outperform classical ones on the targets.}
+(ii) \emph{ML distinguishers do not outperform classical ones on the targets:}
 The hybrid framework is designed so that the classical component stands alone; the ML part is an add-on, not a dependency.
-(iii) \emph{EMFI procurement is delayed, or EMFI campaigns on unrolled targets prove harder than modelled.}
+(iii) \emph{EMFI procurement is delayed, or EMFI campaigns on unrolled targets prove harder than modelled:}
 The ChipWhisperer clock-glitch and voltage-glitch bench is already operational and the first campaigns (months 19--24) will run on it; EMFI, which is being added under an institute grant, extends rather than gates WP3. The fault-friendly distinguisher tool (D4) is independent of the physical result.
-(iv) \emph{Recruitment delays.}
+(iv) \emph{Recruitment delays:}
 Both groups have a pipeline of MTech and PhD students in the area; the RA positions can start with internal candidates.
-(v) \emph{Scope of the design thrust.}
+(v) \emph{Scope of the design thrust:}
 \tx{DARC} starts only in month~19, with a defined fall-back of publishing the design criteria and a candidate specification if full third-party-ready documentation is not reached by month~48.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -447,7 +463,7 @@ Although automated cryptanalysis has proved effective for conventional symmetric
         An open-source library of CP/SAT/MILP constraint models for the full family of low-latency block ciphers studied, enabling reproducible and extensible cryptanalysis by the wider community.
 
   \item \textbf{ML--classical hybrid distinguisher framework.}
-        A principled methodology and associated toolchain for combining neural differential distinguishers with classical meet-in-the-middle and boomerang techniques, validated on at least one target cipher.
+        A principled methodology and associated toolchain for combining neural differential distinguishers with classical meet-in-the-middle, boomerang techniques and integral attacks, validated on at least one target cipher.
 \end{enumerate}
 
 \subsection*{Thrust 2 — Physical Attacks on Low-Latency Implementations}
@@ -515,9 +531,11 @@ cache randomisation, as well as better understanding of the trade-offs between l
 
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=10]
   \item \textbf{Human resource development.}
-        Training of two PhD students and two postdoctoral researchers at the intersection of symmetric-key cryptography, hardware security, and automated analysis.
-        The IIT Hyderabad PhD student will work on automated and ML-based cryptanalysis, a relatively new and rapidly evolving area; the IIT Bhilai PhD student on fault analysis of unrolled hardware.
-        One postdoctoral researcher at each institute will lead, respectively, the solver and GPU toolchain and the hardware experimentation and \tx{DARC} implementation.
+        Training of three PhD students and two postdoctoral researchers at the intersection of symmetric-key cryptography, hardware security, and automated analysis.
+One PhD student from IIT Hyderabad will work on automated and ML-based cryptanalysis, a relatively new and rapidly evolving area; 
+Another PhD student from IIT Hyderabad will work on the microarchitectural security.
+The IIT Bhilai PhD student will work on the fault analysis of unrolled hardware.
+One postdoctoral researcher at each institute will lead, respectively, the solver and GPU toolchain, and the hardware experimentation and \tx{DARC} implementation.
 
   \item \textbf{Open dissemination.}
         All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artifacts accompanying the corresponding publications.
@@ -554,7 +572,7 @@ Any direct industrial adoption will depend on subsequent evaluation and integrat
 \section{Timeline \& Milestones}
 
 The project runs for 48 months.
-Figure~\ref{fig:gantt} shows the year-wise Gantt chart of the six work packages of Table~\ref{tab:wp}, with eight milestones (M1--M8).
+\cref{fig:gantt} shows the year-wise Gantt chart of the six work packages of~\cref{tab:wp}, with eight milestones (M1--M8).
 Milestones M1--M4 fall within the first three years and are the checkpoints for the phased (3+1) release of support; M5--M8 cover the fourth year.
 Each milestone is tied to a deliverable of Section~5, so progress can be verified against concrete outputs.
 
@@ -584,7 +602,7 @@ Each milestone is tied to a deliverable of Section~5, so progress can be verifie
 \ganttmilestone{M3: model library v1 public (D2)}{24} \\
 \ganttgroup{WP2 ML--classical hybrid (O1)}{7}{36} \\
 \ganttbar{Neural distinguishers for targets}{7}{18} \\
-\ganttbar{Hybrid MITM / boomerang framework}{19}{36} \\
+\ganttbar{Hybrid MITM / integral framework}{19}{36} \\
 \ganttmilestone{M4: hybrid framework validated (D3)}{36} \\
 \ganttgroup{WP3 Physical attacks (O2)}{7}{42} \\
 \ganttbar{Fault-friendly distinguisher search tool}{7}{24} \\
@@ -634,7 +652,7 @@ The two investigators have an established collaboration, with four joint publica
 This is reflected directly in the work-package leads: solver-based and ML-based cryptanalysis is led from IIT~Hyderabad, physical-attack experimentation and hardware implementation from IIT~Bhilai, and the microarchitectural and design work packages are shared.
 
 \subsection{Roles and responsibilities of the investigators}
-
+The roles and responsibilities of the individual investigators are given in~\cref{tab:roles}. 
 \begin{table}[htbp]
 \centering\small
 \begin{tabular}{@{}p{3.0cm}p{1.4cm}p{11.6cm}@{}}
@@ -797,20 +815,21 @@ Overheads (20\%) & 13,18,640 & 11,98,640 & 25,17,280 \\
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Current Financial Support (Other Than This Proposal)}
 % ─────────────────────────────────────────────────────────────────────────────
-
+Already available financial support of the investigators are given in~\cref{tab:fin}.
 \begin{table}[htbp]
 \centering\small
 \begin{tabular}{@{}p{1.0cm}p{4.6cm}p{2.8cm}p{1.9cm}p{2.2cm}p{2.5cm}@{}}
 \toprule
 \textbf{Who} & \textbf{Project title} & \textbf{Funding agency} & \textbf{Amount} & \textbf{Duration} & \textbf{Overlap with this proposal} \\
 \midrule
-PI & None (joined IIT Hyderabad in May 2026) \todo{PI to confirm, or add seed grant} & -- & -- & -- & -- \\
+PI & SEED Grant for newly joined faculty (joined IIT Hyderabad in May 2026) & IIT Hyderabad& Rs. 35 lakh & Sept. 2026 -- Sept. 2028 & None. Symmetric Primitives with Efficient zero-Knowledge proofs.\\
 \addlinespace
 Co-PI & DASH: Digital Cash Solutions Based on CBDC & IBITF (IIT Bhilai TIH), DIAL scheme & Rs.~2.99~crore total; IIT Bhilai share Rs.~75~lakh & May 2025 -- May 2028 (3 years) & None. CBDC token protocols and hardware wallet. \\
 \addlinespace
 Co-PI & Symmetric Cryptanalysis via Higher Order Vectorial Derivative (MTR/2023/001161) & SERB (now ANRF), MATRICS & Rs.~6,60,000 & Jan 2024 -- Jan 2027 (3 years) & None. Zero-sum distinguishers for hash functions; ends before this project starts. \\
 \bottomrule
 \end{tabular}
+\label{tab:fin}
 \end{table}
 
 \noindent
