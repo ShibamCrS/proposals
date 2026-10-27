@@ -45,7 +45,7 @@ appear as part of Objective 1 and Objective 4 respectively.
   Supermicro AS-3015A-I mini-tower server (AMD EPYC 4565P, 64 GB DDR5 ECC,
   1 TB NVMe; Rs 3,50,000, indicative incl. GST) as the SME/SEV-SNP
   memory-encryption test bed for WP4. IIT Bhilai: two
-  laptops (Rs 1,10,008 each), one CW310-class Kintex UltraScale FPGA target
+  laptops (Rs 1,10,008 each), one NewAE CW310 Bergen Board, Kintex-7 K410T (NAE-CW310-K410T-NORM)
   (Rs 8,50,000) and one near-field EM probe set with preamplifier (Rs 6,75,000),
   both indicative including GST.
 - [Optional, if obtained] Letter of intent from <collaborator> (<institution>)
@@ -104,7 +104,7 @@ Consumables                     1,00,000    1,00,000    1,00,000    1,00,000    
 Travel                                 0      50,000      50,000      50,000      1,50,000
 Contingency                       50,000      50,000      50,000      50,000      2,00,000
 Equipment (non-recurring)      17,45,016           0           0           0     17,45,016
-  (2 laptops 2,20,016 + CW310-class FPGA target 8,50,000 + EM probe set with
+  (2 laptops 2,20,016 + NewAE CW310 Bergen Board (Kintex-7 K410T) 8,50,000 + EM probe set with
    preamplifier 6,75,000; last two indicative incl. GST)
 Overhead                        portal computes at the 20% setting              12,08,640
 Grand Total (excl. overhead)   31,49,016   14,98,400   15,70,400   15,70,400     77,88,216
