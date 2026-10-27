@@ -43,7 +43,8 @@ appear as part of Objective 1 and Objective 4 respectively.
   IIT Bhilai, Tyrone GPU workstation (AMD EPYC 9555, 128 GB, RTX PRO 5000 48 GB),
   Netweb quotation dated 26 Oct 2026, Rs 30,12,000 + GST = Rs 35,54,160.
   Plus two laptops per institute for the JRF and RA, Rs 1,10,000 each
-  (Rs 2,20,000 per institute).
+  (Rs 2,20,000 per institute). IIT Hyderabad: one Apple M-series Mac mini,
+  Rs 1,20,000, as a pointer-authentication (PAC) target for WP4.
 - [Optional, if obtained] Letter of intent from <collaborator> (<institution>)
   as Honorary Investigator is attached.
 - Administrative nodal contact at the host institute: <name, designation,
@@ -87,8 +88,8 @@ Consumables                     1,50,000    1,50,000    1,50,000    1,50,000    
 Travel                          1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
 Contingency                       75,000      75,000      75,000      75,000      3,00,000
 Overhead (20% of recurring)     3,15,800    3,24,680    3,39,080    3,39,080     13,18,640
-Equipment (non-recurring)      24,73,800           0           0           0     24,73,800
-Grand Total                    43,68,600   19,48,080   20,34,480   20,34,480   1,03,85,640
+Equipment (non-recurring)      25,93,800           0           0           0     25,93,800
+Grand Total                    44,88,600   19,48,080   20,34,480   20,34,480   1,05,05,640
 
 === IIT Bhilai ===
 Head                                  Y1          Y2          Y3          Y4         Total
@@ -101,7 +102,7 @@ Equipment (non-recurring)      37,74,160           0           0           0    
 Grand Total                    54,88,960   17,68,080   18,54,480   18,54,480   1,09,66,000
 
 === Project total ===
-                               98,57,560   37,16,160   38,88,960   38,88,960   2,13,31,640
+                               99,77,560   37,16,160   38,88,960   38,88,960   2,14,51,640
 
 Note: the portal draft entered overhead as a flat 3,59,660 / 3,24,660 per
 year. If the portal computes overhead itself, let it; only the recurring
