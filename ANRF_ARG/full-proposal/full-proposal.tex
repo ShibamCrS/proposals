@@ -428,8 +428,8 @@ The postdoctoral researchers at the two sites are the day-to-day integration poi
 A rigorous, reproducible negative result (a proven bound from the solver models) is still a publishable security evaluation and feeds WP5 directly.
 (ii) \emph{ML distinguishers do not outperform classical ones on the targets:}
 The hybrid framework is designed so that the classical component stands alone; the ML part is an add-on, not a dependency.
-(iii) \emph{EMFI procurement is delayed, or EMFI campaigns on unrolled targets prove harder than modelled:}
-The ChipWhisperer clock-glitch and voltage-glitch bench is already operational and the first campaigns (months 19--24) will run on it; EMFI, which is being added under an institute grant, extends rather than gates WP3. The fault-friendly distinguisher tool (D4) is independent of the physical result.
+(iii) \emph{EMFI campaigns on unrolled targets prove harder than modelled:}
+The clock-glitch, voltage-glitch and ChipSHOUTER EMFI bench is already operational, so the first campaigns (months 19--24) do not wait on any procurement; the positioning stage on order improves repeatability but does not gate WP3. The fault-friendly distinguisher tool (D4) is independent of the physical result.
 (iv) \emph{Recruitment delays:}
 Both groups have a pipeline of MTech and PhD students in the area; the RA positions can start with internal candidates.
 (v) \emph{Scope of the design thrust:}
@@ -472,7 +472,7 @@ The project will investigate these characteristics by combining automated distin
         A solver-based automated tool for finding fault-invariant and fault-propagation distinguishers in fully-unrolled hardware implementations, released publicly.
 
   \item \textbf{Experimental fault-attack results.}
-        End-to-end hardware validation of theoretical fault attacks on at least one low-latency cipher, using the ChipWhisperer-based glitching bench already operational at IIT~Bhilai and the EMFI setup being added to it, targeting publication at IACR TCHES or USENIX Security.
+        End-to-end hardware validation of theoretical fault attacks on at least one low-latency cipher, using the ChipWhisperer and ChipSHOUTER EMFI bench already operational at IIT~Bhilai, extended with an XYZ positioning stage, targeting publication at IACR TCHES or USENIX Security.
 
   \item \textbf{Hardening guidelines.}
         A set of actionable design recommendations for protecting fully-unrolled implementations against fault injection, informed by the vulnerabilities uncovered during the project.
@@ -704,8 +704,8 @@ IACR ToSC 2025. \qtwo \\
 The laboratory is funded under the National Quantum Mission and is operational.
 Its fault-injection and side-channel bench comprises:
 two ChipWhisperer-Husky capture and glitch units with Level-2 starter kits, two ChipWhisperer-Lite ARM kits, two CW305 Artix-7 FPGA target boards for unrolled cipher implementations, and a high-frequency synthesised clock generator with OCXO timebase for precise clock-glitch injection.
-These support clock-glitch, voltage-glitch and power-analysis experiments on FPGA and ARM Cortex-M targets.
-An electromagnetic fault-injection (EMFI) positioning system (ChipShover XYZ stage with controller) has been ordered by the institute in October~2026, and a 500\,MHz mixed-signal oscilloscope, a ChipWhisperer-Husky~Plus and a second synthesised clock generator are being added under an institute matching grant.
+These support clock-glitch, voltage-glitch, EMFI and power-analysis experiments on FPGA and ARM Cortex-M targets.
+Electromagnetic fault injection (EMFI) is available through a ChipSHOUTER CW520 kit procured in 2025; a ChipShover XYZ positioning stage with controller was ordered by the institute in October~2026, and a 500\,MHz mixed-signal oscilloscope, a ChipWhisperer-Husky~Plus and a second synthesised clock generator are being added under an institute matching grant.
 Computing resources include a dedicated FIA-lab workstation, three GPU workstations (NVIDIA RTX A5000 24\,GB, RTX A4000 16\,GB, RTX 3060\,Ti) for solver runs and GPU-accelerated attacks, and access to the institute compute cluster (nodes of 100--120 vCPU and 100--128\,GB RAM).
 No workstation or oscilloscope is requested from this project; the equipment requested for IIT~Bhilai is limited to a larger FPGA target and near-field EM probes, which the bench lacks for unrolled designs (Section~8).
 
@@ -723,7 +723,7 @@ The institute-wise and year-wise tables are entered in the online form; this sec
 
 \paragraph{Equipment.}
 All items are procured in year~1 and used throughout the project.
-No workstation, oscilloscope or fault-injection instrument is requested: the IIT~Bhilai bench, its EMFI positioning system ordered by the institute, and the oscilloscopes funded under an institute matching grant cover WP3; the existing GPU workstations and institute cluster at IIT~Bhilai, and departmental compute at IIT~Hyderabad, cover the rest.
+No workstation, oscilloscope or fault-injection instrument is requested: the IIT~Bhilai bench with its ChipSHOUTER EMFI kit, the positioning stage ordered by the institute, and the oscilloscopes funded under an institute matching grant cover WP3; the existing GPU workstations and institute cluster at IIT~Bhilai, and departmental compute at IIT~Hyderabad, cover the rest.
 \begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=*, itemsep=1pt]
   \item \textbf{GPU for the IIT~Hyderabad workstation} (NVIDIA RTX PRO 6000 Blackwell, 96\,GB; Rs.~22,53,800 incl.\ GST).
         Fitted into an existing departmental workstation.
@@ -732,7 +732,7 @@ No workstation, oscilloscope or fault-injection instrument is requested: the IIT
         The present CW305 targets carry an Artix-7 XC7A100T (101,440 logic cells); the K410T has 406,720, four times as many.
         That headroom is needed to run the unrolled design under test alongside a reference instance, the fault-detection and trigger logic, and the larger \tx{DARC} candidates of WP5; D5 and D9 both depend on it.
   \item \textbf{Near-field EM probe set with preamplifier, IIT~Bhilai} (Langer ICR-HH probes with PA~303 class amplifier; indicative Rs.~6,75,000 incl.\ duties and GST).
-        The ChipShover stage positions a probe but does not measure; locating the vulnerable regions of an unrolled circuit, the stated aim of Thrust~2, needs spatially resolved EM measurement (ICR-HH probes: 0.5\,MHz to 6\,GHz, 60 to 300\,\textmu m resolution; PA~303: 100\,kHz to 3\,GHz, 30\,dB gain).
+        The ChipSHOUTER injects faults and the ChipShover stage positions it, but neither measures emanations; locating the vulnerable regions of an unrolled circuit, the stated aim of Thrust~2, needs spatially resolved EM measurement (ICR-HH probes: 0.5\,MHz to 6\,GHz, 60 to 300\,\textmu m resolution; PA~303: 100\,kHz to 3\,GHz, 30\,dB gain).
   \item \textbf{Pointer-authentication target, IIT~Hyderabad} (Apple M-series Mac~mini; Rs.~1,20,000).
         A commodity platform on which Arm PAC is enabled and exercised by the operating system, so that the WP4 analysis can be validated against a deployed implementation.
   \item \textbf{Memory-encryption test bed, IIT~Hyderabad} (Supermicro AS-3015A-I mini-tower server with AMD EPYC 4565P 16-core processor, 64\,GB DDR5 ECC memory and 1\,TB NVMe; indicative Rs.~3,50,000 incl.\ GST).
