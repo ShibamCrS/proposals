@@ -43,8 +43,8 @@ appear as part of Objective 1 and Objective 4 respectively.
   two laptops (HP 440 G11, Rs 1,10,008 each) and one Apple M-series Mac mini
   (Rs 1,20,000) as a pointer-authentication target for WP4. IIT Bhilai: two
   laptops (Rs 1,10,008 each), one CW310-class Kintex UltraScale FPGA target
-  (Rs 7,08,000) and one near-field EM probe set with preamplifier (Rs 5,90,000),
-  both indicative including 18% GST.
+  (Rs 8,50,000) and one near-field EM probe set with preamplifier (Rs 6,75,000),
+  both indicative including GST.
 - [Optional, if obtained] Letter of intent from <collaborator> (<institution>)
   as Honorary Investigator is attached.
 - Administrative nodal contact at the host institute: <name, designation,
@@ -89,7 +89,7 @@ Travel                            50,000    1,00,000    1,00,000    1,00,000    
 Contingency                       50,000      50,000    1,00,000    1,00,000      3,00,000
 Equipment (non-recurring)      25,93,816           0           0           0     25,93,816
   (RTX PRO 6000 22,53,800 + 2 laptops 2,20,016 + Mac mini 1,20,000)
-Overhead                        as computed by the portal (20% of recurring)   13,08,640
+Overhead                        portal computes at the 20% setting              13,08,640
 Grand Total (excl. overhead)   41,47,816   15,98,400   17,20,400   17,20,400     91,37,016
 
 === IIT Bhilai ===
@@ -98,13 +98,13 @@ Research Personnel             12,54,000   12,98,400   13,70,400   13,70,400    
 Consumables                     1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
 Travel                                 0      50,000      50,000      50,000      1,50,000
 Contingency                       50,000      50,000      50,000      50,000      2,00,000
-Equipment (non-recurring)      15,18,016           0           0           0     15,18,016
-  (2 laptops 2,20,016 + CW310-class FPGA target 7,08,000 + EM probe set with
-   preamplifier 5,90,000; last two indicative incl. 18% GST)
-Overhead                        as computed by the portal (20% of recurring)   12,08,640
-Grand Total (excl. overhead)   29,22,016   14,98,400   15,70,400   15,70,400     75,61,216
+Equipment (non-recurring)      17,45,016           0           0           0     17,45,016
+  (2 laptops 2,20,016 + CW310-class FPGA target 8,50,000 + EM probe set with
+   preamplifier 6,75,000; last two indicative incl. GST)
+Overhead                        portal computes at the 20% setting              12,08,640
+Grand Total (excl. overhead)   31,49,016   14,98,400   15,70,400   15,70,400     77,88,216
 
-=== Project total (incl. overhead) ===   1,92,15,512
+=== Project total (incl. overhead) ===   1,94,42,512
 
 Note: the portal draft entered overhead as a flat 3,59,660 / 3,24,660 per
 year. If the portal computes overhead itself, let it; only the recurring
