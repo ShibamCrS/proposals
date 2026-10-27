@@ -38,9 +38,10 @@ appear as part of Objective 1 and Objective 4 respectively.
 
 - The budget has been revised from the working draft to respect the ARG
   ceilings: travel Rs 5 lakh and contingency Rs 5 lakh for the whole project.
-- No equipment is requested. The fault-injection bench and GPU workstations at
-  IIT Bhilai already exist; an EMFI extension is being funded separately by the
-  institute.
+- Equipment (non-recurring, year 1): IIT Hyderabad, NVIDIA RTX PRO 6000 Blackwell
+  96 GB GPU for an existing departmental workstation, Rs 22,53,800 incl. GST;
+  IIT Bhilai, Tyrone GPU workstation (AMD EPYC 9555, 128 GB, RTX PRO 5000 48 GB),
+  Netweb quotation dated 26 Oct 2026, Rs 30,12,000 + GST = Rs 35,54,160.
 - [Optional, if obtained] Letter of intent from <collaborator> (<institution>)
   as Honorary Investigator is attached.
 - Administrative nodal contact at the host institute: <name, designation,
@@ -78,25 +79,27 @@ Totals match Table 4 of the technical document. Personnel figures are the
 portal's own JRF and RA-I rates; overhead is 20% of each year's recurring.
 
 === IIT Hyderabad ===
-Head                          Y1          Y2          Y3          Y4         Total
-Research Personnel     12,54,000   12,98,400   13,70,400   13,70,400     52,93,200
-Consumables             1,50,000    1,50,000    1,50,000    1,50,000      6,00,000
-Travel                  1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
-Contingency               75,000      75,000      75,000      75,000      3,00,000
-Overhead (20%)          3,15,800    3,24,680    3,39,080    3,39,080     13,18,640
-Grand Total            18,94,800   19,48,080   20,34,480   20,34,480     79,11,840
+Head                                  Y1          Y2          Y3          Y4         Total
+Research Personnel             12,54,000   12,98,400   13,70,400   13,70,400     52,93,200
+Consumables                     1,50,000    1,50,000    1,50,000    1,50,000      6,00,000
+Travel                          1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
+Contingency                       75,000      75,000      75,000      75,000      3,00,000
+Overhead (20% of recurring)     3,15,800    3,24,680    3,39,080    3,39,080     13,18,640
+Equipment (non-recurring)      22,53,800           0           0           0     22,53,800
+Grand Total                    41,48,600   19,48,080   20,34,480   20,34,480   1,01,65,640
 
 === IIT Bhilai ===
-Head                          Y1          Y2          Y3          Y4         Total
-Research Personnel     12,54,000   12,98,400   13,70,400   13,70,400     52,93,200
-Consumables             1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
-Travel                    25,000      25,000      25,000      25,000      1,00,000
-Contingency               50,000      50,000      50,000      50,000      2,00,000
-Overhead (20%)          2,85,800    2,94,680    3,09,080    3,09,080     11,98,640
-Grand Total            17,14,800   17,68,080   18,54,480   18,54,480     71,91,840
+Head                                  Y1          Y2          Y3          Y4         Total
+Research Personnel             12,54,000   12,98,400   13,70,400   13,70,400     52,93,200
+Consumables                     1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
+Travel                            25,000      25,000      25,000      25,000      1,00,000
+Contingency                       50,000      50,000      50,000      50,000      2,00,000
+Overhead (20% of recurring)     2,85,800    2,94,680    3,09,080    3,09,080     11,98,640
+Equipment (non-recurring)      35,54,160           0           0           0     35,54,160
+Grand Total                    52,68,960   17,68,080   18,54,480   18,54,480   1,07,46,000
 
 === Project total ===
-                       36,09,600   37,16,160   38,88,960   38,88,960   1,51,03,680
+                               94,17,560   37,16,160   38,88,960   38,88,960   2,09,11,640
 
 Note: the portal draft entered overhead as a flat 3,59,660 / 3,24,660 per
 year. If the portal computes overhead itself, let it; only the recurring
