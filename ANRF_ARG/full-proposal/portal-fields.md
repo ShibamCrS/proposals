@@ -41,7 +41,9 @@ appear as part of Objective 1 and Objective 4 respectively.
 - Equipment (non-recurring, year 1): IIT Hyderabad, NVIDIA RTX PRO 6000 Blackwell
   96 GB GPU for an existing departmental workstation, Rs 22,53,800 incl. GST,
   two laptops (HP 440 G11, Rs 1,10,008 each) and one Apple M-series Mac mini
-  (Rs 1,20,000) as a pointer-authentication target for WP4. IIT Bhilai: two
+  (Rs 1,20,000) as a pointer-authentication target for WP4, and one small
+  AMD EPYC 4005-series server with ECC memory (Rs 3,50,000, indicative incl.
+  GST) as the SME/SEV-SNP memory-encryption test bed for WP4. IIT Bhilai: two
   laptops (Rs 1,10,008 each), one CW310-class Kintex UltraScale FPGA target
   (Rs 8,50,000) and one near-field EM probe set with preamplifier (Rs 6,75,000),
   both indicative including GST.
@@ -87,10 +89,11 @@ Research Personnel             12,54,000   12,98,400   13,70,400   13,70,400    
 Consumables                     1,50,000    1,50,000    1,50,000    1,50,000      6,00,000
 Travel                            50,000    1,00,000    1,00,000    1,00,000      3,50,000
 Contingency                       50,000      50,000    1,00,000    1,00,000      3,00,000
-Equipment (non-recurring)      25,93,816           0           0           0     25,93,816
-  (RTX PRO 6000 22,53,800 + 2 laptops 2,20,016 + Mac mini 1,20,000)
+Equipment (non-recurring)      29,43,816           0           0           0     29,43,816
+  (RTX PRO 6000 22,53,800 + 2 laptops 2,20,016 + Mac mini 1,20,000
+   + EPYC 4005 memory-encryption server 3,50,000 indicative incl. GST)
 Overhead                        portal computes at the 20% setting              13,08,640
-Grand Total (excl. overhead)   41,47,816   15,98,400   17,20,400   17,20,400     91,37,016
+Grand Total (excl. overhead)   44,97,816   15,98,400   17,20,400   17,20,400     94,87,016
 
 === IIT Bhilai ===
 Head                                  Y1          Y2          Y3          Y4         Total
@@ -104,7 +107,7 @@ Equipment (non-recurring)      17,45,016           0           0           0    
 Overhead                        portal computes at the 20% setting              12,08,640
 Grand Total (excl. overhead)   31,49,016   14,98,400   15,70,400   15,70,400     77,88,216
 
-=== Project total (incl. overhead) ===   1,94,42,512
+=== Project total (incl. overhead) ===   1,97,92,512
 
 Note: the portal draft entered overhead as a flat 3,59,660 / 3,24,660 per
 year. If the portal computes overhead itself, let it; only the recurring
