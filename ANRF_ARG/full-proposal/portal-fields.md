@@ -42,6 +42,8 @@ appear as part of Objective 1 and Objective 4 respectively.
   96 GB GPU for an existing departmental workstation, Rs 22,53,800 incl. GST;
   IIT Bhilai, Tyrone GPU workstation (AMD EPYC 9555, 128 GB, RTX PRO 5000 48 GB),
   Netweb quotation dated 26 Oct 2026, Rs 30,12,000 + GST = Rs 35,54,160.
+  Plus two laptops per institute for the JRF and RA, Rs 1,10,000 each
+  (Rs 2,20,000 per institute).
 - [Optional, if obtained] Letter of intent from <collaborator> (<institution>)
   as Honorary Investigator is attached.
 - Administrative nodal contact at the host institute: <name, designation,
@@ -85,8 +87,8 @@ Consumables                     1,50,000    1,50,000    1,50,000    1,50,000    
 Travel                          1,00,000    1,00,000    1,00,000    1,00,000      4,00,000
 Contingency                       75,000      75,000      75,000      75,000      3,00,000
 Overhead (20% of recurring)     3,15,800    3,24,680    3,39,080    3,39,080     13,18,640
-Equipment (non-recurring)      22,53,800           0           0           0     22,53,800
-Grand Total                    41,48,600   19,48,080   20,34,480   20,34,480   1,01,65,640
+Equipment (non-recurring)      24,73,800           0           0           0     24,73,800
+Grand Total                    43,68,600   19,48,080   20,34,480   20,34,480   1,03,85,640
 
 === IIT Bhilai ===
 Head                                  Y1          Y2          Y3          Y4         Total
@@ -95,11 +97,11 @@ Consumables                     1,00,000    1,00,000    1,00,000    1,00,000    
 Travel                            25,000      25,000      25,000      25,000      1,00,000
 Contingency                       50,000      50,000      50,000      50,000      2,00,000
 Overhead (20% of recurring)     2,85,800    2,94,680    3,09,080    3,09,080     11,98,640
-Equipment (non-recurring)      35,54,160           0           0           0     35,54,160
-Grand Total                    52,68,960   17,68,080   18,54,480   18,54,480   1,07,46,000
+Equipment (non-recurring)      37,74,160           0           0           0     37,74,160
+Grand Total                    54,88,960   17,68,080   18,54,480   18,54,480   1,09,66,000
 
 === Project total ===
-                               94,17,560   37,16,160   38,88,960   38,88,960   2,09,11,640
+                               98,57,560   37,16,160   38,88,960   38,88,960   2,13,31,640
 
 Note: the portal draft entered overhead as a flat 3,59,660 / 3,24,660 per
 year. If the portal computes overhead itself, let it; only the recurring
