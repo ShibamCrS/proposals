@@ -65,10 +65,10 @@ meetings.
 Travel, IIT Bhilai (1,00,000): inter-institute visits and one domestic
 conference per year.
 
-Contingency, IITH (3,00,000): open-access charges, conference registration,
-documentation.
-Contingency, IIT Bhilai (2,00,000): spares and minor hardware for the
-fault-injection bench, registration fees.
+Contingency, IITH (3,00,000): short-term research intern stipends, open-access
+charges, conference registration, documentation.
+Contingency, IIT Bhilai (2,00,000): short-term research intern stipends, spares
+and minor hardware for the fault-injection bench, registration fees.
 
 Overhead: 20% of recurring, as per ANRF norms.
 
