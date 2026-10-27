@@ -2,7 +2,6 @@
 \input{meta-full.tex}
 \newcommand{\soptitle}{DARC: Design and Analysis of Rapid Cryptography}
 \newcommand{\sopsubtitle}{Full Proposal -- Technical Document, Category II (Use-Inspired Basic Research)}
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 \begin{document}
 \begin{center}
 \vspace*{-0.8cm}
@@ -262,10 +261,6 @@ independent verification and further research.
 \section{Scientific Novelty, Advancement of Knowledge \& Utility}
 % ─────────────────────────────────────────────────────────────────────────────
 
-% The introduction of application-specific optimisations raises fresh challenges in security evaluation.
-% \emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
-% Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
-% It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain \emph{trust} in their algorithms.
 
 \subsection{State of the Art and Open Problems}
 
@@ -454,7 +449,6 @@ The project will advance the understanding of the security of existing low-laten
 Although automated cryptanalysis has proved effective for conventional symmetric-key primitives, its systematic application to low-latency designs, particularly for jointly optimising distinguishers and key-recovery attacks, remains an important research direction. The project will investigate this problem using constraint programming (CP), SAT, and mixed integer linear programming (MILP), alongside hybrid approaches combining machine-learning-based distinguishers with classical cryptanalysis. The expected outcomes are:
 
 
-
 \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt]
   \item \textbf{Cryptanalytic results on deployed ciphers.}
         New distinguishers and key-recovery results targeting at least two of the selected ciphers, with GPU-accelerated implementations verifying the claimed complexities.
@@ -558,14 +552,6 @@ The open-source tools, validated analyses, and trained researchers will provide
 a foundation for continued research and potential collaboration with cryptographic designers, hardware-security teams, and standardisation communities. 
 Any direct industrial adoption will depend on subsequent evaluation and integration by the relevant stakeholders.
 
-% \subsection*{Training and Dissemination}
-% \begin{enumerate}[label=\textbf{D\arabic*.}, leftmargin=*, itemsep=2pt, start=9]
-%   \item \textbf{Human resource development.}
-%         Training of at least two PhD students and one postdoctoral researcher in the intersection of symmetric-key cryptography, hardware security, and automated analysis.
-
-%   \item \textbf{Open dissemination.}
-%         All cryptanalytic models, attack tools, and experimental datasets produced during the project will be released as open-source artifacts accompanying the corresponding publications.
-% \end{enumerate}
 
 % ─────────────────────────────────────────────────────────────────────────────
 
@@ -679,14 +665,6 @@ Supervision of the IIT Bhilai PhD student and postdoctoral researcher; WP6 artif
 
 \nobibliography* 
 \subsection{Five key publications of the investigators in the last five years}
-% Five key publications of the Shibam Ghosh (PI) in the last five years:
-% \begin{itemize}
-% \item \publication{DBLP:conf/eurocrypt/DunkelmanGKLMM24}, \url{https://doi.org/10.1007/978-3-031-58716-0_5} (CORE2023 Ranking: \confas)
-% \item \publication{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25}, \url{https://doi.org/10.1007/978-3-031-91107-1_8} (CORE2023 Ranking: \confas)
-% \item \publication{DBLP:journals/tosc/DunkelmanGL23a}, \url{ https://doi.org/10.46586/tosc.v2023.i2.176-188} (SJR 2023 Ranking: \qone)
-% \item \publication{Kundu_Ghosh_Aikata_Saha_2025}, \url{https://doi.org/10.46586/tches.v2025.i3.614-643} (SJR 2024 Ranking: \qone)
-% \item \publication{DBLP:journals/tosc/AvanziDG25}, \url{https://doi.org/10.46586/tosc.v2025.i1.380-419} (SJR 2024 Ranking: \qtwo)
-% \end{itemize}
 
 Five key publications of the investigators in the last five years are given in~\cref{tab:pubs}.
 
@@ -696,9 +674,6 @@ Five key publications of the investigators in the last five years are given in~\
 \toprule
 & \textbf{Publication} & \textbf{Venue} \\
 \midrule
-% 1 & Orr Dunkelman, \textbf{Shibam Ghosh}, Nathan Keller, Gaëtan Leurent, Avichai Marmor, Victor Mollimard.
-% Partial Sums Meet FFT: Improved Attack on 6-Round \AES.~\owncite{DBLP:conf/eurocrypt/DunkelmanGKLMM24} &
-% EUROCRYPT 2024. \confas \\
 
 1 & Yanis Belkheyar, Patrick Derbez, \textbf{Shibam Ghosh}, Gregor Leander, Silvia Mella, Léo Perrin, Shahram Rasoolzadeh, Lukas Stennes, Siwei Sun, Gilles Van Assche, Damian Viz\'ar.
 ChiLow and ChiChi: New Constructions for Code Encryption.~\owncite{DBLP:conf/eurocrypt/BelkheyarDGLMPRSSAV25} &
@@ -735,17 +710,6 @@ No workstation or oscilloscope is requested from this project; the equipment req
 
 \textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
 The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support solver-based cryptanalysis, automated analysis, and ML-assisted attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
-% \todo{PI to add two or three sentences: departmental compute servers or GPU nodes available for solver and ML workloads, institute HPC access, and lab space for the project staff.}
-
-% \section{Team, Expertise \& Institutional Facilities}
-% \medskip
-% \noindent\textbf{Team expertise and existing infrastructure.}
-% The team brings extensive and demonstrated expertise to this thrust, spanning both the theoretical modelling of fault attacks and their physical realisation in laboratory settings.
-% Prior publications on fault analysis of GIFT-family ciphers~\owncite{DBLP:conf/acns/KunduGSR23, Kundu_Ghosh_Aikata_Saha_2025} have involved end-to-end experimental validation, from distinguisher derivation through to actual key recovery on hardware.
-% Crucially, an operational experimental infrastructure, including ChipWhisperer-based clock-glitch and power-analysis platforms as well as electromagnetic fault injection (EMFI) equipment, is already in place within the team.
-% This means that hardware validation of theoretical fault-attack results can proceed immediately, without any capital expenditure from this proposal.
-% The funding requested under this thrust is therefore directed entirely toward personnel and computational resources, rendering it a low-overhead, high-impact research direction with a clear and near-term path to results.
-
 
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -782,12 +746,6 @@ At IIT~Bhilai the JRF will pursue a PhD on fault analysis of unrolled implementa
 The RA, with a hardware-design background, will implement the unrolled targets, run the glitch and EMFI campaigns, and later carry out the \tx{DARC} hardware benchmarking (WP3, WP5).
 Two JRFs and two RAs are the minimum staffing for five parallel technical work packages across two sites, and the training outcome (D10) depends directly on these positions.
 
-% Each institute requests one Junior Research Fellow (JRF, upgraded to SRF after two years as per ANRF norms) and one Research Associate-I for the full 48 months, at the emoluments notified by ANRF plus HRA as admissible.
-% At IIT~Hyderabad the JRF will pursue a PhD on automated and ML-assisted cryptanalysis (WP1, WP2).
-% The RA will build and maintain the constraint-model library and the GPU attack implementations (WP1) and contribute to WP4 and WP5.
-% At IIT~Bhilai the JRF will pursue a PhD on fault analysis of unrolled implementations (WP3).
-% The RA, with a hardware-design background, will implement the unrolled targets, run the glitch and EMFI campaigns, and later carry out the \tx{DARC} hardware benchmarking (WP3, WP5).
-% Two JRFs and two RAs are the minimum staffing for five parallel technical work packages across two sites, and the training outcome (D10) depends directly on these positions.
 
 \paragraph{Consumables.}
 IIT~Bhilai: FPGA development boards and target chips for unrolled implementations, EMFI probe tips, replacement components, and cabling for the fault-injection bench.
@@ -826,8 +784,6 @@ Equipment (non-recurring) & 25,93,816 & 17,45,016 & 43,38,832 \\
 \caption{Budget summary (amounts in INR). Year-wise breakup is given in the online form.}
 \label{tab:budget}
 \end{table}
-
-% \section{Justification for proposed budget}
 
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -872,9 +828,7 @@ Neither investigator holds more than the permitted number of ANRF/SERB projects.
 \end{tabular}
 \end{table}
 
-% \section{Current Financial Support (Other Than This Proposal)}
 
-% \section{Name and address of experts / institution interested in the subject/outcome of the project}
 \section*{Conclusion}
 
 This proposal focuses on the design and analysis of symmetric-key primitives in one critical and emerging domain: low-latency cryptography.
