@@ -734,7 +734,9 @@ No workstation, oscilloscope or fault-injection instrument is requested: the IIT
         The EMFI system injects faults but cannot measure emanations; locating the vulnerable regions of an unrolled circuit, the stated aim of Thrust~2, needs spatially resolved EM measurement.
   \item \textbf{Pointer-authentication target, IIT~Hyderabad} (Apple M-series Mac~mini; Rs.~1,20,000).
         A commodity platform on which Arm PAC is enabled and exercised by the operating system, so that the WP4 analysis can be validated against a deployed implementation.
-        Memory-encryption engines (AMD SEV-SNP, Intel TDX) will be studied on confidential-computing cloud instances under the IIT~Hyderabad consumables head.
+  \item \textbf{Memory-encryption test bed, IIT~Hyderabad} (small server with an AMD EPYC 4005-series processor and ECC memory; indicative Rs.~3,50,000 incl.\ GST).
+        AMD SME and SEV-SNP memory encryption are enabled in hardware on this processor family, giving WP4 a locally owned platform on which the memory bus, the hypervisor and the guest can all be instrumented.
+        Cloud confidential-computing instances expose only the guest's view and cannot replace it; they will be used, under the consumables head, only for cross-checking against Intel TDX.
   \item \textbf{Laptops for project personnel} (two per institute, Rs.~1,10,008 each; Rs.~4,40,032 in total).
         For the JRF and RA at each site: development, running experiments at the bench, and inter-institute visits.
 \end{enumerate}
@@ -777,9 +779,9 @@ Contingency & 3,00,000 & 2,00,000 & 5,00,000 \\
 \midrule
 Recurring subtotal & 65,43,200 & 60,43,200 & 1,25,86,400 \\
 Overheads (20\% of recurring) & 13,08,640 & 12,08,640 & 25,17,280 \\
-Equipment (non-recurring) & 25,93,816 & 17,45,016 & 43,38,832 \\
+Equipment (non-recurring) & 29,43,816 & 17,45,016 & 46,88,832 \\
 \midrule
-\textbf{Total} & \textbf{1,04,45,656} & \textbf{89,96,856} & \textbf{1,94,42,512} \\
+\textbf{Total} & \textbf{1,07,95,656} & \textbf{89,96,856} & \textbf{1,97,92,512} \\
 \bottomrule
 \end{tabular}
 \caption{Budget summary (amounts in INR). Year-wise breakup is given in the online form.}
