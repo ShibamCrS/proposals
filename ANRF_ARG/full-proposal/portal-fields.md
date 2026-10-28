@@ -25,7 +25,7 @@ along at a steady pace". The full proposal responds as follows.
    hypothesis and numbered, measurable success metrics against named baselines:
    ARADI, ChiLow, SCARF and QARMAv2 for cryptanalysis, and PRINCEv2, QARMAv2 and
    ARADI for the design work.
-2. Steady pace. Section 4.5 organises the work into six work packages (Table 2),
+2. Steady pace. Section 4.5 organises the work into six work packages (Table 1),
    each with a lead institute, the objective it serves, its months and its
    deliverables, and lists five risks with mitigations. Section 6 gives a
    48-month Gantt chart with eight milestones, each tied to a deliverable of
