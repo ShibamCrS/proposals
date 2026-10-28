@@ -26,7 +26,7 @@ A cryptographic primitive, such as a block cipher, hash function, or pseudorando
 Thus, different applications, ranging from high-throughput primitives for network communications to lightweight ciphers for constrained devices, have led to different corners of the design space being explored.
 This diversity in requirements underscores the importance of designing new symmetric-key primitives that are well-adapted to their intended applications.
 This proposal focuses on one such domain with unique requirements: symmetric-key primitives for applications demanding \emph{low-latency} cryptographic operations.
-Figure~\ref{fig:design-space} situates this domain within the broader landscape of special-purpose symmetric-key cryptography.
+\cref{fig:design-space} situates this domain within the broader landscape of special-purpose symmetric-key cryptography.
 
 \begin{figure}[htbp]
 \centering
@@ -139,6 +139,13 @@ Figure~\ref{fig:design-space} situates this domain within the broader landscape 
 \label{fig:design-space}
 \end{figure}
 
+On the other hand, the introduction of such application-specific optimizations raises fresh challenges in security evaluation.
+\emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
+Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
+It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain trust in their algorithms.
+As new applications and threats emerge, these disciplines continue to evolve.
+Thus, our research targets both the design and cryptanalysis of low-latency symmetric-key primitives, aiming to develop efficient constructions while rigorously evaluating their security against emerging threats.
+
 \subsection{Primitives for Low-Latency Cryptography}
 
 Latency, or the time delay from input to output, is critical especially in applications requiring hardware-assisted mechanisms to protect against software exploitation.
@@ -149,16 +156,11 @@ To be practical in high-performance systems, the primitives used in this context
 
 Other latency-sensitive applications include cache randomization (to protect against cache side-channel attacks, e.g., \textsf{PRIME+PROBE}~\cite{DBLP:journals/iacr/OsvikST05} and \textsf{FLUSH+RELOAD}~\cite{DBLP:conf/uss/YaromF14}), pointer authentication (\tx{PAC} feature~\cite{ARMv8-A-2016-additions} in Arm~v8), automotive communication, and industrial control networks.
 As secure processor architectures continue to evolve, we expect such features to become increasingly prevalent, particularly as more highly optimised cryptographic primitives become available.
+
+To be practical in high-performance systems, the primitives used in this context must offer minimal added latency.
 While throughput can benefit from pipelining and parallelism, designing a secure encryption algorithm whose hardware implementation is fast remains fundamentally challenging.
 In a 1-cycle architecture, what matters is the latency of a fully-unrolled hardware implementation, where each round of a block cipher is mapped onto distinct and simultaneous hardware logic and the entire computation executes within a single clock cycle.
 Although the recently completed NIST lightweight encryption/authentication standardisation effort addressed small area and low-power budgets, the design of low-latency cryptographic primitives remains a relatively new and rapidly evolving research field.
-
-\subsection{Cryptanalysis of Low-Latency Primitives} On the other hand, the introduction of such application-specific optimizations raises fresh challenges in security evaluation.
-\emph{Cryptanalysis} plays a vital role in testing the strength of such cryptographic algorithms and in identifying weaknesses that adversaries might exploit.
-Unlike public-key cryptosystems, whose security relies mainly on the presumed hardness of mathematical problems, symmetric-key schemes are evaluated by their resilience against a diverse and evolving set of attacks.
-It is thus essential for designers to present clear security arguments and invite public scrutiny to establish and maintain trust in their algorithms.
-As new applications and threats emerge, these disciplines continue to evolve.
-
 
 \subsection{State of the Art in India and Abroad}
 
@@ -283,13 +285,16 @@ While this makes them efficient, it also concentrates the security burden on few
 \subsection{Novelty and Contributions Beyond the Baseline}
 
 \paragraph{Automated distinguisher and key-recovery search.}
-Constraint-solving tools, such as CP, SAT, and MILP have proven powerful for uncovering new distinguishers in conventional ciphers, but their systematic application to the low-latency cipher family is nascent.
+Constraint-solving tools, such as CP, SAT, and MILP have proven powerful for uncovering new distinguishers in conventional ciphers.
 The main idea is to transform a cryptanalytic problem into some mathematical problem and use an automatic tool to solve such problems.
+However, their systematic application to the low-latency cipher family is limited.
 PI's prior work attacking \tx{QARMA}~\owncite{DBLP:journals/tosc/AvanziDG25} using SAT-based methods, and the Co-PI's multiple-tweak differential attack on \tx{SCARF}~\owncite{DBLP:conf/asiacrypt/BouraRST24}, which exploits the large tweak space that cache randomisation exposes to the attacker, demonstrate the viability of this approach and establish a concrete baseline.
 A key novelty of this proposal is to jointly optimise distinguisher quality and key-recovery complexity, going beyond the typical practice of treating them as separate problems.
 
 \paragraph{Machine-learning and classical hybrid cryptanalysis.}
-Neural differential distinguishers have been explored for \tx{Speck}-like designs, yet their principled combination with classical techniques such as meet-in-the-middle and integral attacks remains largely open.
+A central aim of cryptanalysis is to find \emph{distinguishers}: statistical or structural properties that distinguish a cipher apart from a random function.
+Neural network have been used to find differential distinguishers for \tx{Speck}-like designs, yet their principled combination with other classical techniques such as meet-in-the-middle and integral attacks remains largely open.
+Furthermore, leveraging machine-learning-based distinguishers to improve key-recovery attacks represents a promising and relatively unexplored research direction.
 This proposal pursues a systematic investigation of such hybrid approaches, which have the potential to provide new insights into the security of low-latency cipher designs.
 
 \paragraph{Physical attacks on fully-unrolled implementations.}
