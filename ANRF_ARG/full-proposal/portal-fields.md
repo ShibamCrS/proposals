@@ -14,25 +14,35 @@ File ANRF/ARG/2026/010258/ENS. Everything below mirrors the technical document
 
 ## Response to Referee Comments on the Pre-Proposal
 
-We thank the committee and the reviewers for their positive assessment. The
-committee asked for "clearly delineated objectives that will move the project
+We thank the committee and both expert reviewers for their positive assessment
+of the pre-proposal. Expert 1 noted the well-defined goals, precise scientific
+questions and the track record of the investigators; Expert 2 noted the
+scientific relevance, originality and feasibility of the plan. The committee
+asked us to work on "clearly delineated objectives that will move the project
 along at a steady pace". The full proposal responds as follows.
 
-1. The five objectives of Section 2 are now each stated with a hypothesis and
-   numbered, measurable success metrics against named baselines (ARADI, ChiLow,
-   SCARF, QARMAv2; PRINCEv2 and ARADI for the design work).
-2. The research approach of Section 4 is organised into six work packages
-   (Table 1), each with a lead institute, the objective it serves, its months
-   and its deliverables, together with a risk and mitigation list.
-3. Section 6 gives a 48-month Gantt chart with eight milestones, each tied to a
-   deliverable of Section 5. Four milestones fall in the first three years and
-   serve as checkpoints for the phased release of support.
-4. Section 3.4 summarises the preliminary results on which each work package
-   starts, so that progress in year one does not depend on new groundwork.
-
-No objective of the pre-proposal has been dropped or changed. The GPU-oriented
-cryptanalysis and the indigenous cipher design listed in the pre-proposal
-appear as part of Objective 1 and Objective 4 respectively.
+1. Delineated objectives. Section 2 states five objectives, each with a
+   hypothesis and numbered, measurable success metrics against named baselines:
+   ARADI, ChiLow, SCARF and QARMAv2 for cryptanalysis, and PRINCEv2, QARMAv2 and
+   ARADI for the design work.
+2. Steady pace. Section 4.5 organises the work into six work packages (Table 1),
+   each with a lead institute, the objective it serves, its months and its
+   deliverables, and lists five risks with mitigations. Section 6 gives a
+   48-month Gantt chart with eight milestones, each tied to a deliverable of
+   Section 5; four milestones fall within the first three years and serve as
+   checkpoints for the phased release of support.
+3. Feasibility. Section 3.4 records the preliminary results on which each work
+   package starts: published third-party cryptanalysis of three of the four
+   target ciphers by the investigators, hardware-validated fault attacks from the
+   Co-PI's laboratory, and the PI's co-design of two of the target ciphers. The
+   IIT Bhilai fault-injection bench is operational, so year-one experiments do
+   not wait on procurement.
+4. Continuity. No objective of the pre-proposal has been dropped or changed. The
+   GPU-oriented cryptanalysis and the indigenous cipher design listed in the
+   pre-proposal appear as part of Objective 1 and Objective 4 respectively. The
+   budget has been revised to respect the ARG ceilings on travel and
+   contingency, and equipment is limited to items the existing facilities lack,
+   each justified in Section 8.
 
 ## Any other relevant information
 
