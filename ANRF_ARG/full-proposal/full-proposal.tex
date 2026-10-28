@@ -718,7 +718,7 @@ Computing resources include a dedicated FIA-lab workstation, three GPU workstati
 No workstation or oscilloscope is requested from this project. The equipment requested for IIT~Bhilai is limited to a larger FPGA target and near-field EM probes, which the bench lacks for unrolled designs (Section~8).
 
 \textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
-The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support solver-based cryptanalysis, automated analysis, and ML-assisted attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
+The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support ML-assisted analysis and key-recovery attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
 
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -735,7 +735,7 @@ No workstation, oscilloscope or fault-injection instrument is requested: the IIT
 \begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=*, itemsep=1pt]
   \item \textbf{GPU for the IIT~Hyderabad workstation} (NVIDIA RTX PRO 6000 Blackwell, 96\,GB; Rs.~22,53,800 incl.\ GST).
         Fitted into an existing departmental workstation.
-        Runs the GPU-accelerated attack implementations of WP1, the computationally heavy distinguisher and key-recovery searches, and the ML training of WP2. The 96\,GB memory is needed for solver instances and neural models that do not fit on the department's current cards.
+        Runs the GPU-accelerated attack implementations of WP1, the computationally heavy distinguisher search and key-recovery attacks, and the ML training of WP2. The 96\,GB memory is needed for solver instances and neural models that do not fit on the department's current cards.
   \item \textbf{Larger FPGA target for unrolled designs, IIT~Bhilai} (NewAE CW310 ``Bergen Board'' with Kintex-7 K410T, NAE-CW310-K410T; indicative Rs.~8,50,000 incl.\ duties and GST).
         The present CW305 targets carry an Artix-7 XC7A100T (101,440 logic cells) and the K410T has 406,720, four times as many.
         That headroom is needed to run the unrolled design under test alongside a reference instance, the fault-detection and trigger logic, and the larger \tx{DARC} candidates of WP5. D5 and D9 both depend on it.
@@ -802,10 +802,9 @@ Equipment (non-recurring) & 29,43,816 & 17,45,016 & 46,88,832 \\
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Current Financial Support (Other Than This Proposal)}
 % ─────────────────────────────────────────────────────────────────────────────
-Already available financial support of the investigators are given in Table~\ref{tab:fin1}.
+Already available financial support of the investigators are given in~\cref{tab:fin}.
 
 \begin{table}[htbp]
-\label{tab:fin1}
 \centering\small
 \begin{tabular}{@{}p{1cm}p{4cm}p{3.5cm}p{1.9cm}p{2.2cm}p{2.5cm}@{}}
 \toprule
@@ -818,6 +817,8 @@ Co-PI & DASH: Digital Cash Solutions Based on CBDC & IBITF (IIT Bhilai TIH), DIA
 Co-PI & Symmetric Cryptanalysis via Higher Order Vectorial Derivative (MTR/2023/001161) & SERB (now ANRF), MATRICS & Rs.~6,60,000 & Jan 2024 -- Jan 2027 (3 years) & None. Zero-sum distinguishers for hash functions; ends before this project starts. \\
 \bottomrule
 \end{tabular}
+\caption{Already available financial support of the investigators.}
+\label{tab:fin}
 \end{table}
 
 \noindent
