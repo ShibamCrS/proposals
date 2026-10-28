@@ -651,7 +651,7 @@ The roles and responsibilities of the individual investigators are given in~\cre
 \midrule
 \makecell[l]{Shibam Ghosh\\IIT Hyderabad}
 & PI &
-Overall technical and administrative lead; point of contact with ANRF.
+Overall technical and administrative lead and point of contact with ANRF.
 Lead of WP1 and WP2: automatic models for distinguisher and key-recovery search, GPU-accelerated attacks, ML--classical hybrid distingusher.
 Co-lead of WP4 (threat modelling for microarchitectural security) and WP5 (\tx{DARC} design and analysis).
 Supervision of the IITH PhD student and postdoctoral researcher. \\
@@ -660,7 +660,7 @@ Supervision of the IITH PhD student and postdoctoral researcher. \\
 Lead of WP3: fault-friendly distinguisher tool, unrolled hardware targets, fault-injection campaigns, hardening guidelines.
 Contributor to WP1 on the distinguisher models that WP3 reuses, continuing the joint distinguisher and fault-analysis work of the two groups.
 Co-lead of WP4 (experimental evaluation of mitigation mechanisms) and WP5 (hardware implementation and latency/area benchmarking of \tx{DARC}).
-Supervision of the IIT Bhilai PhD student and postdoctoral researcher; WP6 artifact releases. \\
+Supervision of the IIT Bhilai PhD student and postdoctoral researcher, WP6 artifact releases. \\
 \bottomrule
 \end{tabular}
 \caption{Roles and responsibilities.}
@@ -708,9 +708,9 @@ The laboratory is funded under the National Quantum Mission and is operational.
 Its fault-injection and side-channel bench comprises:
 two ChipWhisperer-Husky capture and glitch units with Level-2 starter kits, two ChipWhisperer-Lite ARM kits, two CW305 Artix-7 FPGA target boards for unrolled cipher implementations, and a high-frequency synthesised clock generator with OCXO timebase for precise clock-glitch injection.
 These support clock-glitch, voltage-glitch, EMFI and power-analysis experiments on FPGA and ARM Cortex-M targets.
-Electromagnetic fault injection (EMFI) is available through a ChipSHOUTER CW520 kit procured in 2025; a ChipShover XYZ positioning stage with controller was ordered by the institute in October~2026, and a 500\,MHz mixed-signal oscilloscope, a ChipWhisperer-Husky~Plus and a second synthesised clock generator are being added under an institute matching grant.
+Electromagnetic fault injection (EMFI) is available through a ChipSHOUTER CW520 kit procured in 2025, a ChipShover XYZ positioning stage with controller was ordered by the institute in October~2026, and a 500\,MHz mixed-signal oscilloscope, a ChipWhisperer-Husky~Plus and a second synthesised clock generator are being added under an institute matching grant.
 Computing resources include a dedicated FIA-lab workstation, three GPU workstations (NVIDIA RTX A5000 24\,GB, RTX A4000 16\,GB, RTX 3060\,Ti) for solver runs and GPU-accelerated attacks, and access to the institute compute cluster (nodes of 100--120 vCPU and 100--128\,GB RAM).
-No workstation or oscilloscope is requested from this project; the equipment requested for IIT~Bhilai is limited to a larger FPGA target and near-field EM probes, which the bench lacks for unrolled designs (Section~8).
+No workstation or oscilloscope is requested from this project. The equipment requested for IIT~Bhilai is limited to a larger FPGA target and near-field EM probes, which the bench lacks for unrolled designs (Section~8).
 
 \textbf{IIT Hyderabad: Department of Computer Science and Engineering.}
 The department provides an existing workstation that will be augmented with the requested NVIDIA RTX PRO 6000 Blackwell 96 GB GPU to support solver-based cryptanalysis, automated analysis, and ML-assisted attacks. The department will provide workspace for the project personnel to facilitate collaborative research, software development, and experimental evaluation.
@@ -722,25 +722,25 @@ The department provides an existing workstation that will be augmented with the 
 
 The budget covers 48 months and is split between IIT~Hyderabad and IIT~Bhilai according to the work-package leads of Table~\ref{tab:roles}.
 Each site is staffed to run its own work packages independently while sharing tools and results.
-The institute-wise and year-wise tables are entered in the online form; this section justifies each head.
+The institute-wise and year-wise tables are entered in the online form. This section justifies each head.
 
 \paragraph{Equipment.}
 All items are procured in year~1 and used throughout the project.
-No workstation, oscilloscope or fault-injection instrument is requested: the IIT~Bhilai bench with its ChipSHOUTER EMFI kit, the positioning stage ordered by the institute, and the oscilloscopes funded under an institute matching grant cover WP3; the existing GPU workstations and institute cluster at IIT~Bhilai, and departmental compute at IIT~Hyderabad, cover the rest.
+No workstation, oscilloscope or fault-injection instrument is requested: the IIT~Bhilai bench with its ChipSHOUTER EMFI kit, the positioning stage ordered by the institute, and the oscilloscopes funded under an institute matching grant cover WP3. Also, the existing GPU workstations and institute cluster at IIT~Bhilai, and departmental compute at IIT~Hyderabad, cover the rest.
 \begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=*, itemsep=1pt]
   \item \textbf{GPU for the IIT~Hyderabad workstation} (NVIDIA RTX PRO 6000 Blackwell, 96\,GB; Rs.~22,53,800 incl.\ GST).
         Fitted into an existing departmental workstation.
-        Runs the GPU-accelerated attack implementations of WP1, the large distinguisher and key-recovery searches, and the ML training of WP2; the 96\,GB memory is needed for solver instances and neural models that do not fit on the department's current cards.
+        Runs the GPU-accelerated attack implementations of WP1, the computationally heavy distinguisher and key-recovery searches, and the ML training of WP2. The 96\,GB memory is needed for solver instances and neural models that do not fit on the department's current cards.
   \item \textbf{Larger FPGA target for unrolled designs, IIT~Bhilai} (NewAE CW310 ``Bergen Board'' with Kintex-7 K410T, NAE-CW310-K410T; indicative Rs.~8,50,000 incl.\ duties and GST).
-        The present CW305 targets carry an Artix-7 XC7A100T (101,440 logic cells); the K410T has 406,720, four times as many.
-        That headroom is needed to run the unrolled design under test alongside a reference instance, the fault-detection and trigger logic, and the larger \tx{DARC} candidates of WP5; D5 and D9 both depend on it.
+        The present CW305 targets carry an Artix-7 XC7A100T (101,440 logic cells) and the K410T has 406,720, four times as many.
+        That headroom is needed to run the unrolled design under test alongside a reference instance, the fault-detection and trigger logic, and the larger \tx{DARC} candidates of WP5. D5 and D9 both depend on it.
   \item \textbf{Near-field EM probe set with preamplifier, IIT~Bhilai} (Langer ICR-HH probes with PA~303 class amplifier; indicative Rs.~6,75,000 incl.\ duties and GST).
-        The ChipSHOUTER injects faults and the ChipShover stage positions it, but neither measures emanations; locating the vulnerable regions of an unrolled circuit, the stated aim of Thrust~2, needs spatially resolved EM measurement (ICR-HH probes: 0.5\,MHz to 6\,GHz, 60 to 300\,\textmu m resolution; PA~303: 100\,kHz to 3\,GHz, 30\,dB gain).
+        The ChipSHOUTER injects faults and the ChipShover stage positions it, but neither measures emanations. Identifying vulnerable regions of an unrolled circuit, as required by Thrust~2, needs spatially resolved EM measurement (ICR-HH probes: 0.5\,MHz to 6\,GHz, 60 to 300\,\textmu m resolution; PA~303: 100\,kHz to 3\,GHz, 30\,dB gain).
   \item \textbf{Pointer-authentication target, IIT~Hyderabad} (Apple M-series Mac~mini; Rs.~1,20,000).
         A commodity platform on which Arm PAC is enabled and exercised by the operating system, so that the WP4 analysis can be validated against a deployed implementation.
   \item \textbf{Memory-encryption test bed, IIT~Hyderabad} (Supermicro AS-3015A-I mini-tower server with AMD EPYC 4565P 16-core processor, 64\,GB DDR5 ECC memory and 1\,TB NVMe; indicative Rs.~3,50,000 incl.\ GST).
         The EPYC 4005 family carries AMD Infinity Guard hardware memory encryption (SME and SEV-SNP), giving WP4 a locally owned platform on which the memory bus, the hypervisor and the guest can all be instrumented.
-        Cloud confidential-computing instances expose only the guest's view and cannot replace it; they will be used, under the consumables head, only for cross-checking against Intel TDX.
+Cloud confidential-computing instances expose only the guest's view and cannot replace it. They will be used, under the consumables head, only for cross-checking against Intel TDX.
   \item \textbf{Laptops for project personnel} (two per institute, Rs.~1,10,008 each; Rs.~4,40,032 in total).
         For the JRF and RA at each site: development, running experiments at the bench, and inter-institute visits.
 \end{enumerate}
