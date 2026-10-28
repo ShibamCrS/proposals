@@ -736,14 +736,14 @@ No workstation, oscilloscope or fault-injection instrument is requested: the IIT
   \item \textbf{GPU for the IIT~Hyderabad workstation} (NVIDIA RTX PRO 6000 Blackwell, 96\,GB; Rs.~22,53,800 incl.\ GST).
         Fitted into an existing departmental workstation.
         Runs the GPU-accelerated attack implementations of WP1, the computationally heavy distinguisher search and key-recovery attacks, and the ML training of WP2. The 96\,GB memory is needed for solver instances and neural models that do not fit on the department's current cards.
-  \item \textbf{Larger FPGA target for unrolled designs, IIT~Bhilai} (NewAE CW310 ``Bergen Board'' with Kintex-7 K410T, NAE-CW310-K410T; indicative Rs.~8,50,000 incl.\ duties and GST).
+  \item \textbf{Larger FPGA target for unrolled designs, IIT~Bhilai} (NewAE CW310 ``Bergen Board'' with Kintex-7 K410T, NAE-CW310-K410T; estimated Rs.~8,50,000 incl.\ duties and GST).
         The present CW305 targets carry an Artix-7 XC7A100T (101,440 logic cells) and the K410T has 406,720, four times as many.
         That headroom is needed to run the unrolled design under test alongside a reference instance, the fault-detection and trigger logic, and the larger \tx{DARC} candidates of WP5. D5 and D9 both depend on it.
-  \item \textbf{Near-field EM probe set with preamplifier, IIT~Bhilai} (Langer ICR-HH probes with PA~303 class amplifier; indicative Rs.~6,75,000 incl.\ duties and GST).
+  \item \textbf{Near-field EM probe set with preamplifier, IIT~Bhilai} (Langer ICR-HH probes with PA~303 class amplifier; estimated Rs.~6,75,000 incl.\ duties and GST).
         The ChipSHOUTER injects faults and the ChipShover stage positions it, but neither measures emanations. Identifying vulnerable regions of an unrolled circuit, as required by Thrust~2, needs spatially resolved EM measurement (ICR-HH probes: 0.5\,MHz to 6\,GHz, 60 to 300\,\textmu m resolution; PA~303: 100\,kHz to 3\,GHz, 30\,dB gain).
   \item \textbf{Pointer-authentication target, IIT~Hyderabad} (Apple M-series Mac~mini; Rs.~1,20,000).
         A commodity platform on which Arm PAC is enabled and exercised by the operating system, so that the WP4 analysis can be validated against a deployed implementation.
-  \item \textbf{Memory-encryption test bed, IIT~Hyderabad} (Supermicro AS-3015A-I mini-tower server with AMD EPYC 4565P 16-core processor, 64\,GB DDR5 ECC memory and 1\,TB NVMe; indicative Rs.~3,50,000 incl.\ GST).
+  \item \textbf{Memory-encryption test bed, IIT~Hyderabad} (Supermicro AS-3015A-I mini-tower server with AMD EPYC 4565P 16-core processor, 64\,GB DDR5 ECC memory and 1\,TB NVMe; estimated Rs.~3,50,000 incl.\ GST).
         The EPYC 4005 family carries AMD Infinity Guard hardware memory encryption (SME and SEV-SNP), giving WP4 a locally owned platform on which the memory bus, the hypervisor and the guest can all be instrumented.
 Cloud confidential-computing instances expose only the guest's view and cannot replace it. They will be used, under the consumables head, only for cross-checking against Intel TDX.
   \item \textbf{Laptops for project personnel} (two per institute, Rs.~1,10,008 each; Rs.~4,40,032 in total).
